@@ -388,7 +388,7 @@
 
   const initV3Dock=()=>{
     const buttons=qsa('.mobile-dock [data-scroll-to]');
-    const ids=['current-mission','batch9-journey','tentang'];
+    const ids=['current-mission','qit-journey','tentang'];
     if(!buttons.length || !('IntersectionObserver' in window)) return;
     const set=(id)=>buttons.forEach(b=>b.classList.toggle('active',b.dataset.scrollTo===id));
     const targets=ids.map(id=>document.getElementById(id)).filter(Boolean);
@@ -442,42 +442,81 @@
     } else start();
   };
 
-  // Upbeat procedural BGM. WebAudio starts only after explicit user tap/click.
-  const createMusicEngine=()=>{
-    let ctx=null,master=null,noiseBuffer=null,scheduler=null,nextBeat=0,step=0,playing=false;
-    const bpm=116, beat=60/bpm/2; // eighth notes
-    const ensure=()=>{
-      if(ctx)return;
-      const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;
-      ctx=new AC();master=ctx.createGain();master.gain.value=.16;master.connect(ctx.destination);
-      noiseBuffer=ctx.createBuffer(1,ctx.sampleRate*.12,ctx.sampleRate);
-      const d=noiseBuffer.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;
-    };
-    const tone=(freq,time,dur=.12,type='sine',gain=.05)=>{
-      if(!ctx)return;const o=ctx.createOscillator(),g=ctx.createGain();o.type=type;o.frequency.setValueAtTime(freq,time);g.gain.setValueAtTime(gain,time);g.gain.exponentialRampToValueAtTime(.0001,time+dur);o.connect(g);g.connect(master);o.start(time);o.stop(time+dur+.02);
-    };
-    const kick=(time)=>{if(!ctx)return;const o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.setValueAtTime(120,time);o.frequency.exponentialRampToValueAtTime(46,time+.13);g.gain.setValueAtTime(.55,time);g.gain.exponentialRampToValueAtTime(.001,time+.16);o.connect(g);g.connect(master);o.start(time);o.stop(time+.18)};
-    const hat=(time,open=false)=>{if(!ctx||!noiseBuffer)return;const s=ctx.createBufferSource(),hp=ctx.createBiquadFilter(),g=ctx.createGain();s.buffer=noiseBuffer;hp.type='highpass';hp.frequency.value=6500;g.gain.setValueAtTime(open?.10:.055,time);g.gain.exponentialRampToValueAtTime(.001,time+(open?.10:.045));s.connect(hp);hp.connect(g);g.connect(master);s.start(time);s.stop(time+.11)};
-    const snare=(time)=>{if(!ctx||!noiseBuffer)return;const s=ctx.createBufferSource(),bp=ctx.createBiquadFilter(),g=ctx.createGain();s.buffer=noiseBuffer;bp.type='bandpass';bp.frequency.value=1800;g.gain.setValueAtTime(.16,time);g.gain.exponentialRampToValueAtTime(.001,time+.12);s.connect(bp);bp.connect(g);g.connect(master);s.start(time);s.stop(time+.13);tone(180,time,.09,'triangle',.04)};
-    const bass=[55,55,65.41,55,73.42,65.41,49,55];
-    const lead=[220,0,261.63,0,293.66,0,261.63,329.63];
-    const scheduleStep=(n,t)=>{if(n%4===0)kick(t);if(n%8===4)kick(t);if(n%4===2)snare(t);hat(t,n%4===3);tone(bass[n%8],t,.16,'sawtooth',.026);if(lead[n%8])tone(lead[n%8],t+.015,.10,'square',.012)};
-    const tick=()=>{if(!ctx||!playing)return;while(nextBeat<ctx.currentTime+.12){scheduleStep(step,nextBeat);nextBeat+=beat;step=(step+1)%16;}};
-    const start=async()=>{ensure();if(!ctx)return false;await ctx.resume();playing=true;step=0;nextBeat=ctx.currentTime+.05;scheduler=setInterval(tick,25);return true};
-    const stop=()=>{playing=false;if(scheduler){clearInterval(scheduler);scheduler=null}if(master&&ctx){master.gain.cancelScheduledValues(ctx.currentTime);master.gain.setTargetAtTime(.0001,ctx.currentTime,.04)}};
-    const resumeVolume=()=>{if(master&&ctx){master.gain.cancelScheduledValues(ctx.currentTime);master.gain.setTargetAtTime(.16,ctx.currentTime,.03)}};
-    return {async toggle(){if(!playing){resumeVolume();return await start()}stop();return false},get playing(){return playing}};
-  };
+  // Manual BGM file. Put "musik-qit.mp3" beside index.html.
+  // Browser rules prevent sound autoplay before user interaction, so the
+  // first click/tap anywhere OR Enter/Space starts the music automatically.
+  const initBgmLegacyDisabled=()=>{
+    const audio=qs('#bgMusic');
+    const desktop=qs('#bgmToggle');
+    const mobile=qs('#mobileBgmToggle');
+    if(!audio)return;
 
-  const initBgm=()=>{
-    const desktop=qs('#bgmToggle'),mobile=qs('#mobileBgmToggle');if(!desktop&&!mobile)return;
-    const engine=createMusicEngine();
+    audio.volume=.5;
+    let started=false;
+    let userMuted=false;
+
     const sync=(on)=>{
-      [desktop,mobile].filter(Boolean).forEach(btn=>{btn.classList.toggle('playing',on);btn.setAttribute('aria-pressed',String(on));const small=qs('small',btn);if(small)small.textContent=on?'ON':'OFF';const icon=qs('.fa-music',btn);if(icon)icon.className=`fa-solid ${on?'fa-volume-high':'fa-music'}`;});
+      [desktop,mobile].filter(Boolean).forEach(btn=>{
+        btn.classList.toggle('playing',on);
+        btn.setAttribute('aria-pressed',String(on));
+        btn.setAttribute('aria-label',on?'Matikan musik latar':'Nyalakan musik latar');
+        const small=qs('small',btn);
+        if(small)small.textContent=on?'ON':'OFF';
+        const icon=qs('i.fa-solid',btn);
+        if(icon)icon.className=`fa-solid ${on?'fa-volume-high':'fa-music'}`;
+      });
     };
-    const action=async()=>{const on=await engine.toggle();sync(on)};
-    desktop?.addEventListener('click',action);mobile?.addEventListener('click',action);
-    document.addEventListener('visibilitychange',()=>{if(document.hidden&&engine.playing){engine.toggle();sync(false)}});
+
+    const removeFirstInteractionListeners=()=>{
+      document.removeEventListener('pointerdown',firstPointer,true);
+      document.removeEventListener('keydown',firstKey,true);
+    };
+
+    const start=async()=>{
+      if(userMuted)return false;
+      try{
+        await audio.play();
+        started=true;
+        sync(true);
+        removeFirstInteractionListeners();
+        return true;
+      }catch(err){
+        // Usually means the MP3 is missing or the browser still needs a gesture.
+        sync(false);
+        return false;
+      }
+    };
+
+    const firstPointer=()=>{ if(!started&&!userMuted) start(); };
+    const firstKey=(e)=>{
+      if((e.key==='Enter'||e.key===' '||e.code==='Space')&&!started&&!userMuted) start();
+    };
+
+    // Capture phase lets the first tap on a button/link also unlock audio.
+    document.addEventListener('pointerdown',firstPointer,true);
+    document.addEventListener('keydown',firstKey,true);
+
+    const toggle=async(e)=>{
+      e?.stopPropagation();
+      if(audio.paused){
+        userMuted=false;
+        await start();
+      }else{
+        userMuted=true;
+        audio.pause();
+        sync(false);
+        removeFirstInteractionListeners();
+      }
+    };
+
+    desktop?.addEventListener('click',toggle);
+    mobile?.addEventListener('click',toggle);
+    audio.addEventListener('play',()=>sync(true));
+    audio.addEventListener('pause',()=>sync(false));
+    audio.addEventListener('error',()=>{
+      sync(false);
+      console.info('Tambahkan file musik-qit.mp3 di folder yang sama dengan index.html.');
+    });
   };
 
   // Make cinematic film strips keyboard/touch friendly: tap toggles pause.
@@ -490,9 +529,100 @@
   };
 
   const initJourneySnap=()=>{
-    const steps=qs('.journey-steps');const active=qs('.journey-step.active',steps);if(!steps||!active||innerWidth>760)return;
+    const steps=qs('.journey-steps');const active=qs('.tl-batch9',steps);if(!steps||!active||innerWidth>760)return;
     setTimeout(()=>active.scrollIntoView({behavior:reduce?'auto':'smooth',block:'nearest',inline:'center'}),450);
   };
 
-  document.addEventListener('DOMContentLoaded',()=>{initHeroShards();initTypewriter();initBgm();initFilm();initJourneySnap();});
+  document.addEventListener('DOMContentLoaded',()=>{initHeroShards();initTypewriter();initFilm();initJourneySnap();});
+})();
+
+
+// ===== FINAL INTERACTION V6 =====
+(() => {
+  "use strict";
+  const qs=(s,r=document)=>r.querySelector(s);
+  const qsa=(s,r=document)=>Array.from(r.querySelectorAll(s));
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Manual user-supplied music. No file type or filename is hard-coded.
+  // Once a <source> or audio.src is added, first click/tap anywhere or Enter/Space starts it.
+  const initManualMusic=()=>{
+    const audio=qs('#bgMusic');
+    const buttons=[qs('#bgmToggle'),qs('#mobileBgmToggle')].filter(Boolean);
+    if(!audio) return;
+    audio.volume=.5;
+    let userMuted=false;
+
+    const hasSource=()=>Boolean(audio.currentSrc || audio.getAttribute('src') || qs('source[src]',audio)?.getAttribute('src'));
+    const sync=(on)=>buttons.forEach(btn=>{
+      btn.classList.toggle('playing',on);
+      btn.setAttribute('aria-pressed',String(on));
+      const small=qs('small',btn); if(small) small.textContent=on?'ON':'OFF';
+      const icon=qs('i.fa-solid',btn); if(icon) icon.className=`fa-solid ${on?'fa-volume-high':'fa-volume-xmark'}`;
+    });
+    const start=async()=>{
+      if(userMuted || !hasSource()) return false;
+      try{ await audio.play(); sync(true); return true; }
+      catch{ sync(false); return false; }
+    };
+    const firstPointer=()=>{ if(audio.paused&&!userMuted) start(); };
+    const firstKey=e=>{ if((e.key==='Enter'||e.key===' '||e.code==='Space')&&audio.paused&&!userMuted) start(); };
+    document.addEventListener('pointerdown',firstPointer,true);
+    document.addEventListener('keydown',firstKey,true);
+    buttons.forEach(btn=>btn.addEventListener('click',async e=>{
+      e.stopPropagation();
+      if(!hasSource()){ sync(false); return; }
+      if(audio.paused){ userMuted=false; await start(); }
+      else { userMuted=true; audio.pause(); sync(false); }
+    }));
+    audio.addEventListener('play',()=>sync(true));
+    audio.addEventListener('pause',()=>sync(false));
+    sync(false);
+  };
+
+  // Count statistics rapidly from 1 when the About section enters view.
+  const initCountFromOne=()=>{
+    const nums=qsa('#tentang .stat .number');
+    if(!nums.length) return;
+    nums.forEach(el=>{
+      const raw=(el.textContent||'').replace(/[^0-9]/g,'');
+      const target=Number(raw);
+      if(!Number.isFinite(target)||target<2) return;
+      el.dataset.target=String(target);
+      el.textContent='1';
+    });
+    const run=el=>{
+      const target=Number(el.dataset.target); if(!target||el.dataset.counted==='1') return;
+      el.dataset.counted='1';
+      if(reduce){el.textContent=target.toLocaleString('id-ID');return;}
+      const start=performance.now(), duration=Math.min(1050,520+target*.55);
+      const tick=now=>{
+        const p=Math.min(1,(now-start)/duration);
+        const eased=1-Math.pow(1-p,4);
+        const value=Math.max(1,Math.round(1+(target-1)*eased));
+        el.textContent=value.toLocaleString('id-ID');
+        if(p<1) requestAnimationFrame(tick); else el.textContent=target.toLocaleString('id-ID');
+      };
+      requestAnimationFrame(tick);
+    };
+    if(!('IntersectionObserver' in window)){nums.forEach(run);return;}
+    const obs=new IntersectionObserver(entries=>entries.forEach(e=>{
+      if(!e.isIntersecting) return; nums.forEach(run); obs.disconnect();
+    }),{threshold:.25});
+    const about=qs('#tentang'); if(about) obs.observe(about);
+  };
+
+  // Give floating gallery frames a subtle random depth without disturbing layout.
+  const initGalleryDepth=()=>{
+    if(reduce) return;
+    qsa('.film-frame').forEach((frame,i)=>{
+      frame.style.setProperty('--float-scale',String(1 + (i%4)*.002));
+    });
+  };
+
+  document.addEventListener('DOMContentLoaded',()=>{
+    initManualMusic();
+    initCountFromOne();
+    initGalleryDepth();
+  });
 })();
