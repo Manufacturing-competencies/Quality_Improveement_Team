@@ -3,24 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Dashboard QIT</title>
+  <meta name="theme-color" content="#02040d" />
+  <title>QIT Batch 9 | Mission Control</title>
 
-  <!-- Fonts & Icons -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-9H54xH... (trim)" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-  <!-- Swiper (CSS) -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
-
-  <!-- Your CSS -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <!-- Navbar -->
-  <nav class="navbar mini-nav" role="navigation" aria-label="Navigasi utama">
-    <button class="logo" type="button" onclick="window.showView && window.showView('dashboard-main')" aria-label="Kembali ke Dashboard">
-      <i class="fa-solid fa-house" aria-hidden="true"></i>
-      <span>Dashboard</span>
+  <div class="site-bg" aria-hidden="true">
+    <div class="bg-glow glow-a"></div>
+    <div class="bg-glow glow-b"></div>
+    <div class="grid-floor"></div>
+    <div class="scanline"></div>
+    <div id="particles"></div>
+  </div>
+
+  <nav class="mini-nav" role="navigation" aria-label="Navigasi utama">
+    <button class="logo" type="button" data-scroll-to="top" aria-label="Kembali ke atas">
+      <span class="logo-icon"><i class="fa-solid fa-gamepad" aria-hidden="true"></i></span>
+      <span class="logo-copy"><small>QIT</small>BATCH 9</span>
     </button>
 
     <ul class="nav-links" id="mainNav">
@@ -40,483 +45,244 @@
     </button>
   </nav>
 
-  <!-- Hero -->
-  <section class="hero" aria-labelledby="hero-title">
-    <h1 class="hero-title" id="hero-title">QUALITY IMPROVEMENT TEAM (QIT)</h1>
-    <p class="hero-subtitle">
-      “Saatnya Paragonian berkolaborasi, berinovasi, dan menjelajah ide-ide baru demi perbaikan berkelanjutan”
-    </p>
-  </section>
-
-  <!-- Tombol Dashboard -->
-  <div class="dashboard-buttons" aria-label="Tautan cepat dashboard">
-    <button onclick="window.open('https://docs.google.com/spreadsheets/d/1nPfCcH1rqfWKdBUrGApuAeBG8v6L28MUy1NbN01Q_oM/edit?gid=1006695338#gid=1006695338&range=1:156','_blank','noopener')">
-      Pembentukan Tim QIT<br>Batch 8
-    </button>
-    <button onclick="window.open('https://docs.google.com/spreadsheets/d/1nPfCcH1rqfWKdBUrGApuAeBG8v6L28MUy1NbN01Q_oM/edit?gid=1079899225#gid=1079899225&range=1:151','_blank','noopener')">
-      Progres & Konsistensi Tim QIT<br>Batch 8
-    </button>
-    <button onclick="window.open('https://docs.google.com/spreadsheets/d/1nPfCcH1rqfWKdBUrGApuAeBG8v6L28MUy1NbN01Q_oM/edit?gid=1482229915#gid=1482229915&range=1:150','_blank','noopener')">
-      Jadwal Coaching Tim QIT<br>Batch 8
-    </button>
-    <button onclick="window.open('https://bit.ly/PresensiTimQIT8','_blank','noopener')">Absensi Pertemuan Untuk<br>Tim</button>
-    <button onclick="window.open('https://forms.office.com/pages/responsepage.aspx?id=5kTD0iZi-kqUSmLWzg2YwncIviPZneFJmgn26ooAEdNUNkVVQk9ZUTdBU1owUEtaQjRQM0hLSTdPWi4u&route=shorturl','_blank','noopener')">
-      Absensi Pertemuan Untuk<br>Fasilitator
-    </button>
-    <button onclick="window.open('https://docs.google.com/spreadsheets/d/1zgF_0E_Y6jEpqIvueQB2y9sN46AkQVp_ZCNwtrnk138/edit?usp=sharing','_blank','noopener')">
-      Transparansi<br>Point Challenge
-    </button>
-    <button onclick="window.open('https://lookerstudio.google.com/reporting/1b04bdd5-778c-4de3-9196-ae59b4ac6510','_blank','noopener')">
-      Dashboard<br>Point Challenge
-    </button>
-    <button onclick="window.open('https://docs.google.com/spreadsheets/d/1GIutLMyN0d4TI1uabxKaWwI0MJxvJB6JqkWmbGxhuKk/edit?usp=sharing','_blank','noopener')">
-      Referensi<br>Quality Objective
-    </button>
-    <button onclick="window.open('https://drive.google.com/drive/folders/11LQ1f6aajnKm4xXcTXF02ZCRdL787mJI?usp=drive_link','_blank','noopener')">
-      Best Risalah
-    </button>
-    <button onclick="window.open('https://docs.google.com/spreadsheets/d/13qnXnPFaMd3xsXWaolW6gQX_ZHrYGdbY3upTJvtaGQs/edit?usp=sharing','_blank','noopener')">
-      Template Risalah
-    </button>
-    <button onclick="window.open('https://drive.google.com/file/d/11yy_rqodPBicd8I35y_RnUgD3sytwja7/view?usp=sharing','_blank','noopener')">
-      Modul 8 Pemborosan
-    </button>
-    <button onclick="window.open('https://drive.google.com/file/d/1FNaKvTDr5Gl4kiHN7PfaSM-kCW4CYvQx/view?usp=sharing','_blank','noopener')">
-      Modul Total Quality Management
-    </button>
-    <button onclick="window.open('https://drive.google.com/file/d/1vm1kGIg5a5LxF24KPeIa7h7UCiMZGvWj/view?usp=sharing','_blank','noopener')">
-      Modul Delta
-    </button>
-    <button onclick="location.hash='#'">Informasi Terbaru</button>
-  </div>
-
-  <!-- Tentang -->
-  <section id="tentang" class="content" aria-labelledby="tentang-title">
-    <h2 id="tentang-title">Tentang</h2>
-    <div class="tentang-container">
-      <div class="tentang-card">
-        <h3>Quality Improvement Team</h3>
-        <p>
-          Quality Improvement Team (QIT) merupakan kelompok yang terdiri dari karyawan dengan
-          pekerjaan sejenis yang bertemu secara berkala untuk membahas dan memecahkan masalah
-          pekerjaan dan lingkungannya dengan tujuan meningkatkan mutu dan efisiensi kerja.
-        </p>
-      </div>
-
-      <div class="tentang-stats" aria-label="Statistik ringkas">
-        <div class="stat"><span class="number">141</span><p>Jumlah Tim</p></div>
-        <div class="stat"><span class="number">150</span><p>Jumlah Fasilitator</p></div>
-        <div class="stat"><span class="number">32</span><p>Jumlah Coach</p></div>
-        <div class="stat"><span class="number">695</span><p>Total Peserta</p></div>
-        <div class="stat"><span class="number">1447</span><p>Total Peserta Batch 1 s.d 8</p></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- History -->
-  <section id="history" class="content" aria-labelledby="history-title">
-    <h2 id="history-title">History Team</h2>
-    <div class="table-wrap">
-      <table class="qit-table">
-        <thead>
-          <tr>
-            <th class="th-param">Parameter</th>
-            <th>Batch 1<br><span class="sub">Mar ‘19</span></th>
-            <th>Batch 2<br><span class="sub">Jan ‘20</span></th>
-            <th>Batch 3<br><span class="sub">Oct ‘20</span></th>
-            <th>Batch 4<br><span class="sub">Nov ‘21</span></th>
-            <th>Batch 5<br><span class="sub">Sep ‘22</span></th>
-            <th>Batch 6<br><span class="sub">Sep ‘23</span></th>
-            <th>Batch 7<br><span class="sub">Sep ‘24</span></th>
-            <th class="latest">Batch 8<br><span class="sub">Aug ‘25</span></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th class="th-param">Jumlah Tim</th>
-            <td>27</td><td>52</td><td>59</td><td>66</td><td>93</td><td>115</td><td>123</td><td class="latest">141</td>
-          </tr>
-          <tr>
-            <th class="th-param">Jumlah Fasilitator</th>
-            <td>27</td><td>51</td><td>59</td><td>66</td><td>93</td><td>114</td><td>118</td><td class="latest">150</td>
-          </tr>
-          <tr>
-            <th class="th-param">Jumlah Coach</th>
-            <td>1</td><td>4</td><td>9</td><td>13</td><td>22</td><td>24</td><td>32</td><td class="latest">32</td>
-          </tr>
-          <tr>
-            <th class="th-param">Total Peserta</th>
-            <td>162</td><td>280</td><td>295</td><td>322</td><td>465</td><td>566</td><td>666</td><td class="latest">695</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </section>
-
-  <!-- QIT Journey -->
-  <section id="qit-journey" class="content" aria-labelledby="journey-title">
-    <h2 id="journey-title">QIT Journey</h2>
-    <div class="timeline">
-      <div class="tl-track">
-        <!-- (cards tetap sama persis) -->
-        <!-- QIT #1 -->
-        <article class="tl-item tl-red">
-          <div class="tl-head"><span class="tl-badge">QIT BATCH 1</span></div>
-          <div class="tl-card">
-            <ul>
-              <li>Masa pengenalan</li>
-              <li>7–8 anggota dari depertemen yang sama</li>
-              <li>Mayoritas group leader, line leader, dan kartap</li>
-              <li>Identifikasi dengan brainstorming</li>
-            </ul>
-          </div>
-          <div class="tl-pin"></div>
-          <small class="tl-date">Mar – Okto 2019</small>
-        </article>
-        <!-- QIT #2 -->
-        <article class="tl-item tl-yellow">
-          <div class="tl-head"><span class="tl-badge">QIT BATCH 2</span></div>
-          <div class="tl-card">
-            <ul>
-              <li>6–7 orang di departemen yang sama</li>
-              <li>Sudah melibatkan personil kontrak</li>
-              <li>Identifikasi masalah sudah gunakan data</li>
-              <li>Mulai sesi virtual</li>
-            </ul>
-          </div>
-          <div class="tl-pin"></div>
-          <small class="tl-date">Jan – Jul 2020</small>
-        </article>
-        <!-- QIT #3 -->
-        <article class="tl-item tl-green">
-          <div class="tl-head"><span class="tl-badge">QIT BATCH 3</span></div>
-          <div class="tl-card">
-            <ul>
-              <li>Pemerataan anggota (cross department)</li>
-              <li>5 anggota per tim</li>
-              <li>Diprioritaskan personil dengan sisa kontrak panjang</li>
-              <li>Tema ditentukan & pertemuan virtual</li>
-            </ul>
-          </div>
-          <div class="tl-pin"></div>
-          <small class="tl-date">Okto 2020 – Apr 2021</small>
-        </article>
-        <!-- QIT #4 -->
-        <article class="tl-item tl-blue">
-          <div class="tl-head"><span class="tl-badge">QIT BATCH 4</span></div>
-          <div class="tl-card">
-            <ul>
-              <li>Tema terkait Company Objective</li>
-              <li>Pendekatan “Bring the Joy of Innovation” (fun challenge)</li>
-              <li>Pertemuan kembali offline</li>
-              <li>Undang perwakilan supplier pada QIT Day</li>
-            </ul>
-          </div>
-          <div class="tl-pin"></div>
-          <small class="tl-date">Nov 2021 – Jul 2022</small>
-        </article>
-        <!-- QIT #5 -->
-        <article class="tl-item tl-orange">
-          <div class="tl-head"><span class="tl-badge">QIT BATCH 5</span></div>
-          <div class="tl-card">
-            <ul>
-              <li>Cycle QIT tanpa jeda; Top 6 QIT batch 4 berlanjut</li>
-              <li>Perluasan fun challenge + boost progress 8 langkah</li>
-              <li>Traffic pertemuan rutin meningkat; coaching genba</li>
-              <li>Tim terbaik mewakili Paragon di TKMPN</li>
-            </ul>
-          </div>
-          <div class="tl-pin"></div>
-          <small class="tl-date">Sep 2022 – Mei 2023</small>
-        </article>
-        <!-- QIT #6 -->
-        <article class="tl-item tl-purple">
-          <div class="tl-head"><span class="tl-badge">QIT BATCH 6</span></div>
-          <div class="tl-card">
-            <ul>
-              <li>Semakin banyak tim melanjutkan cycle improvement</li>
-              <li>Keikutsertaan HO; kemandirian dalam pertemuan & coaching</li>
-              <li>Evaluasi rutin tim coach selama proses berjalan</li>
-              <li>Perluasan keikutsertaan National Convention</li>
-            </ul>
-          </div>
-          <div class="tl-pin"></div>
-          <small class="tl-date">Sep 2023 – Mei 2024</small>
-        </article>
-        <!-- QIT #7 -->
-        <article class="tl-item tl-indigo">
-          <div class="tl-head"><span class="tl-badge">QIT BATCH 7</span></div>
-          <div class="tl-card">
-            <ul>
-              <li>69 tim melanjutkan cycle improvement</li>
-              <li>Improvement cross dept 7 tim</li>
-              <li>Perluasan keikutsertaan tim: Supplier 7 tim, HO 4 tim, DC (tbc)</li>
-            </ul>
-          </div>
-          <div class="tl-pin"></div>
-          <small class="tl-date">Sep 2024 – Jul 2025</small>
-        </article>
-        <!-- QIT #8 -->
-        <article class="tl-item tl-black">
-          <div class="tl-head"><span class="tl-badge">QIT BATCH 8</span></div>
-          <div class="tl-card">
-            <ul>
-              <li>Penguatan dampak improvement lewat pemaknaan objective yang tepat</li>
-              <li>Perluasan keterlibatan supplier</li>
-            </ul>
-          </div>
-          <div class="tl-pin"></div>
-          <small class="tl-date">Agu 2025 – Jul 2026</small>
-        </article>
-      </div>
-      <div class="timeline-axis" aria-hidden="true"></div>
-    </div>
-  </section>
-
-  <!-- Tujuan -->
-  <section id="tujuan" class="content tujuan-manfaat" aria-labelledby="tujuan-title">
-    <h2 id="tujuan-title">Tujuan</h2>
-    <div class="tujuan-manfaat-container">
-      <div class="tm-card"><span class="tm-num">1</span> 🎯Kualitas Produk</div>
-      <div class="tm-card"><span class="tm-num">2</span> ⚖️Quality, Cost, Safety, Delivery, Moral, <br>Environment</div>
-      <div class="tm-card"><span class="tm-num">3</span> 📊Overall Equipment Effectiveness (OEE)</div>
-      <div class="tm-card"><span class="tm-num">4</span> 🏭Internal Process Departemen</div>
-      <div class="tm-card"><span class="tm-num">5</span> ♻️Scrap Bulk &<br>Packaging</div>
-      <div class="tm-card"><span class="tm-num">6</span> 🚀Improvement Proses,<br> SHE, dll.</div>
-    </div>
-  </section>
-
-  <!-- Manfaat -->
-  <section id="manfaat" class="content tujuan-manfaat" aria-labelledby="manfaat-title">
-    <h2 id="manfaat-title">Manfaat</h2>
-    <div class="tujuan-manfaat-container">
-      <div class="tm-card"><span class="tm-num">1</span> 😊Kepuasan kerja</div>
-      <div class="tm-card"><span class="tm-num">2</span> 💪Peningkatan moral<br>kerja</div>
-      <div class="tm-card"><span class="tm-num">3</span> 🤝Peningkatan<br>hubungan atasan & bawahan</div>
-      <div class="tm-card"><span class="tm-num">4</span> 🛡️Keterampilan & keselamatan kerja</div>
-      <div class="tm-card"><span class="tm-num">5</span> 👥Pengembangan tim</div>
-      <div class="tm-card"><span class="tm-num">6</span> 🎯Kemampuan<br>penyelesaian sesuai target</div>
-      <div class="tm-card"><span class="tm-num">7</span> ⚡Peningkatan<br>produktivitas & penurunan biaya</div>
-      <div class="tm-card"><span class="tm-num">8</span> 🌟Peningkatan mutu<br>& nilai tambah</div>
-    </div>
-  </section>
-
-  <!-- Framework -->
-  <section id="framework" class="content" aria-labelledby="framework-title">
-    <h2 id="framework-title">8 Langkah & 7 Alat</h2>
-
-    <section id="langkah-improvement" class="content" aria-labelledby="langkah-title">
-      <h3 id="langkah-title">8 Langkah Improvement</h3>
-      <div class="tujuan-manfaat-container">
-        <div class="tm-card"><span class="tm-num">1</span> 🕵️‍♂️ Identifikasi Masalah</div>
-        <div class="tm-card"><span class="tm-num">2</span> 📊 Analisa Data</div>
-        <div class="tm-card"><span class="tm-num">3</span> 🔍 Analisa Sebab</div>
-        <div class="tm-card"><span class="tm-num">4</span> 📝 Rencana Improvement</div>
-        <div class="tm-card"><span class="tm-num">5</span> 🚀 Pelaksanaan Improvement</div>
-        <div class="tm-card"><span class="tm-num">6</span> ✅ Periksa Hasil</div>
-        <div class="tm-card"><span class="tm-num">7</span> 📏 Standarisasi</div>
-        <div class="tm-card"><span class="tm-num">8</span> ➡️ Masalah Berikutnya</div>
+  <main id="top">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-ring ring-1"></div>
+      <div class="hero-ring ring-2"></div>
+      <div class="hero-content reveal-on-scroll">
+        <div class="system-badge"><span class="status-dot"></span> QIT BATCH 9 SYSTEM ONLINE</div>
+        <p class="hero-kicker">QUALITY IMPROVEMENT TEAM</p>
+        <h1 class="hero-title" id="hero-title">
+          ENTER THE <span>NEXT LEVEL</span>
+        </h1>
+        <p class="hero-subtitle">Saatnya Paragonian berkolaborasi, berinovasi, dan menjelajah ide-ide baru demi perbaikan berkelanjutan.</p>
+        <div class="hero-actions">
+          <a class="primary-cta" href="#mission-control"><i class="fa-solid fa-play"></i> Start Mission</a>
+          <a class="secondary-cta" href="#qit-journey"><i class="fa-solid fa-route"></i> Explore Journey</a>
+        </div>
+        <div class="hero-status" aria-label="Status QIT Batch 9">
+          <span><b>SEASON</b> 09</span>
+          <span><b>MODE</b> IMPROVEMENT</span>
+          <span><b>STATUS</b> ACTIVE</span>
+        </div>
       </div>
     </section>
 
-    <h3>7 Alat Kualitas Dasar</h3>
-    <ol class="quality-tools">
-      <li>
-        <img src="Checksheet.jpg" alt="Ilustrasi checksheet" loading="lazy" />
-        <strong>Checksheet</strong>
-        <p class="desc">Digunakan untuk mencatat dan mengumpulkan data secara sistematis.</p>
-      </li>
-      <li>
-        <img src="Histogram.jpg" alt="Grafik histogram" loading="lazy" />
-        <strong>Histogram</strong>
-        <p class="desc">Diagram batang untuk melihat distribusi data dan pola variasi.</p>
-      </li>
-      <li>
-        <img src="Control Chart.jpg" alt="Contoh control chart" loading="lazy" />
-        <strong>Control Chart</strong>
-        <p class="desc">Membantu memantau kestabilan proses dari waktu ke waktu.</p>
-      </li>
-      <li>
-        <img src="Scatter Diagram.jpg" alt="Contoh scatter diagram" loading="lazy" />
-        <strong>Scatter Diagram</strong>
-        <p class="desc">Menunjukkan hubungan antara dua variabel dan kecenderungan data.</p>
-      </li>
-      <li>
-        <img src="Pareto Diagram.jpg" alt="Diagram Pareto" loading="lazy" />
-        <strong>Pareto Diagram</strong>
-        <p class="desc">Memprioritaskan masalah utama berdasarkan prinsip 80/20.</p>
-      </li>
-      <li>
-        <img src="Ishikawa Diagram.jpg" alt="Diagram Ishikawa (sebab-akibat)" loading="lazy" />
-        <strong>Ishikawa Diagram</strong>
-        <p class="desc">Diagram sebab-akibat untuk mengidentifikasi akar masalah.</p>
-      </li>
-      <li>
-        <img src="flowchart.jpg" alt="Contoh flowchart proses" loading="lazy" />
-        <strong>Flowchart</strong>
-        <p class="desc">Visualisasi langkah-langkah proses secara berurutan.</p>
-      </li>
-    </ol>
-  </section>
-
-  <!-- Galeri Perjalanan QIT -->
-  <section id="galeri" class="content" aria-labelledby="galeri-title">
-    <h2 id="galeri-title">Galeri Perjalanan QIT</h2>
-    <div class="swiper mySwiper">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide"><img src="QIT1.jpg" alt="Kegiatan QIT 1" loading="lazy" /></div>
-        <div class="swiper-slide"><img src="QIT2.jpg" alt="Kegiatan QIT 2" loading="lazy" /></div>
-        <div class="swiper-slide"><img src="QIT3.jpg" alt="Kegiatan QIT 3" loading="lazy" /></div>
-        <div class="swiper-slide"><img src="QIT4.jpg" alt="Kegiatan QIT 4" loading="lazy" /></div>
-        <div class="swiper-slide"><img src="QIT5.jpg" alt="Kegiatan QIT 5" loading="lazy" /></div>
-        <div class="swiper-slide"><img src="QIT6.jpg" alt="Kegiatan QIT 6" loading="lazy" /></div>
-        <div class="swiper-slide"><img src="QIT7.jpg" alt="Kegiatan QIT 7" loading="lazy" /></div>
-        <div class="swiper-slide"><img src="QIT8.jpg" alt="Kegiatan QIT 8" loading="lazy" /></div>
-        <div class="swiper-slide"><img src="QIT9.jpg" alt="Kegiatan QIT 9" loading="lazy" /></div>
-        <div class="swiper-slide"><img src="QIT10.jpg" alt="Kegiatan QIT 10" loading="lazy" /></div>
-        <div class="swiper-slide"><img src="QIT11.jpg" alt="Kegiatan QIT 11" loading="lazy" /></div>
-        <div class="swiper-slide"><img src="QIT12.jpg" alt="Kegiatan QIT 12" loading="lazy" /></div>
-        <div class="swiper-slide"><img src="QIT13.jpg" alt="Kegiatan QIT 13" loading="lazy" /></div>
-        <div class="swiper-slide"><img src="QIT14.jpg" alt="Kegiatan QIT 14" loading="lazy" /></div>
-        <div class="swiper-slide"><img src="QIT15.jpg" alt="Kegiatan QIT 15" loading="lazy" /></div>
-        <div class="swiper-slide"><img src="QIT16.jpg" alt="Kegiatan QIT 16" loading="lazy" /></div>
+    <section id="mission-control" class="mission-shell section-shell reveal-on-scroll" aria-labelledby="mission-title">
+      <div class="section-heading center">
+        <p class="eyebrow">MISSION CONTROL</p>
+        <h2 id="mission-title">QIT Batch 9 Command Center</h2>
+        <p>Akses cepat untuk kebutuhan tim, coaching, challenge, referensi, dan pembelajaran QIT.</p>
       </div>
-      <div class="swiper-button-next" aria-label="Slide berikut"></div>
-      <div class="swiper-button-prev" aria-label="Slide sebelumnya"></div>
-      <div class="swiper-pagination" aria-label="Navigasi slide"></div>
-    </div>
-  </section>
 
-  <!-- Sejarah Juara QIT -->
-  <section id="sejarah-juara-qit" class="content" aria-labelledby="juara-qit-title">
-    <h2 id="juara-qit-title">Sejarah Juara QIT</h2>
-    <div class="swiper mySwiper">
-      <div class="swiper-wrapper">
-        <!-- (gambar sama seperti di atas, boleh dibedakan filenya) -->
-        <div class="swiper-slide"><img src="B1.jpg" alt="Kegiatan CIC 1" loading="lazy" /></div>
-        <div class="swiper-slide"><img src="B2.jpg" alt="Kegiatan CIC 2" loading="lazy" /></div>
-        <div class="swiper-slide"><img src="B3.jpg" alt="Kegiatan CIC 3" loading="lazy" /></div>
-        <div class="swiper-slide"><img src="B4.jpg" alt="Kegiatan CIC 4" loading="lazy" /></div>
-        <div class="swiper-slide"><img src="B5.jpg" alt="Kegiatan CIC 5" loading="lazy" /></div>
-        <div class="swiper-slide"><img src="B6.jpg" alt="Kegiatan CIC 6" loading="lazy" /></div>
-        <div class="swiper-slide"><img src="B7.jpg" alt="Kegiatan QIT 7" loading="lazy" /></div>
-        <!-- ... -->
+      <div class="xp-panel">
+        <div class="xp-head"><span>QIT BATCH 9 JOURNEY</span><span class="xp-status">SEASON ACTIVE</span></div>
+        <div class="xp-track"><div class="xp-bar"></div></div>
+        <div class="xp-labels"><span>Team Formation</span><span>Improvement Journey</span><span>Final Mission</span></div>
       </div>
-      <div class="swiper-button-next"></div>
-      <div class="swiper-button-prev"></div>
-      <div class="swiper-pagination"></div>
-    </div>
-  </section>
 
-  <!-- Sejarah Juara CIC -->
-  <section id="sejarah-juara-cic" class="content" aria-labelledby="juara-cic-title">
-    <h2 id="juara-cic-title">Continuous Improvement Convention (CIC)</h2>
-    <div class="swiper mySwiper">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide"><img src="CIC1.jpg" alt="Kegiatan CIC 1" loading="lazy" /></div>
-        <div class="swiper-slide"><img src="CIC2.jpg" alt="Kegiatan CIC 2" loading="lazy" /></div>
-        <div class="swiper-slide"><img src="CIC3.jpg" alt="Kegiatan CIC 3" loading="lazy" /></div>
-        <div class="swiper-slide"><img src="CIC4.jpg" alt="Kegiatan CIC 4" loading="lazy" /></div>
-        <div class="swiper-slide"><img src="CIC5.jpg" alt="Kegiatan CIC 5" loading="lazy" /></div>
-        <div class="swiper-slide"><img src="CIC6.jpg" alt="Kegiatan CIC 6" loading="lazy" /></div>
-        <div class="swiper-slide"><img src="CIC7.jpg" alt="Kegiatan QIT 7" loading="lazy" /></div>
-        <div class="swiper-slide"><img src="CIC8.jpg" alt="Kegiatan CIC 8" loading="lazy" /></div>
-        <div class="swiper-slide"><img src="CIC9.jpg" alt="Kegiatan CIC 9" loading="lazy" /></div>
-        <div class="swiper-slide"><img src="CIC10.jpg" alt="Kegiatan CIC 10" loading="lazy" /></div>
-        <!-- ... -->
+      <div class="dashboard-buttons" aria-label="Tautan cepat dashboard">
+        <button class="mission-card" data-url="https://docs.google.com/spreadsheets/d/1nPfCcH1rqfWKdBUrGApuAeBG8v6L28MUy1NbN01Q_oM/edit?gid=1006695338#gid=1006695338&range=1:156">
+          <span class="card-code">MISSION 01</span><i class="fa-solid fa-users"></i><b>Pembentukan Tim QIT</b><small>Batch 9</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+        </button>
+        <button class="mission-card" data-url="https://docs.google.com/spreadsheets/d/1nPfCcH1rqfWKdBUrGApuAeBG8v6L28MUy1NbN01Q_oM/edit?gid=1079899225#gid=1079899225&range=1:151">
+          <span class="card-code">MISSION 02</span><i class="fa-solid fa-chart-line"></i><b>Progres & Konsistensi</b><small>Batch 9</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+        </button>
+        <button class="mission-card" data-url="https://docs.google.com/spreadsheets/d/1nPfCcH1rqfWKdBUrGApuAeBG8v6L28MUy1NbN01Q_oM/edit?gid=1482229915#gid=1482229915&range=1:150">
+          <span class="card-code">MISSION 03</span><i class="fa-solid fa-chalkboard-user"></i><b>Jadwal Coaching</b><small>Batch 9</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+        </button>
+        <button class="mission-card" data-url="https://bit.ly/PresensiTimQIT8">
+          <span class="card-code">MISSION 04</span><i class="fa-solid fa-clipboard-check"></i><b>Absensi Pertemuan</b><small>Untuk Tim</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+        </button>
+        <button class="mission-card" data-url="https://forms.office.com/pages/responsepage.aspx?id=5kTD0iZi-kqUSmLWzg2YwncIviPZneFJmgn26ooAEdNUNkVVQk9ZUTdBU1owUEtaQjRQM0hLSTdPWi4u&route=shorturl">
+          <span class="card-code">MISSION 05</span><i class="fa-solid fa-user-check"></i><b>Absensi Pertemuan</b><small>Untuk Fasilitator</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+        </button>
+        <button class="mission-card" data-url="https://docs.google.com/spreadsheets/d/1zgF_0E_Y6jEpqIvueQB2y9sN46AkQVp_ZCNwtrnk138/edit?usp=sharing">
+          <span class="card-code">CHALLENGE</span><i class="fa-solid fa-trophy"></i><b>Transparansi Point</b><small>Challenge</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+        </button>
+        <button class="mission-card" data-url="https://lookerstudio.google.com/reporting/1b04bdd5-778c-4de3-9196-ae59b4ac6510">
+          <span class="card-code">SCOREBOARD</span><i class="fa-solid fa-ranking-star"></i><b>Dashboard Point</b><small>Challenge</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+        </button>
+        <button class="mission-card" data-url="https://docs.google.com/spreadsheets/d/1GIutLMyN0d4TI1uabxKaWwI0MJxvJB6JqkWmbGxhuKk/edit?usp=sharing">
+          <span class="card-code">REFERENCE</span><i class="fa-solid fa-bullseye"></i><b>Quality Objective</b><small>Reference</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+        </button>
+        <button class="mission-card" data-url="https://drive.google.com/drive/folders/11LQ1f6aajnKm4xXcTXF02ZCRdL787mJI?usp=drive_link">
+          <span class="card-code">BEST PRACTICE</span><i class="fa-solid fa-medal"></i><b>Best Risalah</b><small>Reference</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+        </button>
+        <button class="mission-card" data-url="https://docs.google.com/spreadsheets/d/13qnXnPFaMd3xsXWaolW6gQX_ZHrYGdbY3upTJvtaGQs/edit?usp=sharing">
+          <span class="card-code">TOOLKIT</span><i class="fa-solid fa-file-lines"></i><b>Template Risalah</b><small>QIT Toolkit</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+        </button>
+        <button class="mission-card" data-url="https://drive.google.com/file/d/11yy_rqodPBicd8I35y_RnUgD3sytwja7/view?usp=sharing">
+          <span class="card-code">LEARNING</span><i class="fa-solid fa-recycle"></i><b>Modul 8 Pemborosan</b><small>Learning Module</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+        </button>
+        <button class="mission-card" data-url="https://drive.google.com/file/d/1FNaKvTDr5Gl4kiHN7PfaSM-kCW4CYvQx/view?usp=sharing">
+          <span class="card-code">LEARNING</span><i class="fa-solid fa-gem"></i><b>Total Quality Management</b><small>Learning Module</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+        </button>
+        <button class="mission-card" data-url="https://drive.google.com/file/d/1vm1kGIg5a5LxF24KPeIa7h7UCiMZGvWj/view?usp=sharing">
+          <span class="card-code">LEARNING</span><i class="fa-solid fa-code-branch"></i><b>Modul Delta</b><small>Learning Module</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
+        </button>
+        <button class="mission-card info-card" data-scroll-to="tentang">
+          <span class="card-code">SYSTEM INFO</span><i class="fa-solid fa-satellite-dish"></i><b>Informasi Terbaru</b><small>QIT Batch 9</small><span class="launch">EXPLORE <i class="fa-solid fa-chevron-down"></i></span>
+        </button>
       </div>
-      <div class="swiper-button-next"></div>
-      <div class="swiper-button-prev"></div>
-      <div class="swiper-pagination"></div>
-    </div>
-  </section>
+      <p class="link-note"><i class="fa-solid fa-circle-info"></i> Label sudah diubah ke Batch 9. URL yang tersedia dari source lama tetap dipertahankan sampai link Batch 9 baru dimasukkan.</p>
+    </section>
 
-  <!-- Sejarah Juara TKMPN -->
-  <section id="sejarah-juara-tkmpn" class="content" aria-labelledby="juara-tkmpn-title">
-    <h2 id="juara-tkmpn-title">Temu Karya Mutu dan Produktivitas Nasional (TKMPN)</h2>
-    <div class="swiper mySwiper">
-      <div class="swiper-wrapper">
-        <div class="swiper-slide"><img src="TKMPN1.jpg" alt="Kegiatan CIC 1" loading="lazy" /></div>
-        <div class="swiper-slide"><img src="TKMPN2.jpg" alt="Kegiatan CIC 2" loading="lazy" /></div>
-        <div class="swiper-slide"><img src="TKMPN3.jpg" alt="Kegiatan CIC 3" loading="lazy" /></div>
-        <div class="swiper-slide"><img src="TKMPN4.jpg" alt="Kegiatan CIC 4" loading="lazy" /></div>
-        <div class="swiper-slide"><img src="TKMPN5.jpg" alt="Kegiatan CIC 5" loading="lazy" /></div>
-        <div class="swiper-slide"><img src="TKMPN6.jpg" alt="Kegiatan CIC 6" loading="lazy" /></div>
-        <div class="swiper-slide"><img src="TKMPN7.jpg" alt="Kegiatan QIT 7" loading="lazy" /></div>
-        <div class="swiper-slide"><img src="TKMPN8.jpg" alt="Kegiatan CIC 8" loading="lazy" /></div>
-        <div class="swiper-slide"><img src="TKMPN9.jpg" alt="Kegiatan CIC 9" loading="lazy" /></div>
-        <div class="swiper-slide"><img src="TKMPN10.jpg" alt="Kegiatan CIC 10" loading="lazy" /></div>
-        <!-- ... -->
+    <section id="tentang" class="content section-shell reveal-on-scroll" aria-labelledby="tentang-title">
+      <div class="section-heading"><p class="eyebrow">ABOUT THE PROGRAM</p><h2 id="tentang-title">Tentang QIT</h2></div>
+      <div class="tentang-container">
+        <div class="tentang-card">
+          <div class="card-mini-icon"><i class="fa-solid fa-people-group"></i></div>
+          <div><h3>Quality Improvement Team</h3><p>Quality Improvement Team (QIT) merupakan kelompok yang terdiri dari karyawan dengan pekerjaan sejenis yang bertemu secara berkala untuk membahas dan memecahkan masalah pekerjaan dan lingkungannya dengan tujuan meningkatkan mutu dan efisiensi kerja.</p></div>
+        </div>
+        <div class="tentang-stats" aria-label="Statistik Batch 8 sebagai data historis terakhir di source">
+          <div class="stat"><span class="number">141</span><p>Jumlah Tim</p><small>Batch 8</small></div>
+          <div class="stat"><span class="number">150</span><p>Jumlah Fasilitator</p><small>Batch 8</small></div>
+          <div class="stat"><span class="number">32</span><p>Jumlah Coach</p><small>Batch 8</small></div>
+          <div class="stat"><span class="number">695</span><p>Total Peserta</p><small>Batch 8</small></div>
+          <div class="stat active-season"><span class="number"><i class="fa-solid fa-bolt"></i></span><p>Batch 9</p><small>ACTIVE SEASON</small></div>
+        </div>
       </div>
-      <div class="swiper-button-next"></div>
-      <div class="swiper-button-prev"></div>
-      <div class="swiper-pagination"></div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Video -->
-  <section id="video" class="content" aria-labelledby="video-title">
-    <h2 id="video-title">Video</h2>
-    <div class="video-gallery">
-      <iframe
-        width="560"
-        height="315"
-        src="https://www.youtube.com/embed/NwyZ22DR9o0"
-        title="Video QIT di YouTube"
-        loading="lazy"
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        referrerpolicy="strict-origin-when-cross-origin"
-        allowfullscreen></iframe>
-    </div>
-  </section>
+    <section id="history" class="content section-shell reveal-on-scroll" aria-labelledby="history-title">
+      <div class="section-heading"><p class="eyebrow">EVOLUTION DATABASE</p><h2 id="history-title">History Team</h2></div>
+      <div class="table-wrap">
+        <table class="qit-table">
+          <thead><tr>
+            <th class="th-param">Parameter</th>
+            <th>Batch 1<br><span class="sub">Mar ‘19</span></th><th>Batch 2<br><span class="sub">Jan ‘20</span></th><th>Batch 3<br><span class="sub">Oct ‘20</span></th><th>Batch 4<br><span class="sub">Nov ‘21</span></th><th>Batch 5<br><span class="sub">Sep ‘22</span></th><th>Batch 6<br><span class="sub">Sep ‘23</span></th><th>Batch 7<br><span class="sub">Sep ‘24</span></th><th>Batch 8<br><span class="sub">Aug ‘25</span></th><th class="latest">Batch 9<br><span class="sub">2026</span></th>
+          </tr></thead>
+          <tbody>
+            <tr><th class="th-param">Jumlah Tim</th><td>27</td><td>52</td><td>59</td><td>66</td><td>93</td><td>115</td><td>123</td><td>141</td><td class="latest">ON GOING</td></tr>
+            <tr><th class="th-param">Jumlah Fasilitator</th><td>27</td><td>51</td><td>59</td><td>66</td><td>93</td><td>114</td><td>118</td><td>150</td><td class="latest">ON GOING</td></tr>
+            <tr><th class="th-param">Jumlah Coach</th><td>1</td><td>4</td><td>9</td><td>13</td><td>22</td><td>24</td><td>32</td><td>32</td><td class="latest">ON GOING</td></tr>
+            <tr><th class="th-param">Total Peserta</th><td>162</td><td>280</td><td>295</td><td>322</td><td>465</td><td>566</td><td>666</td><td>695</td><td class="latest">ON GOING</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
 
-  <!-- Kontak -->
-  <section id="kontak" class="content" aria-labelledby="kontak-title">
-    <h2 id="kontak-title">Kontak</h2>
-    <p><a href="https://www.instagram.com/hi.learning" target="_blank" rel="noopener"><i class="fa-brands fa-instagram" aria-hidden="true"></i> hi.learning</a></p>
-    <p><a href="https://wa.me/6287814045008" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Mila (Jatake 1 & 3)</a></p>
-    <p><a href="https://wa.me/6287817277513" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Lia (Jatake 2 & 5)</a></p>
-    <p><a href="https://wa.me/6285946870850" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Tami (Jatake 4)</a></p>
-    <p><a href="https://wa.me/6287814045175" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Deden (Jatake 6 & 3)</a></p>
-    <p><a href="https://wa.me/6287815825017" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp" aria-hidden="true"></i> Deni (Supplier & HO)</a></p>
-    <p><a href="https://goo.gl/maps/dwnt3Lf19oF3o1fy7" target="_blank" rel="noopener"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> Alamat Perusahaan</a></p>
-  </section>
+    <section id="qit-journey" class="content section-shell reveal-on-scroll" aria-labelledby="journey-title">
+      <div class="section-heading"><p class="eyebrow">SEASON HISTORY</p><h2 id="journey-title">QIT Journey</h2><p>Geser untuk menjelajahi evolusi perjalanan QIT dari Batch 1 hingga season terbaru.</p></div>
+      <div class="timeline">
+        <div class="tl-track">
+          <article class="tl-item tl-red"><div class="tl-head"><span class="tl-badge">QIT BATCH 1</span></div><div class="tl-card"><ul><li>Masa pengenalan</li><li>7–8 anggota dari depertemen yang sama</li><li>Mayoritas group leader, line leader, dan kartap</li><li>Identifikasi dengan brainstorming</li></ul></div><div class="tl-pin"></div><small class="tl-date">Mar – Okto 2019</small></article>
+          <article class="tl-item tl-yellow"><div class="tl-head"><span class="tl-badge">QIT BATCH 2</span></div><div class="tl-card"><ul><li>6–7 orang di departemen yang sama</li><li>Sudah melibatkan personil kontrak</li><li>Identifikasi masalah sudah gunakan data</li><li>Mulai sesi virtual</li></ul></div><div class="tl-pin"></div><small class="tl-date">Jan – Jul 2020</small></article>
+          <article class="tl-item tl-green"><div class="tl-head"><span class="tl-badge">QIT BATCH 3</span></div><div class="tl-card"><ul><li>Pemerataan anggota (cross department)</li><li>5 anggota per tim</li><li>Diprioritaskan personil dengan sisa kontrak panjang</li><li>Tema ditentukan & pertemuan virtual</li></ul></div><div class="tl-pin"></div><small class="tl-date">Okto 2020 – Apr 2021</small></article>
+          <article class="tl-item tl-blue"><div class="tl-head"><span class="tl-badge">QIT BATCH 4</span></div><div class="tl-card"><ul><li>Tema terkait Company Objective</li><li>Pendekatan “Bring the Joy of Innovation” (fun challenge)</li><li>Pertemuan kembali offline</li><li>Undang perwakilan supplier pada QIT Day</li></ul></div><div class="tl-pin"></div><small class="tl-date">Nov 2021 – Jul 2022</small></article>
+          <article class="tl-item tl-orange"><div class="tl-head"><span class="tl-badge">QIT BATCH 5</span></div><div class="tl-card"><ul><li>Cycle QIT tanpa jeda; Top 6 QIT batch 4 berlanjut</li><li>Perluasan fun challenge + boost progress 8 langkah</li><li>Traffic pertemuan rutin meningkat; coaching genba</li><li>Tim terbaik mewakili Paragon di TKMPN</li></ul></div><div class="tl-pin"></div><small class="tl-date">Sep 2022 – Mei 2023</small></article>
+          <article class="tl-item tl-purple"><div class="tl-head"><span class="tl-badge">QIT BATCH 6</span></div><div class="tl-card"><ul><li>Semakin banyak tim melanjutkan cycle improvement</li><li>Keikutsertaan HO; kemandirian dalam pertemuan & coaching</li><li>Evaluasi rutin tim coach selama proses berjalan</li><li>Perluasan keikutsertaan National Convention</li></ul></div><div class="tl-pin"></div><small class="tl-date">Sep 2023 – Mei 2024</small></article>
+          <article class="tl-item tl-indigo"><div class="tl-head"><span class="tl-badge">QIT BATCH 7</span></div><div class="tl-card"><ul><li>69 tim melanjutkan cycle improvement</li><li>Improvement cross dept 7 tim</li><li>Perluasan keikutsertaan tim: Supplier 7 tim, HO 4 tim, DC (tbc)</li></ul></div><div class="tl-pin"></div><small class="tl-date">Sep 2024 – Jul 2025</small></article>
+          <article class="tl-item tl-black"><div class="tl-head"><span class="tl-badge">QIT BATCH 8</span></div><div class="tl-card"><ul><li>Penguatan dampak improvement lewat pemaknaan objective yang tepat</li><li>Perluasan keterlibatan supplier</li></ul></div><div class="tl-pin"></div><small class="tl-date">Agu 2025 – Jul 2026</small></article>
+          <article class="tl-item tl-batch9"><div class="tl-head"><span class="tl-badge">QIT BATCH 9</span><span class="live-pill">ACTIVE</span></div><div class="tl-card"><div class="batch9-symbol"><i class="fa-solid fa-gamepad"></i></div><ul><li>New season, new challenge</li><li>Kolaborasi & improvement berkelanjutan</li><li>Journey Batch 9 sedang berjalan</li></ul></div><div class="tl-pin"></div><small class="tl-date">2026 • ACTIVE SEASON</small></article>
+        </div>
+        <div class="timeline-axis" aria-hidden="true"></div>
+      </div>
+    </section>
 
-  <!-- Footer -->
-  <footer role="contentinfo">
-    <p>&copy; 2025 Quality Improvement Team</p>
-  </footer>
+    <section id="tujuan" class="content section-shell reveal-on-scroll" aria-labelledby="tujuan-title">
+      <div class="section-heading"><p class="eyebrow">MISSION OBJECTIVES</p><h2 id="tujuan-title">Tujuan</h2></div>
+      <div class="tujuan-manfaat-container">
+        <div class="tm-card"><span class="tm-num">1</span><i class="fa-solid fa-gem"></i><b>Kualitas Produk</b></div>
+        <div class="tm-card"><span class="tm-num">2</span><i class="fa-solid fa-scale-balanced"></i><b>QCDSME</b><small>Quality, Cost, Safety, Delivery, Moral, Environment</small></div>
+        <div class="tm-card"><span class="tm-num">3</span><i class="fa-solid fa-gauge-high"></i><b>Overall Equipment Effectiveness</b><small>OEE</small></div>
+        <div class="tm-card"><span class="tm-num">4</span><i class="fa-solid fa-industry"></i><b>Internal Process</b><small>Departemen</small></div>
+        <div class="tm-card"><span class="tm-num">5</span><i class="fa-solid fa-recycle"></i><b>Scrap Bulk & Packaging</b></div>
+        <div class="tm-card"><span class="tm-num">6</span><i class="fa-solid fa-rocket"></i><b>Improvement Proses</b><small>SHE, dll.</small></div>
+      </div>
+    </section>
 
-  <!-- Fullscreen Overlay -->
-  <div class="fullscreen-overlay" id="fullscreenOverlay" aria-hidden="true">
-    <img src="" alt="Pratinjau gambar ukuran penuh" />
+    <section id="manfaat" class="content section-shell reveal-on-scroll" aria-labelledby="manfaat-title">
+      <div class="section-heading"><p class="eyebrow">PLAYER BENEFITS</p><h2 id="manfaat-title">Manfaat</h2></div>
+      <div class="tujuan-manfaat-container benefits-grid">
+        <div class="tm-card"><span class="tm-num">1</span><i class="fa-solid fa-face-smile"></i><b>Kepuasan kerja</b></div>
+        <div class="tm-card"><span class="tm-num">2</span><i class="fa-solid fa-bolt"></i><b>Peningkatan moral kerja</b></div>
+        <div class="tm-card"><span class="tm-num">3</span><i class="fa-solid fa-handshake"></i><b>Hubungan atasan & bawahan</b></div>
+        <div class="tm-card"><span class="tm-num">4</span><i class="fa-solid fa-shield-halved"></i><b>Keterampilan & keselamatan kerja</b></div>
+        <div class="tm-card"><span class="tm-num">5</span><i class="fa-solid fa-people-group"></i><b>Pengembangan tim</b></div>
+        <div class="tm-card"><span class="tm-num">6</span><i class="fa-solid fa-bullseye"></i><b>Penyelesaian sesuai target</b></div>
+        <div class="tm-card"><span class="tm-num">7</span><i class="fa-solid fa-chart-line"></i><b>Produktivitas & penurunan biaya</b></div>
+        <div class="tm-card"><span class="tm-num">8</span><i class="fa-solid fa-star"></i><b>Peningkatan mutu & nilai tambah</b></div>
+      </div>
+    </section>
+
+    <section id="framework" class="content section-shell reveal-on-scroll" aria-labelledby="framework-title">
+      <div class="section-heading"><p class="eyebrow">IMPROVEMENT TOOLKIT</p><h2 id="framework-title">8 Langkah & 7 Alat</h2></div>
+      <section id="langkah-improvement" aria-labelledby="langkah-title">
+        <h3 id="langkah-title" class="subsection-title">8 Langkah Improvement</h3>
+        <div class="tujuan-manfaat-container steps-grid">
+          <div class="tm-card"><span class="tm-num">1</span><b>Identifikasi Masalah</b></div><div class="tm-card"><span class="tm-num">2</span><b>Analisa Data</b></div><div class="tm-card"><span class="tm-num">3</span><b>Analisa Sebab</b></div><div class="tm-card"><span class="tm-num">4</span><b>Rencana Improvement</b></div><div class="tm-card"><span class="tm-num">5</span><b>Pelaksanaan Improvement</b></div><div class="tm-card"><span class="tm-num">6</span><b>Periksa Hasil</b></div><div class="tm-card"><span class="tm-num">7</span><b>Standarisasi</b></div><div class="tm-card"><span class="tm-num">8</span><b>Masalah Berikutnya</b></div>
+        </div>
+      </section>
+
+      <h3 class="subsection-title quality-title">7 Alat Kualitas Dasar</h3>
+      <ol class="quality-tools">
+        <li><img src="Checksheet.jpg" alt="Ilustrasi checksheet" loading="lazy" /><strong>Checksheet</strong><p class="desc">Digunakan untuk mencatat dan mengumpulkan data secara sistematis.</p></li>
+        <li><img src="Histogram.jpg" alt="Grafik histogram" loading="lazy" /><strong>Histogram</strong><p class="desc">Diagram batang untuk melihat distribusi data dan pola variasi.</p></li>
+        <li><img src="Control Chart.jpg" alt="Contoh control chart" loading="lazy" /><strong>Control Chart</strong><p class="desc">Membantu memantau kestabilan proses dari waktu ke waktu.</p></li>
+        <li><img src="Scatter Diagram.jpg" alt="Contoh scatter diagram" loading="lazy" /><strong>Scatter Diagram</strong><p class="desc">Menunjukkan hubungan antara dua variabel dan kecenderungan data.</p></li>
+        <li><img src="Pareto Diagram.jpg" alt="Diagram Pareto" loading="lazy" /><strong>Pareto Diagram</strong><p class="desc">Memprioritaskan masalah utama berdasarkan prinsip 80/20.</p></li>
+        <li><img src="Ishikawa Diagram.jpg" alt="Diagram Ishikawa" loading="lazy" /><strong>Ishikawa Diagram</strong><p class="desc">Diagram sebab-akibat untuk mengidentifikasi akar masalah.</p></li>
+        <li><img src="flowchart.jpg" alt="Contoh flowchart proses" loading="lazy" /><strong>Flowchart</strong><p class="desc">Visualisasi langkah-langkah proses secara berurutan.</p></li>
+      </ol>
+    </section>
+
+    <section id="galeri" class="content section-shell reveal-on-scroll" aria-labelledby="galeri-title">
+      <div class="section-heading"><p class="eyebrow">VISUAL ARCHIVE</p><h2 id="galeri-title">Galeri Perjalanan QIT</h2></div>
+      <div class="swiper mySwiper gallery-swiper">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide"><img src="QIT1.jpg" alt="Kegiatan QIT 1" loading="lazy" /></div><div class="swiper-slide"><img src="QIT2.jpg" alt="Kegiatan QIT 2" loading="lazy" /></div><div class="swiper-slide"><img src="QIT3.jpg" alt="Kegiatan QIT 3" loading="lazy" /></div><div class="swiper-slide"><img src="QIT4.jpg" alt="Kegiatan QIT 4" loading="lazy" /></div><div class="swiper-slide"><img src="QIT5.jpg" alt="Kegiatan QIT 5" loading="lazy" /></div><div class="swiper-slide"><img src="QIT6.jpg" alt="Kegiatan QIT 6" loading="lazy" /></div><div class="swiper-slide"><img src="QIT7.jpg" alt="Kegiatan QIT 7" loading="lazy" /></div><div class="swiper-slide"><img src="QIT8.jpg" alt="Kegiatan QIT 8" loading="lazy" /></div><div class="swiper-slide"><img src="QIT9.jpg" alt="Kegiatan QIT 9" loading="lazy" /></div><div class="swiper-slide"><img src="QIT10.jpg" alt="Kegiatan QIT 10" loading="lazy" /></div><div class="swiper-slide"><img src="QIT11.jpg" alt="Kegiatan QIT 11" loading="lazy" /></div><div class="swiper-slide"><img src="QIT12.jpg" alt="Kegiatan QIT 12" loading="lazy" /></div><div class="swiper-slide"><img src="QIT13.jpg" alt="Kegiatan QIT 13" loading="lazy" /></div><div class="swiper-slide"><img src="QIT14.jpg" alt="Kegiatan QIT 14" loading="lazy" /></div><div class="swiper-slide"><img src="QIT15.jpg" alt="Kegiatan QIT 15" loading="lazy" /></div><div class="swiper-slide"><img src="QIT16.jpg" alt="Kegiatan QIT 16" loading="lazy" /></div>
+        </div><div class="swiper-button-next"></div><div class="swiper-button-prev"></div><div class="swiper-pagination"></div>
+      </div>
+    </section>
+
+    <section id="sejarah-juara-qit" class="content section-shell reveal-on-scroll" aria-labelledby="juara-qit-title">
+      <div class="section-heading"><p class="eyebrow">HALL OF FAME</p><h2 id="juara-qit-title">Sejarah Juara QIT</h2></div>
+      <div class="swiper mySwiper"><div class="swiper-wrapper"><div class="swiper-slide"><img src="B1.jpg" alt="Juara QIT 1" loading="lazy" /></div><div class="swiper-slide"><img src="B2.jpg" alt="Juara QIT 2" loading="lazy" /></div><div class="swiper-slide"><img src="B3.jpg" alt="Juara QIT 3" loading="lazy" /></div><div class="swiper-slide"><img src="B4.jpg" alt="Juara QIT 4" loading="lazy" /></div><div class="swiper-slide"><img src="B5.jpg" alt="Juara QIT 5" loading="lazy" /></div><div class="swiper-slide"><img src="B6.jpg" alt="Juara QIT 6" loading="lazy" /></div><div class="swiper-slide"><img src="B7.jpg" alt="Juara QIT 7" loading="lazy" /></div></div><div class="swiper-button-next"></div><div class="swiper-button-prev"></div><div class="swiper-pagination"></div></div>
+    </section>
+
+    <section id="sejarah-juara-cic" class="content section-shell reveal-on-scroll" aria-labelledby="juara-cic-title">
+      <div class="section-heading"><p class="eyebrow">CONVENTION ARCHIVE</p><h2 id="juara-cic-title">Continuous Improvement Convention (CIC)</h2></div>
+      <div class="swiper mySwiper"><div class="swiper-wrapper"><div class="swiper-slide"><img src="CIC1.jpg" alt="Kegiatan CIC 1" loading="lazy" /></div><div class="swiper-slide"><img src="CIC2.jpg" alt="Kegiatan CIC 2" loading="lazy" /></div><div class="swiper-slide"><img src="CIC3.jpg" alt="Kegiatan CIC 3" loading="lazy" /></div><div class="swiper-slide"><img src="CIC4.jpg" alt="Kegiatan CIC 4" loading="lazy" /></div><div class="swiper-slide"><img src="CIC5.jpg" alt="Kegiatan CIC 5" loading="lazy" /></div><div class="swiper-slide"><img src="CIC6.jpg" alt="Kegiatan CIC 6" loading="lazy" /></div><div class="swiper-slide"><img src="CIC7.jpg" alt="Kegiatan CIC 7" loading="lazy" /></div><div class="swiper-slide"><img src="CIC8.jpg" alt="Kegiatan CIC 8" loading="lazy" /></div><div class="swiper-slide"><img src="CIC9.jpg" alt="Kegiatan CIC 9" loading="lazy" /></div><div class="swiper-slide"><img src="CIC10.jpg" alt="Kegiatan CIC 10" loading="lazy" /></div></div><div class="swiper-button-next"></div><div class="swiper-button-prev"></div><div class="swiper-pagination"></div></div>
+    </section>
+
+    <section id="sejarah-juara-tkmpn" class="content section-shell reveal-on-scroll" aria-labelledby="juara-tkmpn-title">
+      <div class="section-heading"><p class="eyebrow">NATIONAL STAGE</p><h2 id="juara-tkmpn-title">Temu Karya Mutu dan Produktivitas Nasional (TKMPN)</h2></div>
+      <div class="swiper mySwiper"><div class="swiper-wrapper"><div class="swiper-slide"><img src="TKMPN1.jpg" alt="Kegiatan TKMPN 1" loading="lazy" /></div><div class="swiper-slide"><img src="TKMPN2.jpg" alt="Kegiatan TKMPN 2" loading="lazy" /></div><div class="swiper-slide"><img src="TKMPN3.jpg" alt="Kegiatan TKMPN 3" loading="lazy" /></div><div class="swiper-slide"><img src="TKMPN4.jpg" alt="Kegiatan TKMPN 4" loading="lazy" /></div><div class="swiper-slide"><img src="TKMPN5.jpg" alt="Kegiatan TKMPN 5" loading="lazy" /></div><div class="swiper-slide"><img src="TKMPN6.jpg" alt="Kegiatan TKMPN 6" loading="lazy" /></div><div class="swiper-slide"><img src="TKMPN7.jpg" alt="Kegiatan TKMPN 7" loading="lazy" /></div><div class="swiper-slide"><img src="TKMPN8.jpg" alt="Kegiatan TKMPN 8" loading="lazy" /></div><div class="swiper-slide"><img src="TKMPN9.jpg" alt="Kegiatan TKMPN 9" loading="lazy" /></div><div class="swiper-slide"><img src="TKMPN10.jpg" alt="Kegiatan TKMPN 10" loading="lazy" /></div></div><div class="swiper-button-next"></div><div class="swiper-button-prev"></div><div class="swiper-pagination"></div></div>
+    </section>
+
+    <section id="video" class="content section-shell reveal-on-scroll" aria-labelledby="video-title">
+      <div class="section-heading"><p class="eyebrow">MEDIA CHANNEL</p><h2 id="video-title">Video</h2></div>
+      <div class="video-gallery"><iframe src="https://www.youtube.com/embed/NwyZ22DR9o0" title="Video QIT di YouTube" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+    </section>
+
+    <section id="kontak" class="content section-shell reveal-on-scroll" aria-labelledby="kontak-title">
+      <div class="section-heading"><p class="eyebrow">SUPPORT CHANNEL</p><h2 id="kontak-title">Kontak</h2></div>
+      <div class="contact-grid">
+        <a href="https://www.instagram.com/hi.learning" target="_blank" rel="noopener"><i class="fa-brands fa-instagram"></i><span><b>hi.learning</b><small>Instagram</small></span></a>
+        <a href="https://wa.me/6287814045008" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i><span><b>Mila</b><small>Jatake 1 & 3</small></span></a>
+        <a href="https://wa.me/6287817277513" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i><span><b>Lia</b><small>Jatake 2 & 5</small></span></a>
+        <a href="https://wa.me/6285946870850" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i><span><b>Tami</b><small>Jatake 4</small></span></a>
+        <a href="https://wa.me/6287814045175" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i><span><b>Deden</b><small>Jatake 6 & 3</small></span></a>
+        <a href="https://wa.me/6287815825017" target="_blank" rel="noopener"><i class="fa-brands fa-whatsapp"></i><span><b>Deni</b><small>Supplier & HO</small></span></a>
+        <a href="https://goo.gl/maps/dwnt3Lf19oF3o1fy7" target="_blank" rel="noopener"><i class="fa-solid fa-location-dot"></i><span><b>Alamat Perusahaan</b><small>Open Maps</small></span></a>
+      </div>
+    </section>
+  </main>
+
+  <footer role="contentinfo"><div class="footer-line"></div><p><b>QIT BATCH 9</b> • Quality Improvement Team • 2026</p><small>ENTER THE NEXT LEVEL</small></footer>
+
+  <div class="fullscreen-overlay" id="fullscreenOverlay" aria-hidden="true" role="dialog" aria-label="Pratinjau gambar">
+    <button class="fs-close" type="button" aria-label="Tutup"><i class="fa-solid fa-xmark"></i></button>
+    <button class="fs-nav fs-prev" type="button" aria-label="Gambar sebelumnya"><i class="fa-solid fa-chevron-left"></i></button>
+    <figure><img src="" alt="Pratinjau gambar ukuran penuh" /><figcaption></figcaption></figure>
+    <button class="fs-nav fs-next" type="button" aria-label="Gambar berikutnya"><i class="fa-solid fa-chevron-right"></i></button>
   </div>
 
-  <!-- Swiper (JS) -->
-  <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js" defer></script>
+  <button class="back-to-top" type="button" aria-label="Kembali ke atas"><i class="fa-solid fa-chevron-up"></i></button>
 
-  <!-- Init Swiper (scope per container) -->
-  <script defer>
-    document.addEventListener('DOMContentLoaded', () => {
-      document.querySelectorAll('.mySwiper').forEach((el) => {
-        // Pastikan elemen kontrol spesifik di dalam el
-        const nextBtn = el.querySelector('.swiper-button-next');
-        const prevBtn = el.querySelector('.swiper-button-prev');
-        const pag     = el.querySelector('.swiper-pagination');
-
-        new Swiper(el, {
-          slidesPerView: 1,
-          spaceBetween: 10,
-          loop: true,
-          autoplay: { delay: 3000, disableOnInteraction: false },
-          pagination: pag ? { el: pag, clickable: true } : false,
-          navigation: (nextBtn && prevBtn) ? { nextEl: nextBtn, prevEl: prevBtn } : {},
-        });
-      });
-    });
-  </script>
-
-  <!-- Your JS -->
-  <script src="script.js" defer></script>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

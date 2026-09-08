@@ -1,231 +1,229 @@
-// =======================================================
-// 🔧 QIT Dashboard – Script Rapi & Terstruktur
-// =======================================================
 (() => {
-  // Util sederhana
-  const qs  = (sel, scope = document) => scope.querySelector(sel);
-  const qsa = (sel, scope = document) => Array.from(scope.querySelectorAll(sel));
-  const isDesktop = () => window.innerWidth > 1024;
+  "use strict";
 
-  // Debounce untuk event resize agar hemat performa
-  const debounce = (fn, wait = 150) => {
-    let t;
+  const qs = (sel, scope = document) => scope.querySelector(sel);
+  const qsa = (sel, scope = document) => Array.from(scope.querySelectorAll(sel));
+  const isDesktop = () => window.innerWidth > 1100;
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  const debounce = (fn, wait = 120) => {
+    let timer;
     return (...args) => {
-      clearTimeout(t);
-      t = setTimeout(() => fn.apply(null, args), wait);
+      clearTimeout(timer);
+      timer = setTimeout(() => fn(...args), wait);
     };
   };
 
-  // =====================================================
-  // 📌 TOGGLE MENU (RESPONSIVE NAVBAR)
-  // =====================================================
-  const initNavbar = () => {
-    const menuToggle = qs(".menu-toggle");
-    const navMenu    = qs(".nav-links");
-    const navItems   = qsa(".nav-links a");
+  const smoothScrollTo = (target) => {
+    const el = typeof target === "string" ? document.getElementById(target) : target;
+    if (!el) return;
+    el.scrollIntoView({ behavior: reducedMotion ? "auto" : "smooth", block: "start" });
+  };
 
+  const initNavbar = () => {
+    const menuToggle = qs("#menuToggle");
+    const navMenu = qs("#mainNav");
     if (!menuToggle || !navMenu) return;
 
-    // Set ARIA untuk aksesibilitas
-    menuToggle.setAttribute("aria-controls", "mainNav");
-    menuToggle.setAttribute("aria-expanded", "false");
+    const closeMenu = () => {
+      navMenu.classList.remove("active");
+      menuToggle.setAttribute("aria-expanded", "false");
+      const icon = qs("i", menuToggle);
+      if (icon) icon.className = "fa-solid fa-bars";
+    };
 
-    // Klik hamburger → buka/tutup menu
-    menuToggle.addEventListener("click", () => {
-      const isActive = navMenu.classList.toggle("active");
-      menuToggle.setAttribute("aria-expanded", String(isActive));
+    menuToggle.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const active = navMenu.classList.toggle("active");
+      menuToggle.setAttribute("aria-expanded", String(active));
+      const icon = qs("i", menuToggle);
+      if (icon) icon.className = active ? "fa-solid fa-xmark" : "fa-solid fa-bars";
     });
 
-    // Klik di luar menu → tutup (hanya di mobile)
-    document.addEventListener("click", (e) => {
-      if (!navMenu.classList.contains("active")) return;
-      const clickedInsideMenu  = navMenu.contains(e.target);
-      const clickedToggle      = menuToggle.contains(e.target);
-      if (!clickedInsideMenu && !clickedToggle && !isDesktop()) {
-        navMenu.classList.remove("active");
-        menuToggle.setAttribute("aria-expanded", "false");
-      }
-    }, { passive: true });
-
-    // ESC → tutup menu (mobile)
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && navMenu.classList.contains("active") && !isDesktop()) {
-        navMenu.classList.remove("active");
-        menuToggle.setAttribute("aria-expanded", "false");
-      }
-    });
-
-    // Klik link → tutup menu di HP/Tablet & highlight aktif (event delegation)
     navMenu.addEventListener("click", (e) => {
-      const a = e.target.closest("a");
-      if (!a) return;
-
-      navItems.forEach((l) => l.classList.remove("active"));
-      a.classList.add("active");
-
-      if (!isDesktop()) {
-        navMenu.classList.remove("active");
-        menuToggle.setAttribute("aria-expanded", "false");
-      }
+      const link = e.target.closest("a[href^='#']");
+      if (!link) return;
+      if (!isDesktop()) closeMenu();
     });
 
-    // Resize → pastikan menu kembali normal di desktop
-    window.addEventListener(
-      "resize",
-      debounce(() => {
-        if (isDesktop()) {
-          navMenu.classList.remove("active");
-          menuToggle.setAttribute("aria-expanded", "false");
-        }
-      }, 120)
-    );
-  };
-
-  // =====================================================
-  // 📌 FUNGSI BERPINDAH VIEW (opsional sesuai HTML)
-  //    Tetap pakai inline display biar kompatibel
-  // =====================================================
-  const initViews = () => {
-    const views = qsa(".view-content");
-    if (views.length === 0) return; // kalau tidak pakai .view-content, skip
-
-    const showView = (viewId) => {
-      views.forEach((v) => (v.style.display = "none"));
-      const view = document.getElementById(viewId);
-      if (view) view.style.display = "block";
-    };
-
-    // Ekspor global bila dipakai di HTML (onclick)
-    window.showView = showView;
-    window.backToDashboard = () => showView("dashboard-main");
-
-    // On Load → default tampil dashboard
-    showView("dashboard-main");
-  };
-
-  // =====================================================
-  // 📌 GALLERY SLIDER MANUAL (opsional; hanya aktif bila ada .gallery-track)
-  // =====================================================
-  const initManualGallery = () => {
-    const track   = qs(".gallery-track");
-    const prevBtn = qs(".gallery-slider .prev");
-    const nextBtn = qs(".gallery-slider .next");
-    const slides  = qsa(".gallery-track img");
-
-    if (!track || slides.length === 0) return;
-
-    let index = 0;
-    let timerId = null;
-
-    const updateSlider = () => {
-      track.style.transform = `translateX(-${index * 100}%)`;
-    };
-
-    const next = () => { index = (index + 1) % slides.length; updateSlider(); };
-    const prev = () => { index = (index - 1 + slides.length) % slides.length; updateSlider(); };
-
-    nextBtn?.addEventListener("click", next);
-    prevBtn?.addEventListener("click", prev);
-
-    // Auto slide (hormati prefers-reduced-motion)
-    const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const startAuto = () => {
-      if (prefersReducedMotion || timerId) return;
-      timerId = setInterval(next, 4000);
-    };
-    const stopAuto = () => {
-      if (!timerId) return;
-      clearInterval(timerId);
-      timerId = null;
-    };
-
-    // Pause saat hover (dekstop) supaya user bisa baca
-    const slider = qs(".gallery-slider");
-    slider?.addEventListener("mouseenter", stopAuto);
-    slider?.addEventListener("mouseleave", startAuto);
-
-    // Geser pakai swipe (HP/Tablet)
-    let startX = 0;
-    track.addEventListener("touchstart", (e) => { startX = e.touches[0].clientX; }, { passive: true });
-    track.addEventListener("touchend", (e) => {
-      const endX = e.changedTouches[0].clientX;
-      if (startX - endX > 50) next();
-      else if (endX - startX > 50) prev();
+    document.addEventListener("click", (e) => {
+      if (!navMenu.classList.contains("active") || isDesktop()) return;
+      if (!navMenu.contains(e.target) && !menuToggle.contains(e.target)) closeMenu();
     });
 
-    updateSlider();
-    startAuto();
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") closeMenu();
+    });
+
+    window.addEventListener("resize", debounce(() => {
+      if (isDesktop()) closeMenu();
+    }));
   };
 
-  // =====================================================
-  // 📌 FULLSCREEN GAMBAR QUALITY TOOLS
-  // =====================================================
-  const initFullscreenImages = () => {
+  const initScrollSpy = () => {
+    const links = qsa("#mainNav a[href^='#']");
+    const pairs = links
+      .map((link) => ({ link, section: qs(link.getAttribute("href")) }))
+      .filter((x) => x.section);
+    if (!pairs.length || !("IntersectionObserver" in window)) return;
+
+    const setActive = (id) => {
+      links.forEach((l) => l.classList.toggle("active", l.getAttribute("href") === `#${id}`));
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      const visible = entries
+        .filter((e) => e.isIntersecting)
+        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+      if (visible) setActive(visible.target.id);
+    }, { rootMargin: "-25% 0px -60% 0px", threshold: [0.08, 0.2, 0.4] });
+
+    pairs.forEach(({ section }) => observer.observe(section));
+  };
+
+  const initMissionCards = () => {
+    qsa(".mission-card[data-url]").forEach((card) => {
+      card.addEventListener("click", () => {
+        const url = card.dataset.url;
+        if (url) window.open(url, "_blank", "noopener,noreferrer");
+      });
+    });
+
+    qsa("[data-scroll-to]").forEach((el) => {
+      el.addEventListener("click", () => {
+        const target = el.dataset.scrollTo;
+        if (target === "top") window.scrollTo({ top: 0, behavior: reducedMotion ? "auto" : "smooth" });
+        else smoothScrollTo(target);
+      });
+    });
+  };
+
+  const initSwiper = () => {
+    if (typeof window.Swiper !== "function") return;
+    qsa(".mySwiper").forEach((el) => {
+      const nextBtn = qs(".swiper-button-next", el);
+      const prevBtn = qs(".swiper-button-prev", el);
+      const pagination = qs(".swiper-pagination", el);
+
+      new Swiper(el, {
+        slidesPerView: 1,
+        spaceBetween: 14,
+        loop: qsa(".swiper-slide", el).length > 1,
+        speed: reducedMotion ? 0 : 650,
+        grabCursor: true,
+        autoplay: reducedMotion ? false : { delay: 3600, disableOnInteraction: false, pauseOnMouseEnter: true },
+        pagination: pagination ? { el: pagination, clickable: true } : false,
+        navigation: nextBtn && prevBtn ? { nextEl: nextBtn, prevEl: prevBtn } : false,
+        keyboard: { enabled: true },
+        a11y: { enabled: true }
+      });
+    });
+  };
+
+  const initFullscreenGallery = () => {
     const overlay = qs("#fullscreenOverlay");
-    if (!overlay) return;
+    const overlayImg = qs("figure img", overlay);
+    const caption = qs("figcaption", overlay);
+    if (!overlay || !overlayImg) return;
 
-    const overlayImg = qs("img", overlay);
-    const imgs = qsa(".quality-tools img");
-    if (imgs.length === 0 || !overlayImg) return;
+    const images = qsa(".quality-tools img, .mySwiper img");
+    let index = -1;
 
-    const open = (src) => {
-      overlayImg.src = src;
-      overlay.style.display = "flex";
-      document.body.style.overflow = "hidden";
+    const render = () => {
+      if (index < 0 || !images[index]) return;
+      const img = images[index];
+      overlayImg.src = img.currentSrc || img.src;
+      overlayImg.alt = img.alt || "Pratinjau gambar";
+      if (caption) caption.textContent = img.alt || "";
     };
+
+    const open = (img) => {
+      index = images.indexOf(img);
+      render();
+      overlay.classList.add("open");
+      overlay.setAttribute("aria-hidden", "false");
+      document.body.style.overflow = "hidden";
+      qs(".fs-close", overlay)?.focus();
+    };
+
     const close = () => {
-      overlay.style.display = "none";
+      overlay.classList.remove("open");
+      overlay.setAttribute("aria-hidden", "true");
       overlayImg.removeAttribute("src");
       document.body.style.overflow = "";
     };
 
-    imgs.forEach((img) => {
-      img.style.cursor = "zoom-in";
-      img.addEventListener("click", () => open(img.src));
-    });
+    const move = (dir) => {
+      if (!images.length) return;
+      index = (index + dir + images.length) % images.length;
+      render();
+    };
 
-    overlay.addEventListener("click", (e) => {
-      // Klik area gelap → tutup; klik gambar → juga tutup (sesuai kode awal)
-      if (e.target === overlay || e.target === overlayImg) close();
-    });
-
+    images.forEach((img) => img.addEventListener("click", () => open(img)));
+    qs(".fs-close", overlay)?.addEventListener("click", close);
+    qs(".fs-prev", overlay)?.addEventListener("click", () => move(-1));
+    qs(".fs-next", overlay)?.addEventListener("click", () => move(1));
+    overlay.addEventListener("click", (e) => { if (e.target === overlay) close(); });
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && overlay.style.display === "flex") close();
+      if (!overlay.classList.contains("open")) return;
+      if (e.key === "Escape") close();
+      if (e.key === "ArrowLeft") move(-1);
+      if (e.key === "ArrowRight") move(1);
     });
   };
 
-  // =====================================================
-  // 🚀 INIT SEMUA SAAT DOM SIAP
-  //   (satu kali saja, tidak dobel listener)
-// =====================================================
+  const initParticles = () => {
+    const wrap = qs("#particles");
+    if (!wrap || reducedMotion) return;
+    const count = Math.min(36, Math.max(18, Math.floor(window.innerWidth / 48)));
+    const fragment = document.createDocumentFragment();
+    for (let i = 0; i < count; i++) {
+      const p = document.createElement("span");
+      p.className = "particle";
+      p.style.left = `${Math.random() * 100}%`;
+      p.style.animationDuration = `${7 + Math.random() * 10}s`;
+      p.style.animationDelay = `${-Math.random() * 14}s`;
+      p.style.opacity = `${0.2 + Math.random() * 0.65}`;
+      fragment.appendChild(p);
+    }
+    wrap.appendChild(fragment);
+  };
+
+  const initReveal = () => {
+    const items = qsa(".reveal-on-scroll");
+    if (!items.length) return;
+    if (reducedMotion || !("IntersectionObserver" in window)) {
+      items.forEach((el) => el.classList.add("visible"));
+      return;
+    }
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.08, rootMargin: "0px 0px -8% 0px" });
+    items.forEach((el) => observer.observe(el));
+  };
+
+  const initBackToTop = () => {
+    const btn = qs(".back-to-top");
+    if (!btn) return;
+    const update = () => btn.classList.toggle("show", window.scrollY > 700);
+    window.addEventListener("scroll", update, { passive: true });
+    btn.addEventListener("click", () => window.scrollTo({ top: 0, behavior: reducedMotion ? "auto" : "smooth" }));
+    update();
+  };
+
   document.addEventListener("DOMContentLoaded", () => {
     initNavbar();
-    initViews();
-    initManualGallery();
-    initFullscreenImages();
+    initScrollSpy();
+    initMissionCards();
+    initSwiper();
+    initFullscreenGallery();
+    initParticles();
+    initReveal();
+    initBackToTop();
   });
-
-  // =====================================================
-  // 📎 Placeholder integrasi Google Sheets (Apps Script)
-  //   Contoh pemanggilan:
-  //   sendDataToGoogleSheets({ nama: 'Deni', nilai: 95 });
-  // =====================================================
-  /*
-  function sendDataToGoogleSheets(data) {
-    return fetch("URL_WEB_APP_SCRIPT", {
-      method: "POST",
-      body: JSON.stringify(data),
-      headers: { "Content-Type": "application/json" }
-    })
-      .then(res => res.json())
-      .then(result => {
-        console.log("Data berhasil dikirim:", result);
-        return result;
-      })
-      .catch(err => {
-        console.error("Error:", err);
-        throw err;
-      });
-  }
-  */
 })();
