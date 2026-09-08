@@ -401,3 +401,98 @@
 
   document.addEventListener('DOMContentLoaded',()=>{initV3Actions();initV3Dock();});
 })();
+
+
+// =========================================================
+// QIT BATCH 9 — CINEMATIC CLEAR V4
+// Music engine, game-like motion, typewriter, film controls
+// =========================================================
+(() => {
+  "use strict";
+  const qs=(s,r=document)=>r.querySelector(s), qsa=(s,r=document)=>Array.from(r.querySelectorAll(s));
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // Game-like hero shards
+  const initHeroShards=()=>{
+    const wrap=qs('#heroShards'); if(!wrap||reduce||wrap.children.length) return;
+    const count=Math.min(28,Math.max(14,Math.floor(innerWidth/65)));
+    const f=document.createDocumentFragment();
+    for(let i=0;i<count;i++){
+      const s=document.createElement('span');
+      s.style.left=`${Math.random()*100}%`;s.style.top=`${25+Math.random()*75}%`;
+      s.style.animationDuration=`${4+Math.random()*8}s`;s.style.animationDelay=`${-Math.random()*8}s`;
+      s.style.transform=`rotate(${Math.random()*70-35}deg)`;f.appendChild(s);
+    }
+    wrap.appendChild(f);
+  };
+
+  // Typewriter. Runs once when About enters viewport.
+  const initTypewriter=()=>{
+    const el=qs('#qitTypewriter'); if(!el) return;
+    const text=el.dataset.text||'';
+    if(reduce){el.textContent=text;return;}
+    let started=false,timer=null;
+    const start=()=>{
+      if(started)return;started=true;let i=0;el.textContent='';
+      timer=setInterval(()=>{el.textContent=text.slice(0,++i);if(i>=text.length){clearInterval(timer);timer=null;}},24);
+    };
+    if('IntersectionObserver' in window){
+      const obs=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){start();obs.disconnect();}})},{threshold:.35});
+      obs.observe(el);
+    } else start();
+  };
+
+  // Upbeat procedural BGM. WebAudio starts only after explicit user tap/click.
+  const createMusicEngine=()=>{
+    let ctx=null,master=null,noiseBuffer=null,scheduler=null,nextBeat=0,step=0,playing=false;
+    const bpm=116, beat=60/bpm/2; // eighth notes
+    const ensure=()=>{
+      if(ctx)return;
+      const AC=window.AudioContext||window.webkitAudioContext;if(!AC)return;
+      ctx=new AC();master=ctx.createGain();master.gain.value=.16;master.connect(ctx.destination);
+      noiseBuffer=ctx.createBuffer(1,ctx.sampleRate*.12,ctx.sampleRate);
+      const d=noiseBuffer.getChannelData(0);for(let i=0;i<d.length;i++)d[i]=Math.random()*2-1;
+    };
+    const tone=(freq,time,dur=.12,type='sine',gain=.05)=>{
+      if(!ctx)return;const o=ctx.createOscillator(),g=ctx.createGain();o.type=type;o.frequency.setValueAtTime(freq,time);g.gain.setValueAtTime(gain,time);g.gain.exponentialRampToValueAtTime(.0001,time+dur);o.connect(g);g.connect(master);o.start(time);o.stop(time+dur+.02);
+    };
+    const kick=(time)=>{if(!ctx)return;const o=ctx.createOscillator(),g=ctx.createGain();o.type='sine';o.frequency.setValueAtTime(120,time);o.frequency.exponentialRampToValueAtTime(46,time+.13);g.gain.setValueAtTime(.55,time);g.gain.exponentialRampToValueAtTime(.001,time+.16);o.connect(g);g.connect(master);o.start(time);o.stop(time+.18)};
+    const hat=(time,open=false)=>{if(!ctx||!noiseBuffer)return;const s=ctx.createBufferSource(),hp=ctx.createBiquadFilter(),g=ctx.createGain();s.buffer=noiseBuffer;hp.type='highpass';hp.frequency.value=6500;g.gain.setValueAtTime(open?.10:.055,time);g.gain.exponentialRampToValueAtTime(.001,time+(open?.10:.045));s.connect(hp);hp.connect(g);g.connect(master);s.start(time);s.stop(time+.11)};
+    const snare=(time)=>{if(!ctx||!noiseBuffer)return;const s=ctx.createBufferSource(),bp=ctx.createBiquadFilter(),g=ctx.createGain();s.buffer=noiseBuffer;bp.type='bandpass';bp.frequency.value=1800;g.gain.setValueAtTime(.16,time);g.gain.exponentialRampToValueAtTime(.001,time+.12);s.connect(bp);bp.connect(g);g.connect(master);s.start(time);s.stop(time+.13);tone(180,time,.09,'triangle',.04)};
+    const bass=[55,55,65.41,55,73.42,65.41,49,55];
+    const lead=[220,0,261.63,0,293.66,0,261.63,329.63];
+    const scheduleStep=(n,t)=>{if(n%4===0)kick(t);if(n%8===4)kick(t);if(n%4===2)snare(t);hat(t,n%4===3);tone(bass[n%8],t,.16,'sawtooth',.026);if(lead[n%8])tone(lead[n%8],t+.015,.10,'square',.012)};
+    const tick=()=>{if(!ctx||!playing)return;while(nextBeat<ctx.currentTime+.12){scheduleStep(step,nextBeat);nextBeat+=beat;step=(step+1)%16;}};
+    const start=async()=>{ensure();if(!ctx)return false;await ctx.resume();playing=true;step=0;nextBeat=ctx.currentTime+.05;scheduler=setInterval(tick,25);return true};
+    const stop=()=>{playing=false;if(scheduler){clearInterval(scheduler);scheduler=null}if(master&&ctx){master.gain.cancelScheduledValues(ctx.currentTime);master.gain.setTargetAtTime(.0001,ctx.currentTime,.04)}};
+    const resumeVolume=()=>{if(master&&ctx){master.gain.cancelScheduledValues(ctx.currentTime);master.gain.setTargetAtTime(.16,ctx.currentTime,.03)}};
+    return {async toggle(){if(!playing){resumeVolume();return await start()}stop();return false},get playing(){return playing}};
+  };
+
+  const initBgm=()=>{
+    const desktop=qs('#bgmToggle'),mobile=qs('#mobileBgmToggle');if(!desktop&&!mobile)return;
+    const engine=createMusicEngine();
+    const sync=(on)=>{
+      [desktop,mobile].filter(Boolean).forEach(btn=>{btn.classList.toggle('playing',on);btn.setAttribute('aria-pressed',String(on));const small=qs('small',btn);if(small)small.textContent=on?'ON':'OFF';const icon=qs('.fa-music',btn);if(icon)icon.className=`fa-solid ${on?'fa-volume-high':'fa-music'}`;});
+    };
+    const action=async()=>{const on=await engine.toggle();sync(on)};
+    desktop?.addEventListener('click',action);mobile?.addEventListener('click',action);
+    document.addEventListener('visibilitychange',()=>{if(document.hidden&&engine.playing){engine.toggle();sync(false)}});
+  };
+
+  // Make cinematic film strips keyboard/touch friendly: tap toggles pause.
+  const initFilm=()=>{
+    qsa('.film-strip').forEach(strip=>{
+      strip.tabIndex=0;strip.setAttribute('role','region');strip.setAttribute('aria-label','Hall of Fame film strip. Tap untuk pause atau lanjut.');
+      const toggle=()=>{const tracks=qsa('.film-track',strip);const paused=strip.classList.toggle('paused');tracks.forEach(t=>t.style.animationPlayState=paused?'paused':'running')};
+      strip.addEventListener('click',toggle);strip.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();toggle()}});
+    });
+  };
+
+  const initJourneySnap=()=>{
+    const steps=qs('.journey-steps');const active=qs('.journey-step.active',steps);if(!steps||!active||innerWidth>760)return;
+    setTimeout(()=>active.scrollIntoView({behavior:reduce?'auto':'smooth',block:'nearest',inline:'center'}),450);
+  };
+
+  document.addEventListener('DOMContentLoaded',()=>{initHeroShards();initTypewriter();initBgm();initFilm();initJourneySnap();});
+})();

@@ -8,10 +8,10 @@
 <title>QIT Batch 9 | Mission Control</title>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&amp;family=Poppins:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet"/>
-<link href="style.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&amp;family=Poppins:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet">
+<link href="style.css" rel="stylesheet">
 </link></link></head>
 <body class="hierarchy-v3">
 <div aria-hidden="true" class="scroll-progress"><span id="scrollProgressBar"></span></div>
@@ -28,19 +28,23 @@
 <span class="logo-copy"><small>QIT</small>BATCH 9</span>
 </button>
 <ul class="nav-links" id="mainNav"><li><a class="active" href="#current-mission">Current Mission</a></li><li><a href="#mission-control">All Missions</a></li><li><a href="#batch9-journey">Batch 9 Journey</a></li><li><a href="#framework">Knowledge</a></li><li><a href="#history">History</a></li><li><a href="#galeri">Gallery</a></li><li><a href="#kontak">Contact</a></li></ul>
-<button aria-controls="mainNav" aria-expanded="false" aria-label="Buka menu" class="menu-toggle" id="menuToggle" type="button">
+<button aria-label="Nyalakan musik latar" aria-pressed="false" class="bgm-toggle" id="bgmToggle" type="button"><i aria-hidden="true" class="fa-solid fa-music"></i><span>BGM</span><small>OFF</small><span aria-hidden="true" class="eq-bars"><i></i><i></i><i></i></span></button><button aria-controls="mainNav" aria-expanded="false" aria-label="Buka menu" class="menu-toggle" id="menuToggle" type="button">
 <i aria-hidden="true" class="fa-solid fa-bars"></i>
 </button>
 </nav>
-<main id="top"><section aria-labelledby="hero-title" class="hero">
+<main id="top"><section aria-labelledby="hero-title" class="hero"><div aria-hidden="true" class="hero-cinematic-bg">
+<div class="sky-orb orb-one"></div><div class="sky-orb orb-two"></div>
+<div class="energy-road"></div><div class="energy-sweep sweep-one"></div><div class="energy-sweep sweep-two"></div>
+<div class="game-grid"></div><div class="hero-shards" id="heroShards"></div>
+</div>
 <div class="hero-ring ring-1"></div>
 <div class="hero-ring ring-2"></div>
 <div class="hero-content reveal-on-scroll">
 <div class="system-badge"><span class="status-dot"></span> QIT BATCH 9 • 2026</div>
 <p class="hero-kicker">QUALITY IMPROVEMENT TEAM</p>
 <h1 class="hero-title" id="hero-title">QIT <span>BATCH 9</span></h1>
-<p class="hero-tagline">ENTER THE NEXT LEVEL</p>
-<p class="hero-subtitle">Kolaborasi. Improvement. Impact.</p>
+<p class="hero-tagline">SMALL STEPS. REAL SOLUTIONS. BIGGER TOMORROW.</p>
+<p class="hero-subtitle">Kolaborasi hari ini, perubahan nyata untuk masa depan yang lebih baik.</p>
 <div class="hero-actions">
 <a class="primary-cta" href="#current-mission"><i class="fa-solid fa-play"></i> Explore Mission</a>
 <a class="secondary-cta" href="#batch9-journey"><i class="fa-solid fa-route"></i> View Journey</a>
@@ -80,7 +84,7 @@
 <a class="update-link" href="#mission-control">View All Mission <i class="fa-solid fa-arrow-right"></i></a>
 </div>
 </section><section aria-labelledby="b9journey-title" class="batch9-journey section-shell reveal-on-scroll" id="batch9-journey">
-<div class="section-heading center"><p class="eyebrow">YOUR BATCH 9 JOURNEY</p><h2 id="b9journey-title">From First Move to Final Impact</h2><p>Progress visual ini menggambarkan alur perjalanan Batch 9. Status aktual dapat diperbarui sesuai perkembangan program.</p></div>
+<div class="section-heading center"><p class="eyebrow">BATCH 9 • ACTIVE JOURNEY</p><h2 id="b9journey-title">QIT Journey</h2><p>Enam langkah, satu perjalanan improvement. Ikuti progress Batch 9 menuju dampak nyata.</p></div><div class="journey-cinema-kicker"><span>MISSION PATH</span><b>01 — 06</b><span>LIVE PROGRESS</span></div>
 <div class="journey-status"><span>STEP 2 OF 6</span><strong>FIRST MEETING</strong><span class="active-status">ACTIVE</span></div>
 <div class="journey-progress"><span style="width:33.333%"></span></div>
 <div class="journey-steps">
@@ -93,7 +97,6 @@
 </div>
 </section><section aria-labelledby="mission-title" class="mission-shell section-shell reveal-on-scroll" id="mission-control">
 <div class="section-heading center"><p class="eyebrow">ALL MISSIONS</p><h2 id="mission-title">QIT Command Center</h2><p>Semua akses QIT dalam satu tempat. Gunakan Find Mission jika kamu ingin mencari lebih cepat.</p></div>
-
 <button class="finder-toggle" id="toggleMissionFinder" type="button"><i class="fa-solid fa-magnifying-glass"></i><span>Find Mission</span><i class="fa-solid fa-chevron-down chevron"></i></button><div aria-label="Pencarian dan filter mission" class="mission-tools collapsed-tools"><div class="finder-panel">
 <label class="mission-search">
 <i aria-hidden="true" class="fa-solid fa-magnifying-glass"></i>
@@ -155,12 +158,19 @@
 </div><button class="show-all-missions" id="showAllMissions" type="button"><span>Show All Missions</span><i class="fa-solid fa-chevron-down"></i></button>
 <p class="link-note"><i class="fa-solid fa-circle-info"></i> Label sudah diubah ke Batch 9. URL yang tersedia dari source lama tetap dipertahankan sampai link Batch 9 baru dimasukkan.</p>
 </section><section aria-labelledby="tentang-title" class="content section-shell reveal-on-scroll" id="tentang">
-<div class="section-heading"><p class="eyebrow">ABOUT THE PROGRAM</p><h2 id="tentang-title">Tentang QIT</h2></div>
+<div class="section-heading"><p class="eyebrow">THE STORY BEHIND QIT</p><h2 id="tentang-title">Tentang QIT</h2></div>
 <div class="tentang-container">
 <div class="tentang-card">
-<div class="card-mini-icon"><i class="fa-solid fa-people-group"></i></div>
-<div><h3>Quality Improvement Team</h3><p>Quality Improvement Team (QIT) merupakan kelompok yang terdiri dari karyawan dengan pekerjaan sejenis yang bertemu secara berkala untuk membahas dan memecahkan masalah pekerjaan dan lingkungannya dengan tujuan meningkatkan mutu dan efisiensi kerja.</p></div>
+<div class="about-showcase">
+<div class="about-number">01</div>
+<div class="about-icon"><i class="fa-solid fa-people-group"></i></div>
+<div class="about-copy">
+<span class="about-label">QUALITY IMPROVEMENT TEAM</span>
+<h3>Ide bergerak. Tim bertumbuh. Dampak tercipta.</h3>
+<p class="typewriter-line" data-text="Quality Improvement Team (QIT) merupakan kelompok yang bertemu secara berkala untuk membahas dan memecahkan masalah pekerjaan dan lingkungannya demi meningkatkan mutu serta efisiensi kerja." id="qitTypewriter"></p>
+<p class="about-quote">“Improvement bukan hanya menemukan masalah — tetapi menggerakkan orang untuk menciptakan solusi.”</p>
 </div>
+</div></div>
 <div aria-label="Statistik Batch 8 sebagai data historis terakhir di source" class="tentang-stats">
 <div class="stat"><span class="number">141</span><p>Jumlah Tim</p><small>Batch 8</small></div>
 <div class="stat"><span class="number">150</span><p>Jumlah Fasilitator</p><small>Batch 8</small></div>
@@ -170,26 +180,18 @@
 </div>
 </div>
 </section><section aria-labelledby="tujuan-title" class="content section-shell reveal-on-scroll" id="tujuan">
-<div class="section-heading"><p class="eyebrow">MISSION OBJECTIVES</p><h2 id="tujuan-title">Tujuan</h2></div>
-<div class="tujuan-manfaat-container">
-<div class="tm-card"><span class="tm-num">1</span><i class="fa-solid fa-gem"></i><b>Kualitas Produk</b></div>
-<div class="tm-card"><span class="tm-num">2</span><i class="fa-solid fa-scale-balanced"></i><b>QCDSME</b><small>Quality, Cost, Safety, Delivery, Moral, Environment</small></div>
-<div class="tm-card"><span class="tm-num">3</span><i class="fa-solid fa-gauge-high"></i><b>Overall Equipment Effectiveness</b><small>OEE</small></div>
-<div class="tm-card"><span class="tm-num">4</span><i class="fa-solid fa-industry"></i><b>Internal Process</b><small>Departemen</small></div>
-<div class="tm-card"><span class="tm-num">5</span><i class="fa-solid fa-recycle"></i><b>Scrap Bulk &amp; Packaging</b></div>
-<div class="tm-card"><span class="tm-num">6</span><i class="fa-solid fa-rocket"></i><b>Improvement Proses</b><small>SHE, dll.</small></div>
+<div class="section-heading"><p class="eyebrow">WHY WE MOVE</p><h2 id="tujuan-title">Tujuan</h2></div>
+<div class="statement-grid objective-statements">
+<article><span>01</span><h3>Meningkatkan kualitas kerja</h3><p>Mendorong proses yang lebih stabil, efektif, aman, dan bernilai.</p></article>
+<article><span>02</span><h3>Menumbuhkan budaya improvement</h3><p>Membiasakan setiap tim melihat masalah sebagai peluang untuk bergerak lebih baik.</p></article>
+<article><span>03</span><h3>Menciptakan solusi nyata</h3><p>Mengubah ide menjadi aksi yang memberikan dampak bagi proses dan perusahaan.</p></article>
 </div>
 </section><section aria-labelledby="manfaat-title" class="content section-shell reveal-on-scroll" id="manfaat">
-<div class="section-heading"><p class="eyebrow">PLAYER BENEFITS</p><h2 id="manfaat-title">Manfaat</h2></div>
-<div class="tujuan-manfaat-container benefits-grid">
-<div class="tm-card"><span class="tm-num">1</span><i class="fa-solid fa-face-smile"></i><b>Kepuasan kerja</b></div>
-<div class="tm-card"><span class="tm-num">2</span><i class="fa-solid fa-bolt"></i><b>Peningkatan moral kerja</b></div>
-<div class="tm-card"><span class="tm-num">3</span><i class="fa-solid fa-handshake"></i><b>Hubungan atasan &amp; bawahan</b></div>
-<div class="tm-card"><span class="tm-num">4</span><i class="fa-solid fa-shield-halved"></i><b>Keterampilan &amp; keselamatan kerja</b></div>
-<div class="tm-card"><span class="tm-num">5</span><i class="fa-solid fa-people-group"></i><b>Pengembangan tim</b></div>
-<div class="tm-card"><span class="tm-num">6</span><i class="fa-solid fa-bullseye"></i><b>Penyelesaian sesuai target</b></div>
-<div class="tm-card"><span class="tm-num">7</span><i class="fa-solid fa-chart-line"></i><b>Produktivitas &amp; penurunan biaya</b></div>
-<div class="tm-card"><span class="tm-num">8</span><i class="fa-solid fa-star"></i><b>Peningkatan mutu &amp; nilai tambah</b></div>
+<div class="section-heading"><p class="eyebrow">WHAT WE BUILD</p><h2 id="manfaat-title">Manfaat</h2></div>
+<div class="statement-grid benefit-statements">
+<article><span>01</span><h3>People</h3><p>Kompetensi, kolaborasi, ownership, dan kepuasan kerja yang semakin kuat.</p></article>
+<article><span>02</span><h3>Process</h3><p>Proses kerja yang lebih efektif, produktif, aman, dan konsisten.</p></article>
+<article><span>03</span><h3>Impact</h3><p>Peningkatan mutu, pengurangan waste, serta nilai tambah yang berkelanjutan.</p></article>
 </div>
 </section><section aria-labelledby="framework-title" class="content section-shell reveal-on-scroll" id="framework">
 <div class="section-heading"><p class="eyebrow">IMPROVEMENT TOOLKIT</p><h2 id="framework-title">8 Langkah &amp; 7 Alat</h2></div>
@@ -226,7 +228,7 @@
 </table>
 </div>
 </section><section aria-labelledby="journey-title" class="content section-shell reveal-on-scroll history-journey" id="qit-journey">
-<div class="section-heading"><p class="eyebrow">QIT EVOLUTION</p><h2 id="journey-title">QIT Journey: Batch 1–9</h2><p>Geser untuk menjelajahi evolusi perjalanan QIT dari Batch 1 hingga season terbaru.</p></div>
+<div class="section-heading"><p class="eyebrow">QIT JOURNEY • 2019 — 2026</p><h2 id="journey-title">The Evolution of QIT</h2><p>Sembilan batch. Satu budaya improvement yang terus berkembang.</p></div>
 <div class="timeline">
 <div class="tl-track">
 <article class="tl-item tl-red"><div class="tl-head"><span class="tl-badge">QIT BATCH 1</span></div><div class="tl-card"><ul><li>Masa pengenalan</li><li>7–8 anggota dari depertemen yang sama</li><li>Mayoritas group leader, line leader, dan kartap</li><li>Identifikasi dengan brainstorming</li></ul></div><div class="tl-pin"></div><small class="tl-date">Mar – Okto 2019</small></article>
@@ -241,15 +243,17 @@
 </div>
 <div aria-hidden="true" class="timeline-axis"></div>
 </div>
-</section><div class="hall-intro section-shell reveal-on-scroll"><div class="section-heading center"><p class="eyebrow">HALL OF FAME</p><h2>Celebrate the Impact</h2><p>Jejak prestasi QIT, CIC, dan TKMPN dari perjalanan improvement sebelumnya.</p></div></div><section aria-labelledby="juara-qit-title" class="content section-shell reveal-on-scroll" id="sejarah-juara-qit">
-<div class="section-heading"><p class="eyebrow">HALL OF FAME</p><h2 id="juara-qit-title">Sejarah Juara QIT</h2></div>
-<div class="swiper mySwiper"><div class="swiper-wrapper"><div class="swiper-slide"><img alt="Juara QIT 1" loading="lazy" src="B1.jpg"/></div><div class="swiper-slide"><img alt="Juara QIT 2" loading="lazy" src="B2.jpg"/></div><div class="swiper-slide"><img alt="Juara QIT 3" loading="lazy" src="B3.jpg"/></div><div class="swiper-slide"><img alt="Juara QIT 4" loading="lazy" src="B4.jpg"/></div><div class="swiper-slide"><img alt="Juara QIT 5" loading="lazy" src="B5.jpg"/></div><div class="swiper-slide"><img alt="Juara QIT 6" loading="lazy" src="B6.jpg"/></div><div class="swiper-slide"><img alt="Juara QIT 7" loading="lazy" src="B7.jpg"/></div></div><div class="swiper-button-next"></div><div class="swiper-button-prev"></div><div class="swiper-pagination"></div></div>
-</section><section aria-labelledby="juara-cic-title" class="content section-shell reveal-on-scroll" id="sejarah-juara-cic">
-<div class="section-heading"><p class="eyebrow">CONVENTION ARCHIVE</p><h2 id="juara-cic-title">Continuous Improvement Convention (CIC)</h2></div>
-<div class="swiper mySwiper"><div class="swiper-wrapper"><div class="swiper-slide"><img alt="Kegiatan CIC 1" loading="lazy" src="CIC1.jpg"/></div><div class="swiper-slide"><img alt="Kegiatan CIC 2" loading="lazy" src="CIC2.jpg"/></div><div class="swiper-slide"><img alt="Kegiatan CIC 3" loading="lazy" src="CIC3.jpg"/></div><div class="swiper-slide"><img alt="Kegiatan CIC 4" loading="lazy" src="CIC4.jpg"/></div><div class="swiper-slide"><img alt="Kegiatan CIC 5" loading="lazy" src="CIC5.jpg"/></div><div class="swiper-slide"><img alt="Kegiatan CIC 6" loading="lazy" src="CIC6.jpg"/></div><div class="swiper-slide"><img alt="Kegiatan CIC 7" loading="lazy" src="CIC7.jpg"/></div><div class="swiper-slide"><img alt="Kegiatan CIC 8" loading="lazy" src="CIC8.jpg"/></div><div class="swiper-slide"><img alt="Kegiatan CIC 9" loading="lazy" src="CIC9.jpg"/></div><div class="swiper-slide"><img alt="Kegiatan CIC 10" loading="lazy" src="CIC10.jpg"/></div></div><div class="swiper-button-next"></div><div class="swiper-button-prev"></div><div class="swiper-pagination"></div></div>
-</section><section aria-labelledby="juara-tkmpn-title" class="content section-shell reveal-on-scroll" id="sejarah-juara-tkmpn">
-<div class="section-heading"><p class="eyebrow">NATIONAL STAGE</p><h2 id="juara-tkmpn-title">Temu Karya Mutu dan Produktivitas Nasional (TKMPN)</h2></div>
-<div class="swiper mySwiper"><div class="swiper-wrapper"><div class="swiper-slide"><img alt="Kegiatan TKMPN 1" loading="lazy" src="TKMPN1.jpg"/></div><div class="swiper-slide"><img alt="Kegiatan TKMPN 2" loading="lazy" src="TKMPN2.jpg"/></div><div class="swiper-slide"><img alt="Kegiatan TKMPN 3" loading="lazy" src="TKMPN3.jpg"/></div><div class="swiper-slide"><img alt="Kegiatan TKMPN 4" loading="lazy" src="TKMPN4.jpg"/></div><div class="swiper-slide"><img alt="Kegiatan TKMPN 5" loading="lazy" src="TKMPN5.jpg"/></div><div class="swiper-slide"><img alt="Kegiatan TKMPN 6" loading="lazy" src="TKMPN6.jpg"/></div><div class="swiper-slide"><img alt="Kegiatan TKMPN 7" loading="lazy" src="TKMPN7.jpg"/></div><div class="swiper-slide"><img alt="Kegiatan TKMPN 8" loading="lazy" src="TKMPN8.jpg"/></div><div class="swiper-slide"><img alt="Kegiatan TKMPN 9" loading="lazy" src="TKMPN9.jpg"/></div><div class="swiper-slide"><img alt="Kegiatan TKMPN 10" loading="lazy" src="TKMPN10.jpg"/></div></div><div class="swiper-button-next"></div><div class="swiper-button-prev"></div><div class="swiper-pagination"></div></div>
+</section><section aria-labelledby="hall-title" class="cinema-hall reveal-on-scroll" id="hall-of-fame">
+<div class="hall-stage-light left"></div><div class="hall-stage-light right"></div>
+<div class="hall-heading">
+<p class="eyebrow">05 • HALL OF FAME</p><h2 id="hall-title">Stories Worth Remembering</h2>
+<p>Lebih dari sekadar proyek. Ini adalah cerita tentang ide, keberanian, tim, dan perubahan.</p>
+</div>
+<div class="trophy-mark"><i class="fa-solid fa-trophy"></i><span>CHAMPIONS OF CHANGE</span></div>
+<div class="film-strip"><div class="film-perf top"></div><div class="film-track film-left"><figure class="film-frame"><span class="film-no">QIT 01</span><img alt="Juara QIT 1" loading="lazy" src="B1.jpg"/><figcaption>Juara QIT 1</figcaption></figure><figure class="film-frame"><span class="film-no">QIT 02</span><img alt="Juara QIT 2" loading="lazy" src="B2.jpg"/><figcaption>Juara QIT 2</figcaption></figure><figure class="film-frame"><span class="film-no">QIT 03</span><img alt="Juara QIT 3" loading="lazy" src="B3.jpg"/><figcaption>Juara QIT 3</figcaption></figure><figure class="film-frame"><span class="film-no">QIT 04</span><img alt="Juara QIT 4" loading="lazy" src="B4.jpg"/><figcaption>Juara QIT 4</figcaption></figure><figure class="film-frame"><span class="film-no">QIT 05</span><img alt="Juara QIT 5" loading="lazy" src="B5.jpg"/><figcaption>Juara QIT 5</figcaption></figure><figure class="film-frame"><span class="film-no">QIT 06</span><img alt="Juara QIT 6" loading="lazy" src="B6.jpg"/><figcaption>Juara QIT 6</figcaption></figure><figure class="film-frame"><span class="film-no">QIT 07</span><img alt="Juara QIT 7" loading="lazy" src="B7.jpg"/><figcaption>Juara QIT 7</figcaption></figure><figure class="film-frame"><span class="film-no">QIT 01</span><img alt="Juara QIT 1" loading="lazy" src="B1.jpg"/><figcaption>Juara QIT 1</figcaption></figure><figure class="film-frame"><span class="film-no">QIT 02</span><img alt="Juara QIT 2" loading="lazy" src="B2.jpg"/><figcaption>Juara QIT 2</figcaption></figure><figure class="film-frame"><span class="film-no">QIT 03</span><img alt="Juara QIT 3" loading="lazy" src="B3.jpg"/><figcaption>Juara QIT 3</figcaption></figure><figure class="film-frame"><span class="film-no">QIT 04</span><img alt="Juara QIT 4" loading="lazy" src="B4.jpg"/><figcaption>Juara QIT 4</figcaption></figure><figure class="film-frame"><span class="film-no">QIT 05</span><img alt="Juara QIT 5" loading="lazy" src="B5.jpg"/><figcaption>Juara QIT 5</figcaption></figure><figure class="film-frame"><span class="film-no">QIT 06</span><img alt="Juara QIT 6" loading="lazy" src="B6.jpg"/><figcaption>Juara QIT 6</figcaption></figure><figure class="film-frame"><span class="film-no">QIT 07</span><img alt="Juara QIT 7" loading="lazy" src="B7.jpg"/><figcaption>Juara QIT 7</figcaption></figure></div><div class="film-perf bottom"></div></div>
+<div class="film-strip secondary"><div class="film-perf top"></div><div class="film-track film-right"><figure class="film-frame"><span class="film-no">CIC 01</span><img alt="Kegiatan CIC 1" loading="lazy" src="CIC1.jpg"/><figcaption>Kegiatan CIC 1</figcaption></figure><figure class="film-frame"><span class="film-no">CIC 02</span><img alt="Kegiatan CIC 2" loading="lazy" src="CIC2.jpg"/><figcaption>Kegiatan CIC 2</figcaption></figure><figure class="film-frame"><span class="film-no">CIC 03</span><img alt="Kegiatan CIC 3" loading="lazy" src="CIC3.jpg"/><figcaption>Kegiatan CIC 3</figcaption></figure><figure class="film-frame"><span class="film-no">CIC 04</span><img alt="Kegiatan CIC 4" loading="lazy" src="CIC4.jpg"/><figcaption>Kegiatan CIC 4</figcaption></figure><figure class="film-frame"><span class="film-no">CIC 05</span><img alt="Kegiatan CIC 5" loading="lazy" src="CIC5.jpg"/><figcaption>Kegiatan CIC 5</figcaption></figure><figure class="film-frame"><span class="film-no">CIC 06</span><img alt="Kegiatan CIC 6" loading="lazy" src="CIC6.jpg"/><figcaption>Kegiatan CIC 6</figcaption></figure><figure class="film-frame"><span class="film-no">CIC 07</span><img alt="Kegiatan CIC 7" loading="lazy" src="CIC7.jpg"/><figcaption>Kegiatan CIC 7</figcaption></figure><figure class="film-frame"><span class="film-no">CIC 08</span><img alt="Kegiatan CIC 8" loading="lazy" src="CIC8.jpg"/><figcaption>Kegiatan CIC 8</figcaption></figure><figure class="film-frame"><span class="film-no">CIC 09</span><img alt="Kegiatan CIC 9" loading="lazy" src="CIC9.jpg"/><figcaption>Kegiatan CIC 9</figcaption></figure><figure class="film-frame"><span class="film-no">CIC 10</span><img alt="Kegiatan CIC 10" loading="lazy" src="CIC10.jpg"/><figcaption>Kegiatan CIC 10</figcaption></figure><figure class="film-frame"><span class="film-no">CIC 01</span><img alt="Kegiatan CIC 1" loading="lazy" src="CIC1.jpg"/><figcaption>Kegiatan CIC 1</figcaption></figure><figure class="film-frame"><span class="film-no">CIC 02</span><img alt="Kegiatan CIC 2" loading="lazy" src="CIC2.jpg"/><figcaption>Kegiatan CIC 2</figcaption></figure><figure class="film-frame"><span class="film-no">CIC 03</span><img alt="Kegiatan CIC 3" loading="lazy" src="CIC3.jpg"/><figcaption>Kegiatan CIC 3</figcaption></figure><figure class="film-frame"><span class="film-no">CIC 04</span><img alt="Kegiatan CIC 4" loading="lazy" src="CIC4.jpg"/><figcaption>Kegiatan CIC 4</figcaption></figure><figure class="film-frame"><span class="film-no">CIC 05</span><img alt="Kegiatan CIC 5" loading="lazy" src="CIC5.jpg"/><figcaption>Kegiatan CIC 5</figcaption></figure><figure class="film-frame"><span class="film-no">CIC 06</span><img alt="Kegiatan CIC 6" loading="lazy" src="CIC6.jpg"/><figcaption>Kegiatan CIC 6</figcaption></figure><figure class="film-frame"><span class="film-no">CIC 07</span><img alt="Kegiatan CIC 7" loading="lazy" src="CIC7.jpg"/><figcaption>Kegiatan CIC 7</figcaption></figure><figure class="film-frame"><span class="film-no">CIC 08</span><img alt="Kegiatan CIC 8" loading="lazy" src="CIC8.jpg"/><figcaption>Kegiatan CIC 8</figcaption></figure><figure class="film-frame"><span class="film-no">CIC 09</span><img alt="Kegiatan CIC 9" loading="lazy" src="CIC9.jpg"/><figcaption>Kegiatan CIC 9</figcaption></figure><figure class="film-frame"><span class="film-no">CIC 10</span><img alt="Kegiatan CIC 10" loading="lazy" src="CIC10.jpg"/><figcaption>Kegiatan CIC 10</figcaption></figure></div><div class="film-perf bottom"></div></div>
+<div class="film-strip tertiary"><div class="film-perf top"></div><div class="film-track film-left slow"><figure class="film-frame"><span class="film-no">TKMPN 01</span><img alt="Kegiatan TKMPN 1" loading="lazy" src="TKMPN1.jpg"/><figcaption>Kegiatan TKMPN 1</figcaption></figure><figure class="film-frame"><span class="film-no">TKMPN 02</span><img alt="Kegiatan TKMPN 2" loading="lazy" src="TKMPN2.jpg"/><figcaption>Kegiatan TKMPN 2</figcaption></figure><figure class="film-frame"><span class="film-no">TKMPN 03</span><img alt="Kegiatan TKMPN 3" loading="lazy" src="TKMPN3.jpg"/><figcaption>Kegiatan TKMPN 3</figcaption></figure><figure class="film-frame"><span class="film-no">TKMPN 04</span><img alt="Kegiatan TKMPN 4" loading="lazy" src="TKMPN4.jpg"/><figcaption>Kegiatan TKMPN 4</figcaption></figure><figure class="film-frame"><span class="film-no">TKMPN 05</span><img alt="Kegiatan TKMPN 5" loading="lazy" src="TKMPN5.jpg"/><figcaption>Kegiatan TKMPN 5</figcaption></figure><figure class="film-frame"><span class="film-no">TKMPN 06</span><img alt="Kegiatan TKMPN 6" loading="lazy" src="TKMPN6.jpg"/><figcaption>Kegiatan TKMPN 6</figcaption></figure><figure class="film-frame"><span class="film-no">TKMPN 07</span><img alt="Kegiatan TKMPN 7" loading="lazy" src="TKMPN7.jpg"/><figcaption>Kegiatan TKMPN 7</figcaption></figure><figure class="film-frame"><span class="film-no">TKMPN 08</span><img alt="Kegiatan TKMPN 8" loading="lazy" src="TKMPN8.jpg"/><figcaption>Kegiatan TKMPN 8</figcaption></figure><figure class="film-frame"><span class="film-no">TKMPN 09</span><img alt="Kegiatan TKMPN 9" loading="lazy" src="TKMPN9.jpg"/><figcaption>Kegiatan TKMPN 9</figcaption></figure><figure class="film-frame"><span class="film-no">TKMPN 10</span><img alt="Kegiatan TKMPN 10" loading="lazy" src="TKMPN10.jpg"/><figcaption>Kegiatan TKMPN 10</figcaption></figure><figure class="film-frame"><span class="film-no">TKMPN 01</span><img alt="Kegiatan TKMPN 1" loading="lazy" src="TKMPN1.jpg"/><figcaption>Kegiatan TKMPN 1</figcaption></figure><figure class="film-frame"><span class="film-no">TKMPN 02</span><img alt="Kegiatan TKMPN 2" loading="lazy" src="TKMPN2.jpg"/><figcaption>Kegiatan TKMPN 2</figcaption></figure><figure class="film-frame"><span class="film-no">TKMPN 03</span><img alt="Kegiatan TKMPN 3" loading="lazy" src="TKMPN3.jpg"/><figcaption>Kegiatan TKMPN 3</figcaption></figure><figure class="film-frame"><span class="film-no">TKMPN 04</span><img alt="Kegiatan TKMPN 4" loading="lazy" src="TKMPN4.jpg"/><figcaption>Kegiatan TKMPN 4</figcaption></figure><figure class="film-frame"><span class="film-no">TKMPN 05</span><img alt="Kegiatan TKMPN 5" loading="lazy" src="TKMPN5.jpg"/><figcaption>Kegiatan TKMPN 5</figcaption></figure><figure class="film-frame"><span class="film-no">TKMPN 06</span><img alt="Kegiatan TKMPN 6" loading="lazy" src="TKMPN6.jpg"/><figcaption>Kegiatan TKMPN 6</figcaption></figure><figure class="film-frame"><span class="film-no">TKMPN 07</span><img alt="Kegiatan TKMPN 7" loading="lazy" src="TKMPN7.jpg"/><figcaption>Kegiatan TKMPN 7</figcaption></figure><figure class="film-frame"><span class="film-no">TKMPN 08</span><img alt="Kegiatan TKMPN 8" loading="lazy" src="TKMPN8.jpg"/><figcaption>Kegiatan TKMPN 8</figcaption></figure><figure class="film-frame"><span class="film-no">TKMPN 09</span><img alt="Kegiatan TKMPN 9" loading="lazy" src="TKMPN9.jpg"/><figcaption>Kegiatan TKMPN 9</figcaption></figure><figure class="film-frame"><span class="film-no">TKMPN 10</span><img alt="Kegiatan TKMPN 10" loading="lazy" src="TKMPN10.jpg"/><figcaption>Kegiatan TKMPN 10</figcaption></figure></div><div class="film-perf bottom"></div></div>
+<p class="hall-caption">GREAT IDEAS • GREAT PEOPLE • REAL IMPACT</p>
 </section><section aria-labelledby="galeri-title" class="content section-shell reveal-on-scroll" id="galeri">
 <div class="section-heading"><p class="eyebrow">VISUAL ARCHIVE</p><h2 id="galeri-title">Galeri Perjalanan QIT</h2></div>
 <div class="swiper mySwiper gallery-swiper">
@@ -261,17 +265,19 @@
 <div class="section-heading"><p class="eyebrow">MEDIA CHANNEL</p><h2 id="video-title">Video</h2></div>
 <div class="video-gallery"><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/NwyZ22DR9o0" title="Video QIT di YouTube"></iframe></div>
 </section><section aria-labelledby="kontak-title" class="content section-shell reveal-on-scroll" id="kontak">
-<div class="section-heading"><p class="eyebrow">SUPPORT CHANNEL</p><h2 id="kontak-title">Kontak</h2></div>
-<div class="contact-grid">
-<a href="https://www.instagram.com/hi.learning" rel="noopener" target="_blank"><i class="fa-brands fa-instagram"></i><span><b>hi.learning</b><small>Instagram</small></span></a>
-<a href="https://wa.me/6287814045008" rel="noopener" target="_blank"><i class="fa-brands fa-whatsapp"></i><span><b>Mila</b><small>Jatake 1 &amp; 3</small></span></a>
-<a href="https://wa.me/6287817277513" rel="noopener" target="_blank"><i class="fa-brands fa-whatsapp"></i><span><b>Lia</b><small>Jatake 2 &amp; 5</small></span></a>
-<a href="https://wa.me/6285946870850" rel="noopener" target="_blank"><i class="fa-brands fa-whatsapp"></i><span><b>Tami</b><small>Jatake 4</small></span></a>
-<a href="https://wa.me/6287814045175" rel="noopener" target="_blank"><i class="fa-brands fa-whatsapp"></i><span><b>Deden</b><small>Jatake 6 &amp; 3</small></span></a>
-<a href="https://wa.me/6287815825017" rel="noopener" target="_blank"><i class="fa-brands fa-whatsapp"></i><span><b>Deni</b><small>Supplier &amp; HO</small></span></a>
-<a href="https://goo.gl/maps/dwnt3Lf19oF3o1fy7" rel="noopener" target="_blank"><i class="fa-solid fa-location-dot"></i><span><b>Alamat Perusahaan</b><small>Open Maps</small></span></a>
-</div>
-</section></main>
+<div class="section-heading"><p class="eyebrow">QIT SUPPORT DESK</p><h2 id="kontak-title">Kontak</h2><p class="contact-lead">Hubungi PIC sesuai area untuk informasi, support perjalanan tim, dan kebutuhan QIT Batch 9.</p></div>
+<div class="contact-grid"><a class="contact-person" href="https://wa.me/6287814045008" rel="noopener" target="_blank">
+<span class="contact-avatar">M</span><span class="contact-info"><small>PIC Area</small><b>Mila</b><em>Jatake 1 &amp; 3</em></span>
+<span class="contact-action"><i class="fa-brands fa-whatsapp"></i></span></a><a class="contact-person" href="https://wa.me/6287817277513" rel="noopener" target="_blank">
+<span class="contact-avatar">L</span><span class="contact-info"><small>PIC Area</small><b>Lia</b><em>Jatake 2 &amp; 5</em></span>
+<span class="contact-action"><i class="fa-brands fa-whatsapp"></i></span></a><a class="contact-person" href="https://wa.me/6285946870850" rel="noopener" target="_blank">
+<span class="contact-avatar">T</span><span class="contact-info"><small>PIC Area</small><b>Tami</b><em>Jatake 4</em></span>
+<span class="contact-action"><i class="fa-brands fa-whatsapp"></i></span></a><a class="contact-person" href="https://wa.me/6287814045175" rel="noopener" target="_blank">
+<span class="contact-avatar">D</span><span class="contact-info"><small>PIC Area</small><b>Deden</b><em>Jatake 6 &amp; 3</em></span>
+<span class="contact-action"><i class="fa-brands fa-whatsapp"></i></span></a><a class="contact-person" href="https://wa.me/6287815825017" rel="noopener" target="_blank">
+<span class="contact-avatar">D</span><span class="contact-info"><small>PIC Area</small><b>Deni</b><em>Supplier &amp; HO</em></span>
+<span class="contact-action"><i class="fa-brands fa-whatsapp"></i></span></a><a class="contact-person contact-social" href="https://www.instagram.com/hi.learning" rel="noopener" target="_blank"><span class="contact-avatar"><i class="fa-brands fa-instagram"></i></span><span class="contact-info"><small>LEARNING CHANNEL</small><b>hi.learning</b><em>Instagram</em></span><span class="contact-action"><i class="fa-solid fa-arrow-up-right-from-square"></i></span></a></div>
+<div class="contact-footer-card"><div><i class="fa-solid fa-headset"></i><span><b>Need support?</b><small>Pilih PIC area kamu dan hubungi langsung melalui WhatsApp.</small></span></div><a href="https://goo.gl/maps/dwnt3Lf19oF3o1fy7" rel="noopener" target="_blank"><i class="fa-solid fa-location-dot"></i> Lokasi Perusahaan</a></div></section></main>
 <footer role="contentinfo"><div class="footer-line"></div><p><b>QIT BATCH 9</b> • Quality Improvement Team • 2026</p><small>ENTER THE NEXT LEVEL</small></footer>
 <div aria-hidden="true" aria-label="Pratinjau gambar" class="fullscreen-overlay" id="fullscreenOverlay" role="dialog">
 <button aria-label="Tutup" class="fs-close" type="button"><i class="fa-solid fa-xmark"></i></button>
@@ -280,7 +286,7 @@
 <button aria-label="Gambar berikutnya" class="fs-nav fs-next" type="button"><i class="fa-solid fa-chevron-right"></i></button>
 </div>
 <button aria-label="Kembali ke atas" class="back-to-top" type="button"><i class="fa-solid fa-chevron-up"></i></button>
-<nav aria-label="Navigasi cepat mobile" class="mobile-dock"><button data-scroll-to="top" type="button"><i class="fa-solid fa-house"></i><span>Home</span></button><button data-scroll-to="current-mission" type="button"><i class="fa-solid fa-bullseye"></i><span>Mission</span></button><button data-scroll-to="batch9-journey" type="button"><i class="fa-solid fa-route"></i><span>Journey</span></button><button data-scroll-to="tentang" type="button"><i class="fa-solid fa-ellipsis"></i><span>More</span></button></nav>
+<nav aria-label="Navigasi cepat mobile" class="mobile-dock"><button data-scroll-to="top" type="button"><i class="fa-solid fa-house"></i><span>Home</span></button><button data-scroll-to="current-mission" type="button"><i class="fa-solid fa-bullseye"></i><span>Mission</span></button><button data-scroll-to="batch9-journey" type="button"><i class="fa-solid fa-route"></i><span>Journey</span></button><button data-scroll-to="tentang" type="button"><i class="fa-solid fa-ellipsis"></i><span>More</span></button><button aria-label="Musik" id="mobileBgmToggle" type="button"><i class="fa-solid fa-music"></i><span>BGM</span></button></nav>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="script.js"></script>
 </body>
