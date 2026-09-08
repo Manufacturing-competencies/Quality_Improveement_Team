@@ -126,7 +126,7 @@
     const caption = qs("figcaption", overlay);
     if (!overlay || !overlayImg) return;
 
-    const images = qsa(".quality-tools img, .mySwiper img");
+    const images = qsa(".quality-tools img, #galeri .film-frame img, .mySwiper img");
     let index = -1;
 
     const render = () => {
@@ -544,14 +544,16 @@
   const qsa=(s,r=document)=>Array.from(r.querySelectorAll(s));
   const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  // Manual user-supplied music. No file type or filename is hard-coded.
-  // Once a <source> or audio.src is added, first click/tap anywhere or Enter/Space starts it.
+  // User-supplied MUSIC.MP3. Try autoplay on open, then fall back to first interaction if blocked by browser.
   const initManualMusic=()=>{
     const audio=qs('#bgMusic');
     const buttons=[qs('#bgmToggle'),qs('#mobileBgmToggle')].filter(Boolean);
     if(!audio) return;
-    audio.volume=.5;
+    audio.volume=.48;
+    audio.autoplay=true;
+    audio.playsInline=true;
     let userMuted=false;
+    let unlocked=false;
 
     const hasSource=()=>Boolean(audio.currentSrc || audio.getAttribute('src') || qs('source[src]',audio)?.getAttribute('src'));
     const sync=(on)=>buttons.forEach(btn=>{
@@ -562,22 +564,67 @@
     });
     const start=async()=>{
       if(userMuted || !hasSource()) return false;
-      try{ await audio.play(); sync(true); return true; }
-      catch{ sync(false); return false; }
+      try{
+        await audio.play();
+        unlocked=true;
+        sync(true);
+        return true;
+      }catch(err){
+        sync(false);
+        return false;
+      }
     };
-    const firstPointer=()=>{ if(audio.paused&&!userMuted) start(); };
-    const firstKey=e=>{ if((e.key==='Enter'||e.key===' '||e.code==='Space')&&audio.paused&&!userMuted) start(); };
-    document.addEventListener('pointerdown',firstPointer,true);
-    document.addEventListener('keydown',firstKey,true);
+    const unlockOnFirstGesture=()=>{ if(audio.paused && !userMuted) start(); };
+    const unlockOnKey=e=>{ if((e.key==='Enter'||e.key===' '||e.code==='Space') && audio.paused && !userMuted) start(); };
+
+    document.addEventListener('pointerdown',unlockOnFirstGesture,true);
+    document.addEventListener('keydown',unlockOnKey,true);
+
     buttons.forEach(btn=>btn.addEventListener('click',async e=>{
       e.stopPropagation();
       if(!hasSource()){ sync(false); return; }
       if(audio.paused){ userMuted=false; await start(); }
       else { userMuted=true; audio.pause(); sync(false); }
     }));
+
     audio.addEventListener('play',()=>sync(true));
     audio.addEventListener('pause',()=>sync(false));
+    audio.addEventListener('ended',()=>sync(false));
     sync(false);
+
+    window.addEventListener('load',()=>{
+      if(!unlocked) start();
+    },{once:true});
+  };
+
+  const initImageFallbacks=()=>{
+    qsa('.quality-tools img').forEach(img=>{
+      const card=img.closest('li');
+      const media=img.closest('.qt-media');
+      const label=(card?.dataset.title || img.alt || 'Image').trim();
+      const applyFallback=()=>{
+        if(card) card.classList.add('is-missing');
+        if(media && !qs('.qt-placeholder',media)){
+          const ph=document.createElement('div');
+          ph.className='qt-placeholder';
+          ph.innerHTML=`<i class="fa-regular fa-image"></i><span>${label}</span>`;
+          media.appendChild(ph);
+        }
+      };
+      if(img.complete && (!img.naturalWidth || !img.naturalHeight)) applyFallback();
+      img.addEventListener('error',applyFallback,{once:true});
+    });
+
+    qsa('.brand-logos img').forEach(img=>{
+      img.addEventListener('error',()=>{
+        const holder=img.parentElement;
+        if(holder){
+          holder.classList.add('logo-fallback');
+          holder.setAttribute('data-label',img.alt || 'Logo');
+        }
+        img.style.display='none';
+      },{once:true});
+    });
   };
 
   // Count statistics rapidly from 1 when the About section enters view.
@@ -624,5 +671,6 @@
     initManualMusic();
     initCountFromOne();
     initGalleryDepth();
+    initImageFallbacks();
   });
 })();
