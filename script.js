@@ -227,3 +227,177 @@
     initBackToTop();
   });
 })();
+
+// ===== Batch 9 V2: mobile interaction enhancements =====
+(() => {
+  "use strict";
+  const qs = (s, r=document) => r.querySelector(s);
+  const qsa = (s, r=document) => Array.from(r.querySelectorAll(s));
+
+  const classifyCard = (card) => {
+    const code = (qs('.card-code', card)?.textContent || '').toLowerCase();
+    if (code.includes('mission')) return 'mission';
+    if (code.includes('challenge') || code.includes('scoreboard')) return 'challenge';
+    if (code.includes('learning')) return 'learning';
+    if (code.includes('reference') || code.includes('best practice') || code.includes('toolkit')) return 'reference';
+    return 'mission';
+  };
+
+  const initMissionFinder = () => {
+    const input = qs('#missionSearch');
+    const clear = qs('#clearMissionSearch');
+    const result = qs('#missionResult');
+    const chips = qsa('.filter-chip');
+    const cards = qsa('.mission-card');
+    if (!input || !cards.length) return;
+    cards.forEach(card => card.dataset.category = classifyCard(card));
+    let activeFilter = 'all';
+
+    const apply = () => {
+      const query = input.value.trim().toLowerCase();
+      let visible = 0;
+      cards.forEach(card => {
+        const matchesText = !query || card.textContent.toLowerCase().includes(query);
+        const matchesFilter = activeFilter === 'all' || card.dataset.category === activeFilter;
+        const show = matchesText && matchesFilter;
+        card.classList.toggle('is-hidden', !show);
+        if (show) visible++;
+      });
+      if (result) result.textContent = `${visible} menu tersedia`;
+    };
+
+    input.addEventListener('input', apply);
+    clear?.addEventListener('click', () => { input.value=''; input.focus(); apply(); });
+    chips.forEach(chip => chip.addEventListener('click', () => {
+      chips.forEach(x => x.classList.remove('active'));
+      chip.classList.add('active');
+      activeFilter = chip.dataset.filter || 'all';
+      apply();
+    }));
+    apply();
+  };
+
+  const initRipples = () => {
+    qsa('.mission-card,.filter-chip,.mobile-dock button').forEach(el => {
+      el.addEventListener('pointerdown', (e) => {
+        const rect = el.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height) * .55;
+        const ripple = document.createElement('span');
+        ripple.className = 'ripple';
+        ripple.style.width = ripple.style.height = `${size}px`;
+        ripple.style.left = `${e.clientX - rect.left - size/2}px`;
+        ripple.style.top = `${e.clientY - rect.top - size/2}px`;
+        el.appendChild(ripple);
+        ripple.addEventListener('animationend', () => ripple.remove(), {once:true});
+      });
+    });
+  };
+
+  const initScrollProgress = () => {
+    const bar = qs('#scrollProgressBar');
+    if (!bar) return;
+    const update = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = max > 0 ? Math.min(100, Math.max(0, window.scrollY / max * 100)) : 0;
+      bar.style.width = `${pct}%`;
+    };
+    window.addEventListener('scroll', update, {passive:true});
+    window.addEventListener('resize', update, {passive:true});
+    update();
+  };
+
+  const initMobileDockState = () => {
+    const buttons = qsa('.mobile-dock [data-scroll-to]');
+    if (!buttons.length || !('IntersectionObserver' in window)) return;
+    const map = new Map(buttons.map(btn => [btn.dataset.scrollTo, btn]));
+    const targets = ['current-mission','batch9-journey','tentang'].map(id => document.getElementById(id)).filter(Boolean);
+    const set = (id) => buttons.forEach(btn => btn.classList.toggle('active', btn.dataset.scrollTo === id));
+    const obs = new IntersectionObserver(entries => {
+      const visible = entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
+      if (visible) set(visible.target.id);
+      else if (window.scrollY < 400) set('top');
+    }, {rootMargin:'-25% 0px -55% 0px', threshold:[.08,.2,.35]});
+    targets.forEach(t => obs.observe(t));
+    window.addEventListener('scroll', () => { if (window.scrollY < 300) set('top'); }, {passive:true});
+  };
+
+  const animateStats = () => {
+    const stats = qsa('.stat .number');
+    if (!stats.length || !('IntersectionObserver' in window) || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const obs = new IntersectionObserver((entries, observer) => entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const target = Number((el.textContent || '').replace(/[^0-9]/g,''));
+      if (!Number.isFinite(target) || target <= 0) { observer.unobserve(el); return; }
+      const start = performance.now(), duration = 850;
+      const tick = now => {
+        const p = Math.min(1,(now-start)/duration);
+        const eased = 1-Math.pow(1-p,3);
+        el.textContent = Math.round(target*eased).toLocaleString('id-ID');
+        if (p < 1) requestAnimationFrame(tick); else el.textContent = target.toLocaleString('id-ID');
+      };
+      requestAnimationFrame(tick); observer.unobserve(el);
+    }), {threshold:.45});
+    stats.forEach(s => obs.observe(s));
+  };
+
+  document.addEventListener('DOMContentLoaded', () => {
+    initMissionFinder();
+    initRipples();
+    initScrollProgress();
+    initMobileDockState();
+    animateStats();
+  });
+})();
+
+// ===== Batch 9 V3: hierarchy + mobile app behavior =====
+(() => {
+  "use strict";
+  const qs=(s,r=document)=>r.querySelector(s);
+  const qsa=(s,r=document)=>Array.from(r.querySelectorAll(s));
+
+  const openUrl=(url)=>{ if(url) window.open(url,"_blank","noopener,noreferrer"); };
+
+  const initV3Actions=()=>{
+    qsa('.quick-card[data-url], .current-open[data-url]').forEach(el=>{
+      el.addEventListener('click',()=>openUrl(el.dataset.url));
+    });
+
+    const finderBtn=qs('#toggleMissionFinder');
+    const tools=qs('.mission-tools');
+    if(finderBtn && tools){
+      finderBtn.addEventListener('click',()=>{
+        const isOpen=tools.classList.toggle('open');
+        finderBtn.classList.toggle('open',isOpen);
+        finderBtn.setAttribute('aria-expanded',String(isOpen));
+        if(isOpen) setTimeout(()=>qs('#missionSearch')?.focus(),80);
+      });
+      finderBtn.setAttribute('aria-expanded','false');
+    }
+
+    const showBtn=qs('#showAllMissions');
+    const mission=qs('#mission-control');
+    if(showBtn && mission){
+      showBtn.addEventListener('click',()=>{
+        const open=mission.classList.toggle('show-all');
+        showBtn.classList.toggle('open',open);
+        const label=qs('span',showBtn); if(label) label.textContent=open?'Show Less':'Show All Missions';
+      });
+    }
+  };
+
+  const initV3Dock=()=>{
+    const buttons=qsa('.mobile-dock [data-scroll-to]');
+    const ids=['current-mission','batch9-journey','tentang'];
+    if(!buttons.length || !('IntersectionObserver' in window)) return;
+    const set=(id)=>buttons.forEach(b=>b.classList.toggle('active',b.dataset.scrollTo===id));
+    const targets=ids.map(id=>document.getElementById(id)).filter(Boolean);
+    const obs=new IntersectionObserver(entries=>{
+      const v=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];
+      if(v) set(v.target.id); else if(window.scrollY<320) set('top');
+    },{rootMargin:'-28% 0px -56% 0px',threshold:[.08,.2,.4]});
+    targets.forEach(t=>obs.observe(t));
+  };
+
+  document.addEventListener('DOMContentLoaded',()=>{initV3Actions();initV3Dock();});
+})();
