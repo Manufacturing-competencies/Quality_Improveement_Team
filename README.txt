@@ -1,18 +1,18 @@
-QIT BATCH 9 - FINAL HOSTING FILES
+QIT BATCH 9 — CLEAN FINAL
 
-Upload/replace these files in the SAME GitHub repository folder:
+Replace these in the root GitHub repo:
 - index.html
 - style.css
 - script.js
 - POPUP.png
 
-Required existing assets in repository:
+Keep these existing assets in the same root folder:
 - PIC.png
 - PARAGAN.png
 - MUSIC.mp3
+- all gallery / quality images
 
-Important:
-1. File names are case-sensitive on GitHub Pages.
-2. Popup is intentionally shown again on every page refresh.
-3. Replace POPUP.png any time you want to change the campaign poster.
-4. Audible autoplay may still be blocked by browser policy; the script retries on first click/tap/key.
+GitHub Pages: Settings > Pages > Deploy from branch > main > /root.
+After upload wait 1–3 minutes and hard refresh (Ctrl+F5).
+
+Popup appears on every refresh. Music is attempted on page load; browser autoplay policy can require first click/tap.
