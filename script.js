@@ -674,3 +674,142 @@
     initImageFallbacks();
   });
 })();
+
+// ===== FINAL POSTER POPUP + SPARKLE EXPERIENCE =====
+(() => {
+  "use strict";
+  const qs=(s,r=document)=>r.querySelector(s);
+  const qsa=(s,r=document)=>Array.from(r.querySelectorAll(s));
+  const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  const initSparkles=()=>{
+    const wrap=qs('#sparkleField');
+    if(!wrap || reduce || wrap.children.length) return;
+    const total=Math.min(36,Math.max(18,Math.floor(innerWidth/52)));
+    const frag=document.createDocumentFragment();
+    for(let i=0;i<total;i++){
+      const s=document.createElement('span');
+      s.className='sparkle';
+      s.style.left=`${Math.random()*100}%`;
+      s.style.top=`${Math.random()*100}%`;
+      s.style.animationDuration=`${5+Math.random()*9}s`;
+      s.style.animationDelay=`${-Math.random()*11}s`;
+      const size=2+Math.random()*4;
+      s.style.width=s.style.height=`${size}px`;
+      frag.appendChild(s);
+    }
+    wrap.appendChild(frag);
+  };
+
+  const initPosterPopup=()=>{
+    const pop=qs('#welcomePop');
+    const close=qs('#welcomeClose');
+    const sound=qs('#welcomeSound');
+    const poster=qs('#campaignPoster');
+    const fallback=qs('#posterFallback');
+    const audio=qs('#bgMusic');
+    if(!pop) return;
+
+    const syncSound=()=>{
+      if(!sound || !audio) return;
+      const on=!audio.paused;
+      sound.innerHTML=`<i class="fa-solid ${on?'fa-volume-high':'fa-volume-xmark'}"></i> ${on?'BGM ON':'BGM OFF'}`;
+      sound.classList.toggle('is-on',on);
+    };
+
+    const tryPlay=async()=>{
+      if(!audio) return false;
+      try{
+        audio.volume=.42;
+        await audio.play();
+        syncSound();
+        return true;
+      }catch(e){
+        syncSound();
+        return false;
+      }
+    };
+
+    const hide=()=>{
+      pop.classList.remove('show');
+      pop.setAttribute('aria-hidden','true');
+      document.body.classList.remove('welcome-open');
+      sessionStorage.setItem('qitPosterSeen','1');
+    };
+
+    const show=()=>{
+      pop.classList.add('show');
+      pop.setAttribute('aria-hidden','false');
+      document.body.classList.add('welcome-open');
+      setTimeout(()=>close?.focus(),220);
+    };
+
+    poster?.addEventListener('error',()=>{
+      poster.hidden=true;
+      if(fallback) fallback.hidden=false;
+    },{once:true});
+
+    close?.addEventListener('click',hide);
+    sound?.addEventListener('click',async(e)=>{
+      e.stopPropagation();
+      if(!audio) return;
+      if(audio.paused) await tryPlay();
+      else audio.pause();
+      syncSound();
+    });
+    audio?.addEventListener('play',syncSound);
+    audio?.addEventListener('pause',syncSound);
+    pop.addEventListener('click',e=>{if(e.target===pop) hide();});
+    document.addEventListener('keydown',e=>{
+      if(e.key==='Escape' && pop.classList.contains('show')) hide();
+    });
+
+    // Try autoplay on page load. Browser may block it; first pointer/keyboard interaction will retry.
+    setTimeout(tryPlay,150);
+    const unlock=()=>{ if(audio?.paused) tryPlay(); };
+    document.addEventListener('pointerdown',unlock,{once:true,capture:true});
+    document.addEventListener('keydown',unlock,{once:true,capture:true});
+
+    // Show once per tab/session. Remove the condition below if you want it every refresh.
+    if(!sessionStorage.getItem('qitPosterSeen')) setTimeout(show,380);
+    syncSound();
+  };
+
+  const initFastCurrentStats=()=>{
+    const nums=qsa('#tentang .stat .number[data-target]');
+    if(!nums.length) return;
+    const run=(el)=>{
+      if(el.dataset.finalCounted==='1') return;
+      el.dataset.finalCounted='1';
+      const target=Number(el.dataset.target || el.textContent.replace(/[^0-9]/g,''));
+      if(!Number.isFinite(target)||target<1) return;
+      if(reduce){el.textContent=target.toLocaleString('id-ID');return;}
+      const start=performance.now();
+      const duration=480;
+      const tick=(now)=>{
+        const p=Math.min(1,(now-start)/duration);
+        const eased=1-Math.pow(1-p,4);
+        el.textContent=Math.max(1,Math.round(1+(target-1)*eased)).toLocaleString('id-ID');
+        if(p<1) requestAnimationFrame(tick);
+        else el.textContent=target.toLocaleString('id-ID');
+      };
+      requestAnimationFrame(tick);
+    };
+    nums.forEach(el=>el.textContent='1');
+    if(!('IntersectionObserver' in window)){nums.forEach(run);return;}
+    const about=qs('#tentang');
+    const obs=new IntersectionObserver(entries=>{
+      if(entries.some(e=>e.isIntersecting)){
+        nums.forEach(run);
+        obs.disconnect();
+      }
+    },{threshold:.35});
+    if(about) obs.observe(about);
+  };
+
+  document.addEventListener('DOMContentLoaded',()=>{
+    initSparkles();
+    initPosterPopup();
+    initFastCurrentStats();
+  });
+})();
