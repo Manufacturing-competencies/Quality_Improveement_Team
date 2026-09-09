@@ -813,3 +813,112 @@
     initFastCurrentStats();
   });
 })();
+
+
+// ===== FINAL POPUP + LOGO/BGM PATCH =====
+(() => {
+  "use strict";
+
+  const qs = (s, r=document) => r.querySelector(s);
+
+  const popup = qs("#welcomePop");
+  const closeBtn = qs("#welcomeClose");
+  const poster = qs("#campaignPoster");
+  const fallback = qs("#posterFallback");
+  const soundBtn = qs("#welcomeSound");
+  const audio = qs("#bgMusic");
+  const desktopBgm = qs("#bgmToggle");
+  const mobileBgm = qs("#mobileBgmToggle");
+
+  // Popup must appear again on every page refresh.
+  const showPopup = () => {
+    if (!popup) return;
+    popup.classList.add("is-open");
+    popup.setAttribute("aria-hidden", "false");
+    document.body.classList.add("popup-open");
+  };
+
+  const closePopup = () => {
+    if (!popup) return;
+    popup.classList.remove("is-open");
+    popup.setAttribute("aria-hidden", "true");
+    document.body.classList.remove("popup-open");
+  };
+
+  if (poster) {
+    poster.addEventListener("error", () => {
+      poster.style.display = "none";
+      if (fallback) fallback.hidden = false;
+    }, { once:true });
+  }
+
+  const syncSound = () => {
+    const on = !!audio && !audio.paused;
+    if (soundBtn) {
+      soundBtn.innerHTML = `<i class="fa-solid ${on ? "fa-volume-high" : "fa-volume-xmark"}"></i> BGM ${on ? "ON" : "OFF"}`;
+    }
+    [desktopBgm, mobileBgm].filter(Boolean).forEach(btn => {
+      btn.classList.toggle("playing", on);
+      btn.setAttribute("aria-pressed", String(on));
+      const small = btn.querySelector("small");
+      if (small) small.textContent = on ? "ON" : "OFF";
+      const icon = btn.querySelector("i.fa-solid");
+      if (icon) icon.className = `fa-solid ${on ? "fa-volume-high" : "fa-volume-xmark"}`;
+    });
+  };
+
+  const tryPlay = async () => {
+    if (!audio) return false;
+    audio.volume = 0.42;
+    try {
+      await audio.play();
+      syncSound();
+      return true;
+    } catch (_) {
+      syncSound();
+      return false;
+    }
+  };
+
+  const toggleSound = async (e) => {
+    e?.stopPropagation?.();
+    if (!audio) return;
+    if (audio.paused) await tryPlay();
+    else {
+      audio.pause();
+      syncSound();
+    }
+  };
+
+  closeBtn?.addEventListener("click", closePopup);
+  popup?.addEventListener("click", (e) => {
+    if (e.target === popup) closePopup();
+  });
+  soundBtn?.addEventListener("click", toggleSound);
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && popup?.classList.contains("is-open")) closePopup();
+  });
+
+  audio?.addEventListener("play", syncSound);
+  audio?.addEventListener("pause", syncSound);
+
+  // Autoplay try; if browser blocks, first user gesture unlocks it.
+  window.addEventListener("load", () => {
+    showPopup();
+    tryPlay();
+  }, { once:true });
+
+  const unlock = () => {
+    if (audio?.paused) tryPlay();
+    document.removeEventListener("pointerdown", unlock, true);
+    document.removeEventListener("keydown", unlockKey, true);
+  };
+  const unlockKey = (e) => {
+    if (e.key === "Enter" || e.key === " " || e.code === "Space") unlock();
+  };
+  document.addEventListener("pointerdown", unlock, true);
+  document.addEventListener("keydown", unlockKey, true);
+
+  syncSound();
+})();

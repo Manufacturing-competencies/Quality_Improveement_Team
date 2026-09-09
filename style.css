@@ -1067,3 +1067,266 @@ body.welcome-open{overflow:hidden}
 @media(prefers-reduced-motion:reduce){
   .poster-frame::before,.poster-shine::after,#tentang .tentang-stats::before,#tentang .stat::after{animation:none!important}
 }
+
+
+/* =========================================================
+   FINAL HOSTING PATCH — logos, popup-on-refresh, sparkle
+   ========================================================= */
+
+body.popup-open{overflow:hidden}
+
+.mini-nav{
+  padding:8px 18px !important;
+  min-height:76px !important;
+}
+.mini-nav .logo{
+  padding:0 !important;
+  background:transparent !important;
+  border:none !important;
+  box-shadow:none !important;
+  min-width:0 !important;
+}
+.brand-logos{
+  display:flex !important;
+  align-items:center !important;
+  gap:10px !important;
+  background:transparent !important;
+  padding:0 !important;
+}
+.brand-logo-item{
+  display:flex !important;
+  align-items:center !important;
+  justify-content:center !important;
+  min-height:44px !important;
+  padding:5px 8px !important;
+  background:transparent !important;
+  border:none !important;
+  border-radius:0 !important;
+  box-shadow:none !important;
+}
+.brand-logo-item.pic{width:72px !important}
+.brand-logo-item.paragon{width:150px !important}
+.brand-logo-item img{
+  width:100% !important;
+  height:34px !important;
+  object-fit:contain !important;
+  object-position:center !important;
+  max-width:none !important;
+  max-height:none !important;
+  filter:none !important;
+}
+.brand-logo-divider{
+  width:1px;
+  height:30px;
+  background:linear-gradient(180deg,transparent,#b9d9eb,transparent);
+  flex:0 0 auto;
+}
+
+/* Popup poster-style */
+.welcome-pop{
+  position:fixed !important;
+  inset:0 !important;
+  z-index:99999 !important;
+  display:grid !important;
+  place-items:center !important;
+  padding:22px !important;
+  background:rgba(9,28,48,.60) !important;
+  backdrop-filter:blur(12px) saturate(.88) !important;
+  -webkit-backdrop-filter:blur(12px) saturate(.88) !important;
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transition:opacity .28s ease,visibility .28s ease;
+}
+.welcome-pop.is-open{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+}
+.poster-modal{
+  position:relative;
+  width:min(520px,92vw) !important;
+  max-height:90vh;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+  animation:posterEntrance .48s cubic-bezier(.2,.8,.2,1);
+}
+@keyframes posterEntrance{
+  from{opacity:0;transform:translateY(18px) scale(.96)}
+  to{opacity:1;transform:none}
+}
+.poster-frame{
+  position:relative;
+  width:100%;
+  max-height:82vh;
+  border-radius:28px !important;
+  overflow:hidden;
+  background:#fff;
+  border:1px solid rgba(255,255,255,.88) !important;
+  box-shadow:
+    0 34px 90px rgba(9,51,88,.34),
+    0 0 0 1px rgba(72,213,255,.28),
+    0 0 44px rgba(66,195,255,.24) !important;
+}
+.poster-frame::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  pointer-events:none;
+  box-shadow:inset 0 0 30px rgba(255,255,255,.7);
+  z-index:3;
+}
+#campaignPoster{
+  display:block;
+  width:100%;
+  height:auto;
+  max-height:82vh;
+  object-fit:contain;
+  background:#fff;
+}
+.poster-shine{
+  position:absolute;
+  inset:-30% auto -30% -70%;
+  width:34%;
+  z-index:4;
+  pointer-events:none;
+  transform:skewX(-18deg);
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.8),transparent);
+  animation:posterSweep 3.8s ease-in-out infinite;
+}
+@keyframes posterSweep{
+  0%,58%{left:-70%;opacity:0}
+  68%{opacity:.75}
+  88%{left:145%;opacity:0}
+  100%{left:145%;opacity:0}
+}
+.poster-close{
+  position:absolute !important;
+  right:-16px !important;
+  top:-16px !important;
+  z-index:10 !important;
+  width:44px !important;
+  height:44px !important;
+  border-radius:50% !important;
+  display:grid !important;
+  place-items:center !important;
+  background:rgba(8,39,67,.86) !important;
+  color:#fff !important;
+  border:1px solid rgba(255,255,255,.65) !important;
+  box-shadow:0 10px 28px rgba(0,0,0,.2) !important;
+  cursor:pointer;
+  transition:.2s ease;
+}
+.poster-close:hover{transform:rotate(8deg) scale(1.08);background:#0d6eae !important}
+.poster-toolbar{
+  display:flex !important;
+  justify-content:space-between !important;
+  align-items:center !important;
+  gap:12px !important;
+  padding:10px 14px !important;
+  border-radius:16px !important;
+  background:rgba(255,255,255,.94) !important;
+  border:1px solid #d9edf8 !important;
+  box-shadow:0 14px 34px rgba(22,88,135,.14) !important;
+  color:#155d91 !important;
+  font-family:Orbitron,sans-serif;
+  font-size:10px !important;
+  letter-spacing:.05em;
+}
+.poster-toolbar button{
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  padding:8px 11px;
+  border-radius:999px;
+  background:linear-gradient(90deg,#eafaff,#eef4ff);
+  color:#0f6f9f;
+  border:1px solid #cde7f5;
+  cursor:pointer;
+  font-size:10px;
+  font-weight:700;
+}
+
+/* Bright sparkle field */
+.sparkle-field{
+  position:fixed;
+  inset:0;
+  z-index:-3;
+  pointer-events:none;
+  overflow:hidden;
+}
+.sparkle-field::before,
+.sparkle-field::after{
+  content:"";
+  position:absolute;
+  inset:0;
+  background-image:
+    radial-gradient(circle,rgba(255,255,255,.92) 0 1px,transparent 1.7px),
+    radial-gradient(circle,rgba(54,208,255,.72) 0 1.2px,transparent 2px);
+  background-size:82px 82px,130px 130px;
+  background-position:10px 18px,50px 65px;
+  opacity:.28;
+  animation:sparkleDrift 18s linear infinite;
+}
+.sparkle-field::after{
+  transform:scale(1.2);
+  opacity:.16;
+  animation-duration:28s;
+  animation-direction:reverse;
+}
+@keyframes sparkleDrift{to{background-position:10px -210px,50px -320px}}
+
+/* Make statistics cleaner and not look like a detached dark dashboard */
+#tentang .tentang-stats{
+  padding:18px !important;
+  border-radius:26px !important;
+  background:linear-gradient(110deg,rgba(11,155,225,.18),rgba(91,124,226,.18)) !important;
+  border:1px solid rgba(255,255,255,.78) !important;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.85),0 18px 44px rgba(26,104,166,.13) !important;
+}
+#tentang .stat{
+  min-height:170px !important;
+  border-radius:24px !important;
+  background:rgba(255,255,255,.90) !important;
+  border:1px solid rgba(220,239,249,.96) !important;
+  box-shadow:0 16px 32px rgba(23,92,144,.08) !important;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  transition:transform .24s ease,box-shadow .24s ease;
+}
+#tentang .stat:hover{
+  transform:translateY(-5px);
+  box-shadow:0 22px 40px rgba(23,110,171,.14) !important;
+}
+#tentang .stat .number{color:#0c70bf !important}
+#tentang .stat p{color:#436d93 !important}
+#tentang .stat small{color:#7796b1 !important}
+#tentang .stat.active-season{
+  background:linear-gradient(145deg,#edf9ff,#edf2ff) !important;
+  border-color:#cfe7f6 !important;
+}
+#tentang .stat.active-season .number{color:#0874bd !important}
+
+/* Responsive */
+@media(max-width:780px){
+  .mini-nav{padding:8px 10px !important}
+  .brand-logo-item.pic{width:54px !important}
+  .brand-logo-item.paragon{width:112px !important}
+  .brand-logo-item img{height:27px !important}
+  .brand-logo-divider{height:23px}
+  .poster-modal{width:min(92vw,430px) !important}
+  .poster-close{right:-6px !important;top:-12px !important}
+  .poster-toolbar{font-size:8px !important}
+  #tentang .tentang-stats{grid-template-columns:repeat(2,minmax(0,1fr)) !important}
+}
+@media(max-width:480px){
+  .brand-logo-item.pic{width:46px !important}
+  .brand-logo-item.paragon{width:96px !important}
+  .brand-logo-item img{height:24px !important}
+  .poster-toolbar span{display:none}
+  .poster-toolbar{justify-content:flex-end !important}
+}
