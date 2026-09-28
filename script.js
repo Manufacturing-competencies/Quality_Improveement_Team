@@ -1276,3 +1276,107 @@
     initLeaderboard();
   });
 })();
+
+// =========================================================
+// QIT BATCH 9 — MULTI PNG POPUP CAROUSEL (GOOGLE DRIVE)
+// Final 28 Sep 2026
+// =========================================================
+(() => {
+  "use strict";
+
+  const POINT_CHALLENGE_URL = "https://script.google.com/macros/s/AKfycbwo939oiI2GpmQei7NkXwFlPnAs542vvsst1eb0f1l5H3zNolLMedZ4TLmy0tWlwuY/exec";
+  const AUTO_MS = 6500;
+  const qs = (s, r = document) => r.querySelector(s);
+
+  const jsonp = (url, params = {}, timeout = 12000) => new Promise((resolve, reject) => {
+    const cb = `__qitPopup_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+    const script = document.createElement("script");
+    let timer;
+    const cleanup = () => {
+      clearTimeout(timer);
+      try { delete window[cb]; } catch (_) { window[cb] = undefined; }
+      script.remove();
+    };
+    window[cb] = payload => { cleanup(); resolve(payload); };
+    timer = setTimeout(() => { cleanup(); reject(new Error("Timeout popup")); }, timeout);
+    const query = new URLSearchParams({ ...params, callback: cb, _: String(Date.now()) });
+    script.src = `${url}${url.includes("?") ? "&" : "?"}${query.toString()}`;
+    script.onerror = () => { cleanup(); reject(new Error("Popup source unavailable")); };
+    document.head.appendChild(script);
+  });
+
+  const initPopupCarousel = async () => {
+    const image = qs("#campaignPoster");
+    const dots = qs("#popupDots");
+    const prev = qs("#popupPrev");
+    const next = qs("#popupNext");
+    const loading = qs("#posterLoading");
+    const fallback = qs("#posterFallback");
+    const carousel = qs("#popupCarousel");
+    if (!image || !dots || !carousel) return;
+
+    let items = [];
+    let index = 0;
+    let timer = null;
+    let touchStartX = 0;
+
+    const renderDots = () => {
+      dots.innerHTML = items.map((_, i) => `<button type="button" class="popup-dot${i === index ? " active" : ""}" data-popup-index="${i}" aria-label="Poster ${i + 1}"></button>`).join("");
+      dots.hidden = items.length <= 1;
+      prev?.classList.toggle("is-hidden", items.length <= 1);
+      next?.classList.toggle("is-hidden", items.length <= 1);
+    };
+
+    const show = (i) => {
+      if (!items.length) return;
+      index = (i + items.length) % items.length;
+      const item = items[index];
+      image.classList.remove("is-loaded");
+      image.alt = item.name ? `Poster QIT - ${item.name}` : `Poster QIT ${index + 1}`;
+      image.src = `${item.imageUrl}${item.imageUrl.includes("?") ? "&" : "?"}v=${encodeURIComponent(item.updated || Date.now())}`;
+      requestAnimationFrame(() => image.classList.add("is-loaded"));
+      renderDots();
+    };
+
+    const restart = () => {
+      clearInterval(timer);
+      if (items.length > 1) timer = setInterval(() => show(index + 1), AUTO_MS);
+    };
+
+    prev?.addEventListener("click", () => { show(index - 1); restart(); });
+    next?.addEventListener("click", () => { show(index + 1); restart(); });
+    dots.addEventListener("click", e => {
+      const btn = e.target.closest("[data-popup-index]");
+      if (!btn) return;
+      show(Number(btn.dataset.popupIndex));
+      restart();
+    });
+    carousel.addEventListener("mouseenter", () => clearInterval(timer));
+    carousel.addEventListener("mouseleave", restart);
+    carousel.addEventListener("touchstart", e => { touchStartX = e.changedTouches[0]?.clientX || 0; }, { passive: true });
+    carousel.addEventListener("touchend", e => {
+      const endX = e.changedTouches[0]?.clientX || 0;
+      const delta = endX - touchStartX;
+      if (Math.abs(delta) > 45) show(index + (delta < 0 ? 1 : -1));
+      restart();
+    }, { passive: true });
+
+    if (loading) loading.hidden = false;
+    try {
+      const data = await jsonp(POINT_CHALLENGE_URL, { action: "popup-list" });
+      if (!data || data.ok === false || !Array.isArray(data.files)) throw new Error(data?.message || "No popup files");
+      items = data.files.filter(x => String(x.mimeType || "").toLowerCase() === "image/png" && x.imageUrl);
+      if (!items.length) throw new Error("Belum ada PNG di folder popup");
+      if (fallback) fallback.hidden = true;
+      show(0);
+      restart();
+    } catch (_) {
+      items = [{ name: "POPUP.png", mimeType: "image/png", imageUrl: "POPUP.png", updated: "local" }];
+      show(0);
+    } finally {
+      if (loading) loading.hidden = true;
+    }
+  };
+
+  document.addEventListener("DOMContentLoaded", initPopupCarousel);
+})();

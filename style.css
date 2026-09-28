@@ -1642,3 +1642,58 @@ body.popup-open{overflow:hidden}
 @media(prefers-reduced-motion:reduce){
   .leaderboard-shell::after,.podium-card::after,.sync-pill i{animation:none!important}
 }
+
+/* =========================================================
+   QIT BATCH 9 — FINAL POLISH 28 SEP 2026
+   ========================================================= */
+
+/* --- Popup multi-PNG carousel --- */
+.poster-frame{position:relative;overflow:hidden}
+.popup-carousel{position:relative;width:100%;min-height:240px;display:grid;place-items:center;overflow:hidden;border-radius:20px;background:linear-gradient(145deg,#f8fcff,#eef8ff);isolation:isolate}
+.popup-main-image{width:100%;height:auto;max-height:min(72vh,820px);object-fit:contain;display:block;opacity:.98;transform:scale(.995);transition:opacity .35s ease,transform .55s cubic-bezier(.2,.8,.2,1),filter .35s ease;filter:saturate(1.02) contrast(1.01)}
+.popup-main-image.is-loaded{opacity:1;transform:scale(1)}
+.popup-nav{position:absolute;top:50%;transform:translateY(-50%);z-index:6;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:rgba(255,255,255,.86);border:1px solid rgba(33,136,207,.22);box-shadow:0 10px 28px rgba(31,111,169,.18);color:#0c5d9d;cursor:pointer;backdrop-filter:blur(10px);transition:.2s ease}
+.popup-nav:hover{transform:translateY(-50%) scale(1.08);background:#fff;box-shadow:0 12px 32px rgba(31,111,169,.26)}
+.popup-prev{left:14px}.popup-next{right:14px}.popup-nav.is-hidden{display:none}
+.popup-dots{position:absolute;left:50%;bottom:13px;transform:translateX(-50%);display:flex;gap:7px;z-index:7;padding:6px 9px;border-radius:999px;background:rgba(255,255,255,.68);backdrop-filter:blur(10px);box-shadow:0 8px 20px rgba(25,87,132,.12)}
+.popup-dot{width:8px;height:8px;border-radius:999px;border:0;background:#a9cce6;cursor:pointer;transition:.22s ease;padding:0}
+.popup-dot.active{width:24px;background:linear-gradient(90deg,#0cb7dc,#546ee9)}
+.poster-toolbar-actions{display:flex;align-items:center;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.poster-admin-link{display:inline-flex;align-items:center;gap:7px;padding:8px 11px;border-radius:999px;text-decoration:none;color:#0d639f;background:rgba(255,255,255,.76);border:1px solid rgba(42,151,218,.22);font-size:10px;font-weight:700;letter-spacing:.02em;transition:.2s ease}
+.poster-admin-link:hover{background:#fff;transform:translateY(-1px);box-shadow:0 8px 18px rgba(32,126,184,.12)}
+
+/* --- Gallery: premium visual archive --- */
+.gallery-premium{background:linear-gradient(145deg,rgba(255,255,255,.98),rgba(247,252,255,.97));border:1px solid rgba(45,152,220,.18);box-shadow:0 24px 70px rgba(70,128,174,.13),inset 0 1px rgba(255,255,255,.95);overflow:hidden}
+.gallery-premium::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(circle at 18% 16%,rgba(47,203,244,.11),transparent 23%),radial-gradient(circle at 86% 12%,rgba(255,211,72,.09),transparent 22%),linear-gradient(120deg,transparent 35%,rgba(255,255,255,.66) 49%,transparent 62%);opacity:.85}
+.gallery-premium .archive-heading{position:relative;z-index:2}
+.gallery-premium .film-strip{position:relative;z-index:2;padding:12px 0 18px;margin:8px 0 22px;filter:drop-shadow(0 14px 24px rgba(43,99,145,.10))}
+.gallery-premium .film-frame{position:relative;border-radius:18px;overflow:hidden;border:1px solid rgba(38,143,211,.22);background:linear-gradient(145deg,#fff,#edf8ff);box-shadow:0 12px 30px rgba(49,114,163,.13),inset 0 1px rgba(255,255,255,.95);transition:transform .32s cubic-bezier(.2,.8,.2,1),box-shadow .32s ease,border-color .32s ease;cursor:zoom-in}
+.gallery-premium .film-frame::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 22%,rgba(255,255,255,.48) 45%,transparent 62%);transform:translateX(-130%);transition:transform .65s ease;pointer-events:none}
+.gallery-premium .film-frame:hover{transform:translateY(-7px) scale(1.018);border-color:rgba(36,172,230,.5);box-shadow:0 20px 42px rgba(42,121,179,.22)}
+.gallery-premium .film-frame:hover::after{transform:translateX(130%)}
+.gallery-premium .film-frame img{transition:transform .55s ease,filter .35s ease;filter:saturate(.97) contrast(1.02)}
+.gallery-premium .film-frame:hover img{transform:scale(1.045);filter:saturate(1.08) contrast(1.03)}
+.gallery-premium .film-no{backdrop-filter:blur(8px);background:linear-gradient(90deg,rgba(10,158,209,.94),rgba(77,111,228,.92));box-shadow:0 8px 20px rgba(25,108,169,.18)}
+.gallery-premium .hall-caption{position:relative;z-index:2;margin-top:12px;letter-spacing:.22em;color:#6c8eaa}
+
+/* --- Clean video section: no dots / particles behind player --- */
+.clean-video-section{position:relative;isolation:isolate;background:linear-gradient(145deg,#ffffff 0%,#f8fcff 100%)!important;overflow:hidden;border-color:rgba(32,143,211,.18)!important;box-shadow:0 20px 60px rgba(65,119,160,.10)!important}
+.clean-video-section::before,.clean-video-section::after{display:none!important;content:none!important}
+.clean-video-section .section-heading{position:relative;z-index:2}
+.clean-video-section .video-gallery{position:relative;z-index:3;padding:10px;border-radius:22px;background:linear-gradient(145deg,#eef8ff,#ffffff);border:1px solid rgba(36,145,210,.18);box-shadow:0 18px 42px rgba(55,111,151,.14);overflow:hidden}
+.clean-video-section .video-gallery::before,.clean-video-section .video-gallery::after{display:none!important;content:none!important}
+.clean-video-section iframe{display:block;width:100%;aspect-ratio:16/9;border:0;border-radius:15px;background:#061b2f;box-shadow:0 10px 28px rgba(18,63,96,.14)}
+
+/* Keep decorative site particles visually outside clean media area */
+.clean-video-section #particles,.clean-video-section .particle{display:none!important}
+
+/* --- Removed All Missions: avoid stale anchor/layout --- */
+#mission-control{display:none!important}
+
+@media (max-width:760px){
+  .popup-nav{width:36px;height:36px}.popup-prev{left:7px}.popup-next{right:7px}
+  .poster-toolbar-actions{width:100%;justify-content:space-between}
+  .gallery-premium .film-frame:hover{transform:none}
+  .clean-video-section .video-gallery{padding:6px;border-radius:16px}
+  .clean-video-section iframe{border-radius:11px}
+}

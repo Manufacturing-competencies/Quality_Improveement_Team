@@ -5,20 +5,20 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <meta content="#eaf7ff" name="theme-color"/>
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
-<meta http-equiv="Pragma" content="no-cache"/>
-<meta http-equiv="Expires" content="0"/>
+<meta content="no-cache, no-store, must-revalidate" http-equiv="Cache-Control"/>
+<meta content="no-cache" http-equiv="Pragma"/>
+<meta content="0" http-equiv="Expires"/>
 <title>QIT Batch 9 | Cinematic Experience</title>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&amp;family=Poppins:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
 <link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet"/>
-<link href="style.css?v=20260928-weekly" rel="stylesheet"/>
+<link href="style.css?v=20260928-final2" rel="stylesheet"/>
 </head>
 <body class="hierarchy-v3">
 <!-- MUSIK MANUAL: tambahkan <source> atau atribut src pada #bgMusic setelah file musik tersedia. Format mengikuti file yang kamu kirim nanti. -->
-<audio autoplay data-note="User supplied BGM: MUSIC.mp3" id="bgMusic" loop playsinline preload="auto"><source src="MUSIC.mp3" type="audio/mpeg"/></audio>
+<audio autoplay="" data-note="User supplied BGM: MUSIC.mp3" id="bgMusic" loop="" playsinline="" preload="auto"><source src="MUSIC.mp3" type="audio/mpeg"/></audio>
 <div aria-hidden="true" class="scroll-progress"><span id="scrollProgressBar"></span></div>
 <div aria-hidden="true" class="site-bg">
 <div class="bg-glow glow-a"></div>
@@ -29,37 +29,27 @@
 </div>
 <div aria-hidden="true" class="sparkle-field" id="sparkleField"></div>
 <div aria-hidden="true" class="welcome-pop" id="welcomePop">
-  <div class="poster-modal" role="dialog" aria-modal="true" aria-label="QIT Batch 9 announcement">
-    <button class="poster-close" id="welcomeClose" type="button" aria-label="Tutup popup"><i class="fa-solid fa-xmark"></i></button>
-    <div class="poster-frame">
-      <span class="poster-shine" aria-hidden="true"></span>
-      <img id="campaignPoster" src="POPUP.png" alt="Poster informasi QIT Batch 9"/>
-      <iframe id="campaignVideo" class="campaign-video" title="Video informasi QIT Batch 9" allow="autoplay; fullscreen" allowfullscreen hidden></iframe>
-      <div class="poster-loading" id="posterLoading" hidden><i class="fa-solid fa-circle-notch fa-spin"></i><span>Memuat media terbaru...</span></div>
-      <div class="poster-fallback" id="posterFallback" hidden>
-        <i class="fa-regular fa-image"></i>
-        <strong>QIT BATCH 9</strong>
-        <span>Media informasi belum tersedia.</span>
-      </div>
-    </div>
-    <div class="poster-toolbar">
-      <span><i class="fa-solid fa-bolt"></i> QIT BATCH 9 • WELCOME</span>
-      <div class="poster-toolbar-actions">
-        <a class="poster-admin-link" href="https://script.google.com/macros/s/AKfycbwo939oiI2GpmQei7NkXwFlPnAs542vvsst1eb0f1l5H3zNolLMedZ4TLmy0tWlwuY/exec?mode=admin" target="_blank" rel="noopener"><i class="fa-solid fa-cloud-arrow-up"></i> Update Media</a>
-        <button id="welcomeSound" type="button"><i class="fa-solid fa-volume-high"></i> BGM ON</button>
-      </div>
-    </div>
-  </div>
+<div aria-label="QIT Batch 9 announcement" aria-modal="true" class="poster-modal" role="dialog">
+<button aria-label="Tutup popup" class="poster-close" id="welcomeClose" type="button"><i class="fa-solid fa-xmark"></i></button>
+<div class="poster-frame"><span aria-hidden="true" class="poster-shine"></span><div class="popup-carousel" id="popupCarousel"><img alt="Poster informasi QIT Batch 9" class="popup-main-image" id="campaignPoster" src="POPUP.png"/><button aria-label="Poster sebelumnya" class="popup-nav popup-prev" id="popupPrev" type="button"><i class="fa-solid fa-chevron-left"></i></button><button aria-label="Poster berikutnya" class="popup-nav popup-next" id="popupNext" type="button"><i class="fa-solid fa-chevron-right"></i></button><div class="popup-dots" id="popupDots"></div></div><div class="poster-loading" hidden="" id="posterLoading"><i class="fa-solid fa-circle-notch fa-spin"></i><span>Memuat poster...</span></div><div class="poster-fallback" hidden="" id="posterFallback"><i class="fa-regular fa-image"></i><strong>QIT BATCH 9</strong><span>Poster belum tersedia.</span></div></div>
+<div class="poster-toolbar">
+<span><i class="fa-solid fa-bolt"></i> QIT BATCH 9 • WELCOME</span>
+<div class="poster-toolbar-actions">
+<a class="poster-admin-link" href="https://script.google.com/macros/s/AKfycbwo939oiI2GpmQei7NkXwFlPnAs542vvsst1eb0f1l5H3zNolLMedZ4TLmy0tWlwuY/exec?mode=popup-admin" rel="noopener" target="_blank"><i class="fa-solid fa-cloud-arrow-up"></i> Upload Popup</a>
+<button id="welcomeSound" type="button"><i class="fa-solid fa-volume-high"></i> BGM ON</button>
+</div>
+</div>
+</div>
 </div>
 <nav aria-label="Navigasi utama" class="mini-nav" role="navigation">
 <button aria-label="Kembali ke atas" class="logo" data-scroll-to="top" type="button">
-  <span class="brand-logos">
-    <span class="brand-logo-item pic"><img alt="Logo PIC" src="PIC.png"/></span>
-    <span class="brand-logo-divider" aria-hidden="true"></span>
-    <span class="brand-logo-item paragon"><img alt="Logo Paragon" src="PARAGAN.png"/></span>
-  </span>
+<span class="brand-logos">
+<span class="brand-logo-item pic"><img alt="Logo PIC" src="PIC.png"/></span>
+<span aria-hidden="true" class="brand-logo-divider"></span>
+<span class="brand-logo-item paragon"><img alt="Logo Paragon" src="PARAGAN.png"/></span>
+</span>
 </button>
-<ul class="nav-links" id="mainNav"><li><a class="active" href="#current-mission">Current Week</a></li><li><a href="#mission-control">All Missions</a></li><li><a href="#qit-journey">Batch 9 Journey</a></li><li><a href="#framework">Knowledge</a></li><li><a href="#history">History</a></li><li><a href="#galeri">Gallery</a></li><li><a href="#kontak">Contact</a></li></ul>
+<ul class="nav-links" id="mainNav"><li><a class="active" href="#current-mission">Current Week</a></li><li><a href="#qit-journey">Batch 9 Journey</a></li><li><a href="#framework">Knowledge</a></li><li><a href="#history">History</a></li><li><a href="#galeri">Gallery</a></li><li><a href="#kontak">Contact</a></li></ul>
 <button aria-label="Nyalakan musik latar" aria-pressed="false" class="bgm-toggle" id="bgmToggle" type="button"><i aria-hidden="true" class="fa-solid fa-music"></i><span>BGM</span><small>OFF</small><span aria-hidden="true" class="eq-bars"><i></i><i></i><i></i></span></button><button aria-controls="mainNav" aria-expanded="false" aria-label="Buka menu" class="menu-toggle" id="menuToggle" type="button">
 <i aria-hidden="true" class="fa-solid fa-bars"></i>
 </button>
@@ -104,31 +94,31 @@
 </div>
 </section>
 <section aria-labelledby="leaderboard-title" class="leaderboard-shell section-shell reveal-on-scroll" id="weekly-leaderboard">
-  <div class="leaderboard-top">
-    <div class="section-heading compact leaderboard-heading">
-      <p class="eyebrow">LIVE CHALLENGE • AUTO UPDATE</p>
-      <h2 id="leaderboard-title">Top Team Point Challenge</h2>
-      <p>Leaderboard Top 15 tim dengan poin tertinggi. Data tersinkron otomatis dari Dashboard Point Challenge.</p>
-    </div>
-    <div class="leaderboard-actions">
-      <span class="sync-pill" id="leaderboardSync"><i class="fa-solid fa-signal"></i> LIVE</span>
-      <button class="leaderboard-refresh" id="leaderboardRefresh" type="button"><i class="fa-solid fa-rotate"></i><span>Refresh</span></button>
-      <button class="leaderboard-open" data-url="https://script.google.com/macros/s/AKfycbwo939oiI2GpmQei7NkXwFlPnAs542vvsst1eb0f1l5H3zNolLMedZ4TLmy0tWlwuY/exec" type="button"><i class="fa-solid fa-arrow-up-right-from-square"></i><span>Open Dashboard</span></button>
-    </div>
-  </div>
-  <div class="leaderboard-podium" id="leaderboardPodium" aria-label="Tiga tim teratas">
-    <article class="podium-card rank-2"><span class="podium-rank">2</span><div class="podium-medal"><i class="fa-solid fa-medal"></i></div><b>Loading...</b><strong>–</strong></article>
-    <article class="podium-card rank-1"><span class="podium-rank">1</span><div class="podium-medal"><i class="fa-solid fa-crown"></i></div><b>Loading...</b><strong>–</strong></article>
-    <article class="podium-card rank-3"><span class="podium-rank">3</span><div class="podium-medal"><i class="fa-solid fa-medal"></i></div><b>Loading...</b><strong>–</strong></article>
-  </div>
-  <div class="leaderboard-chart-card">
-    <div class="chart-status" id="leaderboardStatus"><i class="fa-solid fa-circle-notch fa-spin"></i> Mengambil data leaderboard...</div>
-    <div class="leaderboard-canvas-wrap"><canvas id="leaderboardChart" aria-label="Grafik Top 15 Tim Poin Tertinggi"></canvas></div>
-    <div class="leaderboard-foot">
-      <span id="leaderboardUpdated"><i class="fa-regular fa-clock"></i> Menunggu sinkronisasi</span>
-      <span><i class="fa-solid fa-wand-magic-sparkles"></i> Hover / tap batang untuk melihat detail</span>
-    </div>
-  </div>
+<div class="leaderboard-top">
+<div class="section-heading compact leaderboard-heading">
+<p class="eyebrow">LIVE CHALLENGE • AUTO UPDATE</p>
+<h2 id="leaderboard-title">Top Team Point Challenge</h2>
+<p>Leaderboard Top 15 tim dengan poin tertinggi. Data tersinkron otomatis dari Dashboard Point Challenge.</p>
+</div>
+<div class="leaderboard-actions">
+<span class="sync-pill" id="leaderboardSync"><i class="fa-solid fa-signal"></i> LIVE</span>
+<button class="leaderboard-refresh" id="leaderboardRefresh" type="button"><i class="fa-solid fa-rotate"></i><span>Refresh</span></button>
+<button class="leaderboard-open" data-url="https://script.google.com/macros/s/AKfycbwo939oiI2GpmQei7NkXwFlPnAs542vvsst1eb0f1l5H3zNolLMedZ4TLmy0tWlwuY/exec" type="button"><i class="fa-solid fa-arrow-up-right-from-square"></i><span>Open Dashboard</span></button>
+</div>
+</div>
+<div aria-label="Tiga tim teratas" class="leaderboard-podium" id="leaderboardPodium">
+<article class="podium-card rank-2"><span class="podium-rank">2</span><div class="podium-medal"><i class="fa-solid fa-medal"></i></div><b>Loading...</b><strong>–</strong></article>
+<article class="podium-card rank-1"><span class="podium-rank">1</span><div class="podium-medal"><i class="fa-solid fa-crown"></i></div><b>Loading...</b><strong>–</strong></article>
+<article class="podium-card rank-3"><span class="podium-rank">3</span><div class="podium-medal"><i class="fa-solid fa-medal"></i></div><b>Loading...</b><strong>–</strong></article>
+</div>
+<div class="leaderboard-chart-card">
+<div class="chart-status" id="leaderboardStatus"><i class="fa-solid fa-circle-notch fa-spin"></i> Mengambil data leaderboard...</div>
+<div class="leaderboard-canvas-wrap"><canvas aria-label="Grafik Top 15 Tim Poin Tertinggi" id="leaderboardChart"></canvas></div>
+<div class="leaderboard-foot">
+<span id="leaderboardUpdated"><i class="fa-regular fa-clock"></i> Menunggu sinkronisasi</span>
+<span><i class="fa-solid fa-wand-magic-sparkles"></i> Hover / tap batang untuk melihat detail</span>
+</div>
+</div>
 </section>
 <section aria-labelledby="quick-title" class="quick-access section-shell reveal-on-scroll" id="quick-access">
 <div class="section-heading compact"><p class="eyebrow">QUICK ACCESS</p><h2 id="quick-title">What do you need?</h2><p>Empat akses yang paling sering dibutuhkan selama perjalanan QIT.</p></div>
@@ -142,67 +132,8 @@
 <div class="update-card">
 <div class="update-icon"><i class="fa-solid fa-bolt"></i></div>
 <div class="update-copy"><p class="eyebrow">QIT UPDATE <span class="new-badge">NEW</span></p><h2 id="update-title">Batch 9 is moving forward.</h2><p>Satu titik informasi untuk progress, coaching, challenge, dan kebutuhan perjalanan QIT.</p></div>
-<a class="update-link" href="#mission-control">View All Mission <i class="fa-solid fa-arrow-right"></i></a>
+<a class="update-link" href="#qit-journey">View Journey <i class="fa-solid fa-arrow-right"></i></a>
 </div>
-</section><section aria-labelledby="mission-title" class="mission-shell section-shell reveal-on-scroll" id="mission-control">
-<div class="section-heading center"><p class="eyebrow">ALL MISSIONS</p><h2 id="mission-title">QIT Access Center</h2><p>Akses kebutuhan QIT dengan cepat, rapi, dan mudah ditemukan.</p></div>
-<button class="finder-toggle" id="toggleMissionFinder" type="button"><i class="fa-solid fa-magnifying-glass"></i><span>Find Mission</span><i class="fa-solid fa-chevron-down chevron"></i></button><div aria-label="Pencarian dan filter mission" class="mission-tools collapsed-tools"><div class="finder-panel">
-<label class="mission-search">
-<i aria-hidden="true" class="fa-solid fa-magnifying-glass"></i>
-<input aria-label="Cari menu QIT" autocomplete="off" id="missionSearch" inputmode="search" placeholder="Cari menu QIT..." type="search"/>
-<button aria-label="Hapus pencarian" class="search-clear" id="clearMissionSearch" type="button"><i class="fa-solid fa-xmark"></i></button>
-</label>
-<div aria-label="Filter menu QIT" class="mission-filters" role="group">
-<button class="filter-chip active" data-filter="all" type="button">Semua</button>
-<button class="filter-chip" data-filter="mission" type="button">Mission</button>
-<button class="filter-chip" data-filter="challenge" type="button">Challenge</button>
-<button class="filter-chip" data-filter="learning" type="button">Learning</button>
-<button class="filter-chip" data-filter="reference" type="button">Reference</button>
-</div>
-<p aria-live="polite" class="mission-result" id="missionResult"></p>
-</div></div>
-<div aria-label="Tautan cepat dashboard" class="dashboard-buttons">
-<button class="mission-card" data-url="https://paracorpgroup-my.sharepoint.com/:x:/p/deden_haitami/IQBvViDvo6GgTY0gzKVzUrULAdCjWV2-kYn_OoNL39cLgPo?e=PruKKY">
-<span class="card-code">MISSION 01</span><i class="fa-solid fa-users"></i><b>Pembentukan Tim QIT</b><small>Batch 9</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
-</button>
-<button class="mission-card" data-url="https://bit.ly/PembentukanTimQITBatch9">
-<span class="card-code">MISSION 02</span><i class="fa-solid fa-chart-line"></i><b>Progres &amp; Konsistensi</b><small>Batch 9</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
-</button>
-<button class="mission-card" data-url="https://bit.ly/PembentukanTimQITBatch9">
-<span class="card-code">MISSION 03</span><i class="fa-solid fa-chalkboard-user"></i><b>Jadwal Coaching</b><small>Batch 9</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
-</button>
-<button class="mission-card" data-url="https://bit.ly/PresensiTimQIT9">
-<span class="card-code">MISSION 04</span><i class="fa-solid fa-clipboard-check"></i><b>Absensi Pertemuan</b><small>Untuk Tim</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
-</button>
-<button class="mission-card" data-url="https://bit.ly/PresensiFasilQIT9">
-<span class="card-code">MISSION 05</span><i class="fa-solid fa-user-check"></i><b>Absensi Pertemuan</b><small>Untuk Fasilitator</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
-</button>
-<button class="mission-card" data-url="https://docs.google.com/spreadsheets/d/1zgF_0E_Y6jEpqIvueQB2y9sN46AkQVp_ZCNwtrnk138/edit?usp=sharing">
-<span class="card-code">CHALLENGE</span><i class="fa-solid fa-trophy"></i><b>Transparansi Point</b><small>Challenge</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
-</button>
-<button class="mission-card" data-url="https://script.google.com/macros/s/AKfycbwo939oiI2GpmQei7NkXwFlPnAs542vvsst1eb0f1l5H3zNolLMedZ4TLmy0tWlwuY/exec">
-<span class="card-code">SCOREBOARD</span><i class="fa-solid fa-ranking-star"></i><b>Dashboard Point</b><small>Challenge</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
-</button>
-<button class="mission-card" data-url="https://bit.ly/QualityObjectioveSection">
-<span class="card-code">REFERENCE</span><i class="fa-solid fa-bullseye"></i><b>Quality Objective</b><small>Reference</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
-</button>
-<button class="mission-card" data-url="https://drive.google.com/drive/folders/19-gjY7mfJKjpjf9vFSuAo2_LIybpUBWG">
-<span class="card-code">BEST PRACTICE</span><i class="fa-solid fa-medal"></i><b>Best Risalah</b><small>Reference</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
-</button>
-<button class="mission-card" data-url="https://bit.ly/TemplateRisalahQIT9">
-<span class="card-code">TOOLKIT</span><i class="fa-solid fa-file-lines"></i><b>Template Risalah</b><small>QIT Toolkit</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
-</button>
-<button class="mission-card" data-url="https://drive.google.com/file/d/11yy_rqodPBicd8I35y_RnUgD3sytwja7/view?usp=sharing">
-<span class="card-code">LEARNING</span><i class="fa-solid fa-recycle"></i><b>Modul 8 Pemborosan</b><small>Learning Module</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
-</button>
-<button class="mission-card" data-url="https://drive.google.com/file/d/1FNaKvTDr5Gl4kiHN7PfaSM-kCW4CYvQx/view?usp=sharing">
-<span class="card-code">LEARNING</span><i class="fa-solid fa-gem"></i><b>Total Quality Management</b><small>Learning Module</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
-</button>
-<button class="mission-card" data-url="https://drive.google.com/file/d/1vm1kGIg5a5LxF24KPeIa7h7UCiMZGvWj/view?usp=sharing">
-<span class="card-code">LEARNING</span><i class="fa-solid fa-code-branch"></i><b>Modul Delta</b><small>Learning Module</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
-</button>
-</div><button class="show-all-missions" id="showAllMissions" type="button"><span>Show All Missions</span><i class="fa-solid fa-chevron-down"></i></button>
-<p class="link-note"><i class="fa-solid fa-circle-info"></i> Link Batch 9 sudah diperbarui dan disinkronkan dengan akses aktif.</p>
 </section><section aria-labelledby="tentang-title" class="content section-shell reveal-on-scroll" id="tentang"><div aria-hidden="true" class="about-word-stream">IDEA • PEOPLE • PROCESS • IMPACT • QUALITY • IMPROVEMENT • COLLABORATION • </div>
 <div class="section-heading"><p class="eyebrow">THE STORY BEHIND QIT</p><h2 id="tentang-title">Tentang QIT</h2></div>
 <div class="tentang-container">
@@ -289,22 +220,17 @@
 </div>
 <div aria-hidden="true" class="timeline-axis"></div>
 </div>
-</section><section aria-labelledby="galeri-title" class="cinema-hall reveal-on-scroll floating-gallery-hall visual-archive-hall" id="galeri">
+</section><section aria-labelledby="galeri-title" class="cinema-hall reveal-on-scroll floating-gallery-hall visual-archive-hall gallery-premium" id="galeri">
 <div class="hall-stage-light left"></div><div class="hall-stage-light right"></div>
 <div class="hall-heading">
 <p class="eyebrow">VISUAL ARCHIVE • QIT • CIC • TKMPN</p><h2 id="galeri-title">Galeri Perjalanan QIT</h2>
 <p>Dokumentasi perjalanan improvement dalam satu galeri yang bergerak, ringan, dan hidup.</p>
 </div>
-
 <div class="film-strip"><div class="film-perf top"></div><div class="film-track film-left"><figure class="film-frame"><span class="film-no">QIT 01</span><img alt="Dokumentasi QIT 01" loading="lazy" src="B1.jpg"/></figure><figure class="film-frame"><span class="film-no">QIT 02</span><img alt="Dokumentasi QIT 02" loading="lazy" src="B2.jpg"/></figure><figure class="film-frame"><span class="film-no">QIT 03</span><img alt="Dokumentasi QIT 03" loading="lazy" src="B3.jpg"/></figure><figure class="film-frame"><span class="film-no">QIT 04</span><img alt="Dokumentasi QIT 04" loading="lazy" src="B4.jpg"/></figure><figure class="film-frame"><span class="film-no">QIT 05</span><img alt="Dokumentasi QIT 05" loading="lazy" src="B5.jpg"/></figure><figure class="film-frame"><span class="film-no">QIT 06</span><img alt="Dokumentasi QIT 06" loading="lazy" src="B6.jpg"/></figure><figure class="film-frame"><span class="film-no">QIT 07</span><img alt="Dokumentasi QIT 07" loading="lazy" src="B7.jpg"/></figure><figure class="film-frame"><span class="film-no">QIT 01</span><img alt="Dokumentasi QIT 01" loading="lazy" src="B1.jpg"/></figure><figure class="film-frame"><span class="film-no">QIT 02</span><img alt="Dokumentasi QIT 02" loading="lazy" src="B2.jpg"/></figure><figure class="film-frame"><span class="film-no">QIT 03</span><img alt="Dokumentasi QIT 03" loading="lazy" src="B3.jpg"/></figure><figure class="film-frame"><span class="film-no">QIT 04</span><img alt="Dokumentasi QIT 04" loading="lazy" src="B4.jpg"/></figure><figure class="film-frame"><span class="film-no">QIT 05</span><img alt="Dokumentasi QIT 05" loading="lazy" src="B5.jpg"/></figure><figure class="film-frame"><span class="film-no">QIT 06</span><img alt="Dokumentasi QIT 06" loading="lazy" src="B6.jpg"/></figure><figure class="film-frame"><span class="film-no">QIT 07</span><img alt="Dokumentasi QIT 07" loading="lazy" src="B7.jpg"/></figure></div><div class="film-perf bottom"></div></div>
-
 <div class="film-strip secondary"><div class="film-perf top"></div><div class="film-track film-right"><figure class="film-frame"><span class="film-no">CIC 01</span><img alt="Dokumentasi CIC 01" loading="lazy" src="CIC1.jpg"/></figure><figure class="film-frame"><span class="film-no">CIC 02</span><img alt="Dokumentasi CIC 02" loading="lazy" src="CIC2.jpg"/></figure><figure class="film-frame"><span class="film-no">CIC 03</span><img alt="Dokumentasi CIC 03" loading="lazy" src="CIC3.jpg"/></figure><figure class="film-frame"><span class="film-no">CIC 04</span><img alt="Dokumentasi CIC 04" loading="lazy" src="CIC4.jpg"/></figure><figure class="film-frame"><span class="film-no">CIC 05</span><img alt="Dokumentasi CIC 05" loading="lazy" src="CIC5.jpg"/></figure><figure class="film-frame"><span class="film-no">CIC 06</span><img alt="Dokumentasi CIC 06" loading="lazy" src="CIC6.jpg"/></figure><figure class="film-frame"><span class="film-no">CIC 07</span><img alt="Dokumentasi CIC 07" loading="lazy" src="CIC7.jpg"/></figure><figure class="film-frame"><span class="film-no">CIC 08</span><img alt="Dokumentasi CIC 08" loading="lazy" src="CIC8.jpg"/></figure><figure class="film-frame"><span class="film-no">CIC 09</span><img alt="Dokumentasi CIC 09" loading="lazy" src="CIC9.jpg"/></figure><figure class="film-frame"><span class="film-no">CIC 10</span><img alt="Dokumentasi CIC 10" loading="lazy" src="CIC10.jpg"/></figure><figure class="film-frame"><span class="film-no">CIC 01</span><img alt="Dokumentasi CIC 01" loading="lazy" src="CIC1.jpg"/></figure><figure class="film-frame"><span class="film-no">CIC 02</span><img alt="Dokumentasi CIC 02" loading="lazy" src="CIC2.jpg"/></figure><figure class="film-frame"><span class="film-no">CIC 03</span><img alt="Dokumentasi CIC 03" loading="lazy" src="CIC3.jpg"/></figure><figure class="film-frame"><span class="film-no">CIC 04</span><img alt="Dokumentasi CIC 04" loading="lazy" src="CIC4.jpg"/></figure><figure class="film-frame"><span class="film-no">CIC 05</span><img alt="Dokumentasi CIC 05" loading="lazy" src="CIC5.jpg"/></figure><figure class="film-frame"><span class="film-no">CIC 06</span><img alt="Dokumentasi CIC 06" loading="lazy" src="CIC6.jpg"/></figure><figure class="film-frame"><span class="film-no">CIC 07</span><img alt="Dokumentasi CIC 07" loading="lazy" src="CIC7.jpg"/></figure><figure class="film-frame"><span class="film-no">CIC 08</span><img alt="Dokumentasi CIC 08" loading="lazy" src="CIC8.jpg"/></figure><figure class="film-frame"><span class="film-no">CIC 09</span><img alt="Dokumentasi CIC 09" loading="lazy" src="CIC9.jpg"/></figure><figure class="film-frame"><span class="film-no">CIC 10</span><img alt="Dokumentasi CIC 10" loading="lazy" src="CIC10.jpg"/></figure></div><div class="film-perf bottom"></div></div>
-
 <div class="film-strip tertiary"><div class="film-perf top"></div><div class="film-track film-left slow"><figure class="film-frame"><span class="film-no">TKMPN 01</span><img alt="Dokumentasi TKMPN 01" loading="lazy" src="TKMPN1.jpg"/></figure><figure class="film-frame"><span class="film-no">TKMPN 02</span><img alt="Dokumentasi TKMPN 02" loading="lazy" src="TKMPN2.jpg"/></figure><figure class="film-frame"><span class="film-no">TKMPN 03</span><img alt="Dokumentasi TKMPN 03" loading="lazy" src="TKMPN3.jpg"/></figure><figure class="film-frame"><span class="film-no">TKMPN 04</span><img alt="Dokumentasi TKMPN 04" loading="lazy" src="TKMPN4.jpg"/></figure><figure class="film-frame"><span class="film-no">TKMPN 05</span><img alt="Dokumentasi TKMPN 05" loading="lazy" src="TKMPN5.jpg"/></figure><figure class="film-frame"><span class="film-no">TKMPN 06</span><img alt="Dokumentasi TKMPN 06" loading="lazy" src="TKMPN6.jpg"/></figure><figure class="film-frame"><span class="film-no">TKMPN 07</span><img alt="Dokumentasi TKMPN 07" loading="lazy" src="TKMPN7.jpg"/></figure><figure class="film-frame"><span class="film-no">TKMPN 08</span><img alt="Dokumentasi TKMPN 08" loading="lazy" src="TKMPN8.jpg"/></figure><figure class="film-frame"><span class="film-no">TKMPN 09</span><img alt="Dokumentasi TKMPN 09" loading="lazy" src="TKMPN9.jpg"/></figure><figure class="film-frame"><span class="film-no">TKMPN 10</span><img alt="Dokumentasi TKMPN 10" loading="lazy" src="TKMPN10.jpg"/></figure><figure class="film-frame"><span class="film-no">TKMPN 01</span><img alt="Dokumentasi TKMPN 01" loading="lazy" src="TKMPN1.jpg"/></figure><figure class="film-frame"><span class="film-no">TKMPN 02</span><img alt="Dokumentasi TKMPN 02" loading="lazy" src="TKMPN2.jpg"/></figure><figure class="film-frame"><span class="film-no">TKMPN 03</span><img alt="Dokumentasi TKMPN 03" loading="lazy" src="TKMPN3.jpg"/></figure><figure class="film-frame"><span class="film-no">TKMPN 04</span><img alt="Dokumentasi TKMPN 04" loading="lazy" src="TKMPN4.jpg"/></figure><figure class="film-frame"><span class="film-no">TKMPN 05</span><img alt="Dokumentasi TKMPN 05" loading="lazy" src="TKMPN5.jpg"/></figure><figure class="film-frame"><span class="film-no">TKMPN 06</span><img alt="Dokumentasi TKMPN 06" loading="lazy" src="TKMPN6.jpg"/></figure><figure class="film-frame"><span class="film-no">TKMPN 07</span><img alt="Dokumentasi TKMPN 07" loading="lazy" src="TKMPN7.jpg"/></figure><figure class="film-frame"><span class="film-no">TKMPN 08</span><img alt="Dokumentasi TKMPN 08" loading="lazy" src="TKMPN8.jpg"/></figure><figure class="film-frame"><span class="film-no">TKMPN 09</span><img alt="Dokumentasi TKMPN 09" loading="lazy" src="TKMPN9.jpg"/></figure><figure class="film-frame"><span class="film-no">TKMPN 10</span><img alt="Dokumentasi TKMPN 10" loading="lazy" src="TKMPN10.jpg"/></figure></div><div class="film-perf bottom"></div></div>
-
 <div class="film-strip journey-strip reverse"><div class="film-track film-right"><figure class="film-frame journey-frame"><span class="film-no">MOMENT 01</span><img alt="Dokumentasi perjalanan QIT 1" loading="lazy" src="QIT1.jpg"/></figure><figure class="film-frame journey-frame"><span class="film-no">MOMENT 02</span><img alt="Dokumentasi perjalanan QIT 2" loading="lazy" src="QIT2.jpg"/></figure><figure class="film-frame journey-frame"><span class="film-no">MOMENT 03</span><img alt="Dokumentasi perjalanan QIT 3" loading="lazy" src="QIT3.jpg"/></figure><figure class="film-frame journey-frame"><span class="film-no">MOMENT 04</span><img alt="Dokumentasi perjalanan QIT 4" loading="lazy" src="QIT4.jpg"/></figure><figure class="film-frame journey-frame"><span class="film-no">MOMENT 05</span><img alt="Dokumentasi perjalanan QIT 5" loading="lazy" src="QIT5.jpg"/></figure><figure class="film-frame journey-frame"><span class="film-no">MOMENT 06</span><img alt="Dokumentasi perjalanan QIT 6" loading="lazy" src="QIT6.jpg"/></figure><figure class="film-frame journey-frame"><span class="film-no">MOMENT 07</span><img alt="Dokumentasi perjalanan QIT 7" loading="lazy" src="QIT7.jpg"/></figure><figure class="film-frame journey-frame"><span class="film-no">MOMENT 08</span><img alt="Dokumentasi perjalanan QIT 8" loading="lazy" src="QIT8.jpg"/></figure><figure class="film-frame journey-frame"><span class="film-no">MOMENT 09</span><img alt="Dokumentasi perjalanan QIT 9" loading="lazy" src="QIT9.jpg"/></figure><figure class="film-frame journey-frame"><span class="film-no">MOMENT 10</span><img alt="Dokumentasi perjalanan QIT 10" loading="lazy" src="QIT10.jpg"/></figure><figure class="film-frame journey-frame"><span class="film-no">MOMENT 11</span><img alt="Dokumentasi perjalanan QIT 11" loading="lazy" src="QIT11.jpg"/></figure><figure class="film-frame journey-frame"><span class="film-no">MOMENT 12</span><img alt="Dokumentasi perjalanan QIT 12" loading="lazy" src="QIT12.jpg"/></figure><figure class="film-frame journey-frame"><span class="film-no">MOMENT 13</span><img alt="Dokumentasi perjalanan QIT 13" loading="lazy" src="QIT13.jpg"/></figure><figure class="film-frame journey-frame"><span class="film-no">MOMENT 14</span><img alt="Dokumentasi perjalanan QIT 14" loading="lazy" src="QIT14.jpg"/></figure><figure class="film-frame journey-frame"><span class="film-no">MOMENT 15</span><img alt="Dokumentasi perjalanan QIT 15" loading="lazy" src="QIT15.jpg"/></figure><figure class="film-frame journey-frame"><span class="film-no">MOMENT 16</span><img alt="Dokumentasi perjalanan QIT 16" loading="lazy" src="QIT16.jpg"/></figure><figure class="film-frame journey-frame"><span class="film-no">MOMENT 01</span><img alt="Dokumentasi perjalanan QIT 1" loading="lazy" src="QIT1.jpg"/></figure><figure class="film-frame journey-frame"><span class="film-no">MOMENT 02</span><img alt="Dokumentasi perjalanan QIT 2" loading="lazy" src="QIT2.jpg"/></figure><figure class="film-frame journey-frame"><span class="film-no">MOMENT 03</span><img alt="Dokumentasi perjalanan QIT 3" loading="lazy" src="QIT3.jpg"/></figure><figure class="film-frame journey-frame"><span class="film-no">MOMENT 04</span><img alt="Dokumentasi perjalanan QIT 4" loading="lazy" src="QIT4.jpg"/></figure><figure class="film-frame journey-frame"><span class="film-no">MOMENT 05</span><img alt="Dokumentasi perjalanan QIT 5" loading="lazy" src="QIT5.jpg"/></figure><figure class="film-frame journey-frame"><span class="film-no">MOMENT 06</span><img alt="Dokumentasi perjalanan QIT 6" loading="lazy" src="QIT6.jpg"/></figure><figure class="film-frame journey-frame"><span class="film-no">MOMENT 07</span><img alt="Dokumentasi perjalanan QIT 7" loading="lazy" src="QIT7.jpg"/></figure><figure class="film-frame journey-frame"><span class="film-no">MOMENT 08</span><img alt="Dokumentasi perjalanan QIT 8" loading="lazy" src="QIT8.jpg"/></figure><figure class="film-frame journey-frame"><span class="film-no">MOMENT 09</span><img alt="Dokumentasi perjalanan QIT 9" loading="lazy" src="QIT9.jpg"/></figure><figure class="film-frame journey-frame"><span class="film-no">MOMENT 10</span><img alt="Dokumentasi perjalanan QIT 10" loading="lazy" src="QIT10.jpg"/></figure><figure class="film-frame journey-frame"><span class="film-no">MOMENT 11</span><img alt="Dokumentasi perjalanan QIT 11" loading="lazy" src="QIT11.jpg"/></figure><figure class="film-frame journey-frame"><span class="film-no">MOMENT 12</span><img alt="Dokumentasi perjalanan QIT 12" loading="lazy" src="QIT12.jpg"/></figure><figure class="film-frame journey-frame"><span class="film-no">MOMENT 13</span><img alt="Dokumentasi perjalanan QIT 13" loading="lazy" src="QIT13.jpg"/></figure><figure class="film-frame journey-frame"><span class="film-no">MOMENT 14</span><img alt="Dokumentasi perjalanan QIT 14" loading="lazy" src="QIT14.jpg"/></figure><figure class="film-frame journey-frame"><span class="film-no">MOMENT 15</span><img alt="Dokumentasi perjalanan QIT 15" loading="lazy" src="QIT15.jpg"/></figure><figure class="film-frame journey-frame"><span class="film-no">MOMENT 16</span><img alt="Dokumentasi perjalanan QIT 16" loading="lazy" src="QIT16.jpg"/></figure></div></div><p class="hall-caption">IDEA • PEOPLE • PROCESS • IMPACT • KEEP MOVING</p>
-
-</section><section aria-labelledby="video-title" class="content section-shell reveal-on-scroll" id="video">
+</section><section aria-labelledby="video-title" class="content section-shell reveal-on-scroll clean-video-section" id="video">
 <div class="section-heading"><p class="eyebrow">MEDIA CHANNEL</p><h2 id="video-title">Video</h2></div>
 <div class="video-gallery"><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/vPFJObKjTm8" title="Video QIT di YouTube"></iframe></div>
 </section><section aria-labelledby="kontak-title" class="content section-shell reveal-on-scroll" id="kontak">
@@ -332,6 +258,6 @@
 <nav aria-label="Navigasi cepat mobile" class="mobile-dock"><button data-scroll-to="top" type="button"><i class="fa-solid fa-house"></i><span>Home</span></button><button data-scroll-to="current-mission" type="button"><i class="fa-solid fa-bullseye"></i><span>Week</span></button><button data-scroll-to="qit-journey" type="button"><i class="fa-solid fa-route"></i><span>Journey</span></button><button data-scroll-to="tentang" type="button"><i class="fa-solid fa-ellipsis"></i><span>More</span></button><button aria-label="Musik" id="mobileBgmToggle" type="button"><i class="fa-solid fa-music"></i><span>BGM</span></button></nav>
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
-<script src="script.js?v=20260928-weekly"></script>
+<script src="script.js?v=20260928-final2"></script>
 </body>
 </html>

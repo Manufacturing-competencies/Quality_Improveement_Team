@@ -1,0 +1,41 @@
+PATCH KECIL PADA doGet EXISTING
+==============================
+
+Kode dashboard lama TIDAK perlu diubah selain fungsi doGet paling atas.
+Ganti HANYA fungsi doGet lama:
+
+function doGet() {
+  return HtmlService.createTemplateFromFile('Index')
+    .evaluate()
+    .setTitle('Dashboard Poin Challenge QIT Batch 9')
+    .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL)
+    .addMetaTag('viewport', 'width=device-width, initial-scale=1');
+}
+
+MENJADI:
+
+function doGet(e) {
+  e = e || { parameter: {} };
+  const p = e.parameter || {};
+  const action = String(p.action || '').toLowerCase();
+  const mode = String(p.mode || '').toLowerCase();
+
+  // Tambahan untuk website QIT. Dashboard default tetap berjalan seperti semula.
+  if (action === 'leaderboard') return qitLeaderboardResponse_(e);
+  if (action === 'popup-list') return qitPopupListResponse_(e);
+  if (mode === 'popup-admin') return qitPopupAdminPage_();
+
+  // KODE DEFAULT ASLI — TIDAK BERUBAH
+  return HtmlService.createTemplateFromFile('Index')
+    .evaluate()
+    .setTitle('Dashboard Poin Challenge QIT Batch 9')
+    .setXFrameOptionsMode(HtmlService.XFrameOptionsMode.ALLOWALL)
+    .addMetaTag('viewport', 'width=device-width, initial-scale=1');
+}
+
+Setelah itu:
+1. Paste seluruh Code_ADDON_QIT_BATCH9.gs di BAWAH kode lama.
+2. Save.
+3. Deploy > Manage deployments > Edit > New version > Deploy.
+4. URL /exec tetap sama.
+5. Buka /exec?mode=popup-admin untuk upload banyak PNG.
