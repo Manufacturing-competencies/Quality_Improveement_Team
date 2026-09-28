@@ -5,12 +5,16 @@
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
 <meta content="#eaf7ff" name="theme-color"/>
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+<meta http-equiv="Pragma" content="no-cache"/>
+<meta http-equiv="Expires" content="0"/>
 <title>QIT Batch 9 | Cinematic Experience</title>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
 <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&amp;family=Poppins:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
-<link href="style.css?v=clean-final-20260909" rel="stylesheet"/>
+<link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet"/>
+<link href="style.css?v=20260928-weekly" rel="stylesheet"/>
 </head>
 <body class="hierarchy-v3">
 <!-- MUSIK MANUAL: tambahkan <source> atau atribut src pada #bgMusic setelah file musik tersedia. Format mengikuti file yang kamu kirim nanti. -->
@@ -30,27 +34,32 @@
     <div class="poster-frame">
       <span class="poster-shine" aria-hidden="true"></span>
       <img id="campaignPoster" src="POPUP.png" alt="Poster informasi QIT Batch 9"/>
+      <iframe id="campaignVideo" class="campaign-video" title="Video informasi QIT Batch 9" allow="autoplay; fullscreen" allowfullscreen hidden></iframe>
+      <div class="poster-loading" id="posterLoading" hidden><i class="fa-solid fa-circle-notch fa-spin"></i><span>Memuat media terbaru...</span></div>
       <div class="poster-fallback" id="posterFallback" hidden>
         <i class="fa-regular fa-image"></i>
         <strong>QIT BATCH 9</strong>
-        <span>Tambahkan poster dengan nama <b>POPUP.png</b></span>
+        <span>Media informasi belum tersedia.</span>
       </div>
     </div>
     <div class="poster-toolbar">
       <span><i class="fa-solid fa-bolt"></i> QIT BATCH 9 • WELCOME</span>
-      <button id="welcomeSound" type="button"><i class="fa-solid fa-volume-high"></i> BGM ON</button>
+      <div class="poster-toolbar-actions">
+        <a class="poster-admin-link" href="https://script.google.com/macros/s/AKfycbwo939oiI2GpmQei7NkXwFlPnAs542vvsst1eb0f1l5H3zNolLMedZ4TLmy0tWlwuY/exec?mode=admin" target="_blank" rel="noopener"><i class="fa-solid fa-cloud-arrow-up"></i> Update Media</a>
+        <button id="welcomeSound" type="button"><i class="fa-solid fa-volume-high"></i> BGM ON</button>
+      </div>
     </div>
   </div>
 </div>
 <nav aria-label="Navigasi utama" class="mini-nav" role="navigation">
 <button aria-label="Kembali ke atas" class="logo" data-scroll-to="top" type="button">
-      <span class="brand-logos">
-        <img class="brand-pic" alt="Logo PIC" src="PIC.png"/>
-        <span class="brand-sep" aria-hidden="true"></span>
-        <img class="brand-paragon" alt="Logo Paragon" src="PARAGAN.png"/>
-      </span>
-    </button>
-<ul class="nav-links" id="mainNav"><li><a class="active" href="#current-mission">Current Mission</a></li><li><a href="#mission-control">All Missions</a></li><li><a href="#qit-journey">Batch 9 Journey</a></li><li><a href="#framework">Knowledge</a></li><li><a href="#history">History</a></li><li><a href="#galeri">Gallery</a></li><li><a href="#kontak">Contact</a></li></ul>
+  <span class="brand-logos">
+    <span class="brand-logo-item pic"><img alt="Logo PIC" src="PIC.png"/></span>
+    <span class="brand-logo-divider" aria-hidden="true"></span>
+    <span class="brand-logo-item paragon"><img alt="Logo Paragon" src="PARAGAN.png"/></span>
+  </span>
+</button>
+<ul class="nav-links" id="mainNav"><li><a class="active" href="#current-mission">Current Week</a></li><li><a href="#mission-control">All Missions</a></li><li><a href="#qit-journey">Batch 9 Journey</a></li><li><a href="#framework">Knowledge</a></li><li><a href="#history">History</a></li><li><a href="#galeri">Gallery</a></li><li><a href="#kontak">Contact</a></li></ul>
 <button aria-label="Nyalakan musik latar" aria-pressed="false" class="bgm-toggle" id="bgmToggle" type="button"><i aria-hidden="true" class="fa-solid fa-music"></i><span>BGM</span><small>OFF</small><span aria-hidden="true" class="eq-bars"><i></i><i></i><i></i></span></button><button aria-controls="mainNav" aria-expanded="false" aria-label="Buka menu" class="menu-toggle" id="menuToggle" type="button">
 <i aria-hidden="true" class="fa-solid fa-bars"></i>
 </button>
@@ -77,28 +86,57 @@
 </section><section aria-labelledby="current-mission-title" class="current-mission section-shell reveal-on-scroll" id="current-mission">
 <div class="current-grid">
 <div class="current-copy">
-<p class="eyebrow">CURRENT MISSION</p>
-<div class="live-row"><span class="live-pill"><span class="status-dot"></span> ACTIVE</span><span class="mission-step">STEP 02</span></div>
-<h2 id="current-mission-title">FIRST MEETING</h2>
-<p>Mulai perjalanan Batch 9 bersama tim. Lakukan pertemuan perdana, bangun alignment, dan siapkan langkah improvement berikutnya.</p>
+<p class="eyebrow">CURRENT WEEK</p>
+<div class="live-row"><span class="live-pill"><span class="status-dot"></span> ACTIVE</span><span class="mission-step" id="currentWeekBadge">WEEK 40</span></div>
+<h2 id="current-mission-title"><span id="currentWeekTitle">WEEK 40</span></h2>
+<p class="week-range" id="currentWeekRange">28 SEPT – 4 OCT 2026</p>
+<p>Pantau progres QIT Batch 9 minggu ini. Pastikan aktivitas tim, pertemuan, challenge, dan progres improvement tetap berjalan sesuai journey.</p>
 <div class="current-actions">
-<button class="primary-cta current-open" data-url="https://bit.ly/PresensiTimQIT9" type="button"><i class="fa-solid fa-arrow-right"></i> Absensi Team</button>
+<a class="primary-cta current-open-link" href="#weekly-leaderboard"><i class="fa-solid fa-chart-column"></i> Lihat Progress Minggu Ini</a>
 <a class="text-link" href="#qit-journey">Lihat perjalanan Batch 9 <i class="fa-solid fa-chevron-right"></i></a>
 </div>
 </div>
 <div aria-hidden="true" class="mission-orbit">
 <div class="orbit-ring orbit-outer"></div><div class="orbit-ring orbit-inner"></div>
-<div class="orbit-core"><i class="fa-solid fa-users"></i><strong>02</strong><span>FIRST<br/>MEETING</span></div>
-<span class="orbit-node n1">TEAM</span><span class="orbit-node n2">ALIGN</span><span class="orbit-node n3">START</span>
+<div class="orbit-core"><i class="fa-solid fa-calendar-week"></i><strong id="orbitWeek">W40</strong><span>ACTIVE<br/>WEEK</span></div>
+<span class="orbit-node n1">PLAN</span><span class="orbit-node n2">PROGRESS</span><span class="orbit-node n3">ACTION</span>
 </div>
 </div>
-</section><section aria-labelledby="quick-title" class="quick-access section-shell reveal-on-scroll" id="quick-access">
+</section>
+<section aria-labelledby="leaderboard-title" class="leaderboard-shell section-shell reveal-on-scroll" id="weekly-leaderboard">
+  <div class="leaderboard-top">
+    <div class="section-heading compact leaderboard-heading">
+      <p class="eyebrow">LIVE CHALLENGE • AUTO UPDATE</p>
+      <h2 id="leaderboard-title">Top Team Point Challenge</h2>
+      <p>Leaderboard Top 15 tim dengan poin tertinggi. Data tersinkron otomatis dari Dashboard Point Challenge.</p>
+    </div>
+    <div class="leaderboard-actions">
+      <span class="sync-pill" id="leaderboardSync"><i class="fa-solid fa-signal"></i> LIVE</span>
+      <button class="leaderboard-refresh" id="leaderboardRefresh" type="button"><i class="fa-solid fa-rotate"></i><span>Refresh</span></button>
+      <button class="leaderboard-open" data-url="https://script.google.com/macros/s/AKfycbwo939oiI2GpmQei7NkXwFlPnAs542vvsst1eb0f1l5H3zNolLMedZ4TLmy0tWlwuY/exec" type="button"><i class="fa-solid fa-arrow-up-right-from-square"></i><span>Open Dashboard</span></button>
+    </div>
+  </div>
+  <div class="leaderboard-podium" id="leaderboardPodium" aria-label="Tiga tim teratas">
+    <article class="podium-card rank-2"><span class="podium-rank">2</span><div class="podium-medal"><i class="fa-solid fa-medal"></i></div><b>Loading...</b><strong>–</strong></article>
+    <article class="podium-card rank-1"><span class="podium-rank">1</span><div class="podium-medal"><i class="fa-solid fa-crown"></i></div><b>Loading...</b><strong>–</strong></article>
+    <article class="podium-card rank-3"><span class="podium-rank">3</span><div class="podium-medal"><i class="fa-solid fa-medal"></i></div><b>Loading...</b><strong>–</strong></article>
+  </div>
+  <div class="leaderboard-chart-card">
+    <div class="chart-status" id="leaderboardStatus"><i class="fa-solid fa-circle-notch fa-spin"></i> Mengambil data leaderboard...</div>
+    <div class="leaderboard-canvas-wrap"><canvas id="leaderboardChart" aria-label="Grafik Top 15 Tim Poin Tertinggi"></canvas></div>
+    <div class="leaderboard-foot">
+      <span id="leaderboardUpdated"><i class="fa-regular fa-clock"></i> Menunggu sinkronisasi</span>
+      <span><i class="fa-solid fa-wand-magic-sparkles"></i> Hover / tap batang untuk melihat detail</span>
+    </div>
+  </div>
+</section>
+<section aria-labelledby="quick-title" class="quick-access section-shell reveal-on-scroll" id="quick-access">
 <div class="section-heading compact"><p class="eyebrow">QUICK ACCESS</p><h2 id="quick-title">What do you need?</h2><p>Empat akses yang paling sering dibutuhkan selama perjalanan QIT.</p></div>
 <div class="quick-grid">
-<button class="quick-card cyan" data-url="https://bit.ly/PembentukanTimQITBatch9"><i class="fa-solid fa-users"></i><span><b>TEAM</b><small>Pembentukan Tim</small></span><i class="fa-solid fa-arrow-up-right-from-square go"></i></button>
+<button class="quick-card cyan" data-url="https://paracorpgroup-my.sharepoint.com/:x:/p/deden_haitami/IQBvViDvo6GgTY0gzKVzUrULAdCjWV2-kYn_OoNL39cLgPo?e=PruKKY"><i class="fa-solid fa-users"></i><span><b>TEAM</b><small>Pembentukan Tim</small></span><i class="fa-solid fa-arrow-up-right-from-square go"></i></button>
 <button class="quick-card blue" data-url="https://bit.ly/PresensiTimQIT9"><i class="fa-solid fa-clipboard-check"></i><span><b>MEETING</b><small>Absensi Pertemuan</small></span><i class="fa-solid fa-arrow-up-right-from-square go"></i></button>
 <button class="quick-card purple" data-url="https://bit.ly/PembentukanTimQITBatch9"><i class="fa-solid fa-chalkboard-user"></i><span><b>COACHING</b><small>Jadwal Coaching</small></span><i class="fa-solid fa-arrow-up-right-from-square go"></i></button>
-<button class="quick-card gold" data-url="https://bit.ly/PoinChallengeQIT9"><i class="fa-solid fa-trophy"></i><span><b>CHALLENGE</b><small>Point Challenge</small></span><i class="fa-solid fa-arrow-up-right-from-square go"></i></button>
+<button class="quick-card gold" data-url="https://script.google.com/macros/s/AKfycbwo939oiI2GpmQei7NkXwFlPnAs542vvsst1eb0f1l5H3zNolLMedZ4TLmy0tWlwuY/exec"><i class="fa-solid fa-trophy"></i><span><b>CHALLENGE</b><small>Point Challenge</small></span><i class="fa-solid fa-arrow-up-right-from-square go"></i></button>
 </div>
 </section><section aria-labelledby="update-title" class="qit-update section-shell reveal-on-scroll" id="qit-update">
 <div class="update-card">
@@ -124,7 +162,7 @@
 <p aria-live="polite" class="mission-result" id="missionResult"></p>
 </div></div>
 <div aria-label="Tautan cepat dashboard" class="dashboard-buttons">
-<button class="mission-card" data-url="https://bit.ly/PembentukanTimQITBatch9">
+<button class="mission-card" data-url="https://paracorpgroup-my.sharepoint.com/:x:/p/deden_haitami/IQBvViDvo6GgTY0gzKVzUrULAdCjWV2-kYn_OoNL39cLgPo?e=PruKKY">
 <span class="card-code">MISSION 01</span><i class="fa-solid fa-users"></i><b>Pembentukan Tim QIT</b><small>Batch 9</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
 </button>
 <button class="mission-card" data-url="https://bit.ly/PembentukanTimQITBatch9">
@@ -142,14 +180,14 @@
 <button class="mission-card" data-url="https://docs.google.com/spreadsheets/d/1zgF_0E_Y6jEpqIvueQB2y9sN46AkQVp_ZCNwtrnk138/edit?usp=sharing">
 <span class="card-code">CHALLENGE</span><i class="fa-solid fa-trophy"></i><b>Transparansi Point</b><small>Challenge</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
 </button>
-<button class="mission-card" data-url="https://bit.ly/PoinChallengeQIT9">
+<button class="mission-card" data-url="https://script.google.com/macros/s/AKfycbwo939oiI2GpmQei7NkXwFlPnAs542vvsst1eb0f1l5H3zNolLMedZ4TLmy0tWlwuY/exec">
 <span class="card-code">SCOREBOARD</span><i class="fa-solid fa-ranking-star"></i><b>Dashboard Point</b><small>Challenge</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
 </button>
 <button class="mission-card" data-url="https://bit.ly/QualityObjectioveSection">
 <span class="card-code">REFERENCE</span><i class="fa-solid fa-bullseye"></i><b>Quality Objective</b><small>Reference</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
 </button>
-<button aria-disabled="true" class="mission-card pending-card" disabled="" type="button">
-<span class="card-code">BEST PRACTICE</span><i class="fa-solid fa-medal"></i><b>Best Risalah</b><small>Link belum tersedia</small><span class="launch">COMING SOON</span>
+<button class="mission-card" data-url="https://drive.google.com/drive/folders/19-gjY7mfJKjpjf9vFSuAo2_LIybpUBWG">
+<span class="card-code">BEST PRACTICE</span><i class="fa-solid fa-medal"></i><b>Best Risalah</b><small>Reference</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
 </button>
 <button class="mission-card" data-url="https://bit.ly/TemplateRisalahQIT9">
 <span class="card-code">TOOLKIT</span><i class="fa-solid fa-file-lines"></i><b>Template Risalah</b><small>QIT Toolkit</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
@@ -163,11 +201,8 @@
 <button class="mission-card" data-url="https://drive.google.com/file/d/1vm1kGIg5a5LxF24KPeIa7h7UCiMZGvWj/view?usp=sharing">
 <span class="card-code">LEARNING</span><i class="fa-solid fa-code-branch"></i><b>Modul Delta</b><small>Learning Module</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span>
 </button>
-<button class="mission-card info-card" data-scroll-to="tentang">
-<span class="card-code">SYSTEM INFO</span><i class="fa-solid fa-satellite-dish"></i><b>Informasi Terbaru</b><small>QIT Batch 9</small><span class="launch">EXPLORE <i class="fa-solid fa-chevron-down"></i></span>
-</button>
 </div><button class="show-all-missions" id="showAllMissions" type="button"><span>Show All Missions</span><i class="fa-solid fa-chevron-down"></i></button>
-<p class="link-note"><i class="fa-solid fa-circle-info"></i> Link Batch 9 sudah diperbarui. Menu yang belum memiliki link ditandai Coming Soon.</p>
+<p class="link-note"><i class="fa-solid fa-circle-info"></i> Link Batch 9 sudah diperbarui dan disinkronkan dengan akses aktif.</p>
 </section><section aria-labelledby="tentang-title" class="content section-shell reveal-on-scroll" id="tentang"><div aria-hidden="true" class="about-word-stream">IDEA • PEOPLE • PROCESS • IMPACT • QUALITY • IMPROVEMENT • COLLABORATION • </div>
 <div class="section-heading"><p class="eyebrow">THE STORY BEHIND QIT</p><h2 id="tentang-title">Tentang QIT</h2></div>
 <div class="tentang-container">
@@ -294,7 +329,9 @@
 <button aria-label="Gambar berikutnya" class="fs-nav fs-next" type="button"><i class="fa-solid fa-chevron-right"></i></button>
 </div>
 <button aria-label="Kembali ke atas" class="back-to-top" type="button"><i class="fa-solid fa-chevron-up"></i></button>
-<nav aria-label="Navigasi cepat mobile" class="mobile-dock"><button data-scroll-to="top" type="button"><i class="fa-solid fa-house"></i><span>Home</span></button><button data-scroll-to="current-mission" type="button"><i class="fa-solid fa-bullseye"></i><span>Mission</span></button><button data-scroll-to="qit-journey" type="button"><i class="fa-solid fa-route"></i><span>Journey</span></button><button data-scroll-to="tentang" type="button"><i class="fa-solid fa-ellipsis"></i><span>More</span></button><button aria-label="Musik" id="mobileBgmToggle" type="button"><i class="fa-solid fa-music"></i><span>BGM</span></button></nav>
-<script src="script.js?v=clean-final-20260909"></script>
+<nav aria-label="Navigasi cepat mobile" class="mobile-dock"><button data-scroll-to="top" type="button"><i class="fa-solid fa-house"></i><span>Home</span></button><button data-scroll-to="current-mission" type="button"><i class="fa-solid fa-bullseye"></i><span>Week</span></button><button data-scroll-to="qit-journey" type="button"><i class="fa-solid fa-route"></i><span>Journey</span></button><button data-scroll-to="tentang" type="button"><i class="fa-solid fa-ellipsis"></i><span>More</span></button><button aria-label="Musik" id="mobileBgmToggle" type="button"><i class="fa-solid fa-music"></i><span>BGM</span></button></nav>
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
+<script src="script.js?v=20260928-weekly"></script>
 </body>
 </html>
