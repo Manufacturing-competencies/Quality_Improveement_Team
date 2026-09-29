@@ -1,12 +1,12 @@
 // =========================================================
 // QIT BATCH 9 — WEEKLY CONTROL CENTER + LIVE LEADERBOARD
-// FINAL CONNECTED — 28 SEP 2026
+// FINAL CONNECTED — 29 SEP 2026
 // =========================================================
 (() => {
   "use strict";
 
   const POINT_CHALLENGE_URL =
-    "https://script.google.com/macros/s/AKfycbwo939oiI2GpmQei7NkXwFlPnAs542vvsst1eb0f1l5H3zNolLMedZ4TLmy0tWlwuY/exec";
+    "https://script.google.com/macros/s/AKfycbz1iKWHZPoQI9vif1Ab-zcX4locQfnaMw8xh-edsP7WnckNqeVpJNgn79cx98PqS1w/exec";
 
   // Refresh leaderboard otomatis setiap 3 menit
   const LEADERBOARD_REFRESH_MS = 3 * 60 * 1000;
@@ -1084,8 +1084,7 @@
       try {
 
         // =====================================================
-        // ENDPOINT YANG BARU KITA AKTIFKAN
-        //
+        // ENDPOINT AKTIF
         // /exec?api=leaderboard
         // =====================================================
 
@@ -1118,9 +1117,8 @@
 
         // =====================================================
         // KONVERSI DATA APPS SCRIPT
-        //
-        // namaTim    -> team
-        // totalPoin  -> points
+        // namaTim -> team
+        // totalPoin -> points
         // =====================================================
 
         const rows =
@@ -1326,21 +1324,8 @@
   "use strict";
 
 
-  /*
-   * CATATAN:
-   *
-   * Leaderboard SUDAH TERHUBUNG ke Apps Script di atas.
-   *
-   * Untuk Popup Google Drive nanti endpoint Apps Script
-   * perlu ditambah action popup-list.
-   *
-   * Selama endpoint popup-list belum tersedia,
-   * website otomatis memakai POPUP.png lokal.
-   */
-
-
   const POINT_CHALLENGE_URL =
-    "https://script.google.com/macros/s/AKfycbwo939oiI2GpmQei7NkXwFlPnAs542vvsst1eb0f1l5H3zNolLMedZ4TLmy0tWlwuY/exec";
+    "https://script.google.com/macros/s/AKfycbz1iKWHZPoQI9vif1Ab-zcX4locQfnaMw8xh-edsP7WnckNqeVpJNgn79cx98PqS1w/exec";
 
 
   const AUTO_MS =
@@ -1535,10 +1520,6 @@
         );
 
 
-      /*
-       * Kalau HTML carousel belum dipasang,
-       * script berhenti tanpa menyebabkan error website.
-       */
       if (
         !image ||
         !dots ||
@@ -1892,7 +1873,7 @@
       try {
 
         // ===================================================
-        // NANTI DIPAKAI SAAT API GOOGLE DRIVE SUDAH AKTIF
+        // POPUP LIST DARI APPS SCRIPT
         // ===================================================
 
         const data =
@@ -1998,11 +1979,6 @@
       } catch (
         error
       ) {
-
-        /*
-         * Kalau endpoint Google Drive belum aktif,
-         * gunakan POPUP.png lokal.
-         */
 
         console.info(
           "Popup Google Drive belum aktif. Menggunakan POPUP.png lokal.",
