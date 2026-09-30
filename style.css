@@ -1697,3 +1697,77 @@ body.popup-open{overflow:hidden}
   .clean-video-section .video-gallery{padding:6px;border-radius:16px}
   .clean-video-section iframe{border-radius:11px}
 }
+
+
+/* =========================================================
+   FINAL 29 SEP 2026 — BRIGHT CLEAN EXPERIENCE
+   ========================================================= */
+
+/* Make reveal content visible even before JS observer finishes */
+.reveal-on-scroll{opacity:1;transform:none}
+.reveal-on-scroll.visible{opacity:1;transform:none}
+
+/* HERO FIX — content should never disappear */
+.hero-content{opacity:1!important;visibility:visible!important;transform:none!important}
+.hero{min-height:760px;background:linear-gradient(135deg,#0d83dc 0%,#1bbbe3 55%,#6d86ef 100%)}
+.hero-cinematic-bg{opacity:.72}
+.hero-title,.hero-kicker,.hero-tagline,.hero-subtitle,.system-badge,.hero-actions,.hero-meta{opacity:1!important;visibility:visible!important}
+
+/* Popup always-on-refresh experience */
+.welcome-pop.show,.welcome-pop.is-open{display:grid!important;opacity:1!important;visibility:visible!important;pointer-events:auto!important}
+.welcome-pop{background:rgba(8,31,66,.55);backdrop-filter:blur(18px)}
+.poster-modal{width:min(720px,92vw);max-height:92vh;background:#fff;border:1px solid rgba(55,155,235,.2);box-shadow:0 30px 80px rgba(5,48,92,.28)}
+.poster-frame{background:#f7fbff}
+.popup-main-image{max-height:72vh;object-fit:contain}
+
+/* MEMORY SECTION — inspired by the reference style */
+.memory-section{width:100%;margin:70px 0;padding:68px max(5vw,34px);background:linear-gradient(180deg,#eaf7ff 0%,#dff3ff 100%);position:relative;overflow:hidden}
+.memory-section::before,.memory-section::after{content:"";position:absolute;border-radius:50%;filter:blur(2px);pointer-events:none}
+.memory-section::before{width:420px;height:420px;background:rgba(66,158,255,.10);left:-140px;top:-180px}
+.memory-section::after{width:420px;height:420px;background:rgba(108,87,255,.08);right:-160px;bottom:-220px}
+.memory-heading{text-align:center;position:relative;z-index:2;margin-bottom:38px}
+.memory-pill{display:inline-flex;padding:9px 24px;border-radius:999px;background:#fff;color:#2f6eea;font-weight:800;letter-spacing:.05em;box-shadow:0 8px 24px rgba(47,110,234,.08)}
+.memory-heading h2{font-family:Poppins,Arial,sans-serif;font-size:clamp(38px,5vw,72px);line-height:1;color:#2d67ea;font-weight:900;letter-spacing:-.05em;margin:18px 0 14px}
+.memory-heading p{color:#667b96;font-size:clamp(15px,1.5vw,22px);font-weight:600;max-width:900px;margin:0 auto}
+.memory-showcase{max-width:1460px;margin:0 auto;position:relative;z-index:2}
+.memorySwiper{overflow:visible;padding:10px 54px 54px}
+.memory-card{height:520px;border-radius:28px;overflow:hidden;background:#fff;box-shadow:0 18px 46px rgba(45,103,234,.14);position:relative;margin:0;transition:.3s transform,.3s box-shadow}
+.memory-card:hover{transform:translateY(-8px);box-shadow:0 28px 60px rgba(45,103,234,.22)}
+.memory-card img{width:100%;height:100%;object-fit:cover}
+.memory-card figcaption{position:absolute;left:16px;top:16px;padding:8px 12px;border-radius:999px;background:rgba(255,255,255,.9);color:#1853c7;font-size:11px;font-weight:800;letter-spacing:.08em;backdrop-filter:blur(10px)}
+.memory-nav{width:64px!important;height:64px!important;border-radius:50%;background:linear-gradient(135deg,#80cfff,#1a9ff0 55%,#9b68d7);box-shadow:0 10px 26px rgba(27,132,220,.22)}
+.memory-nav::after{font-size:24px!important;color:#fff;font-weight:900}
+.memory-prev{left:0!important}.memory-next{right:0!important}
+.memory-pagination .swiper-pagination-bullet{background:#5b7fbd}.memory-pagination .swiper-pagination-bullet-active{background:#2d67ea;width:24px;border-radius:8px}
+
+/* CONTACT PERSON — inspired by the reference style */
+.contact-showcase{width:min(1480px,94%);margin:70px auto;padding:58px 40px 48px;border-radius:34px;background:linear-gradient(180deg,#f9fcff,#eef7ff);box-shadow:0 24px 70px rgba(50,110,180,.12);position:relative;overflow:hidden}
+.contact-showcase-heading{text-align:center;margin-bottom:42px}
+.contact-pill{display:inline-flex;padding:8px 20px;border-radius:999px;background:#fff;color:#2f6eea;font-weight:800;box-shadow:0 7px 20px rgba(47,110,234,.08)}
+.contact-showcase-heading h2{font-size:clamp(40px,5vw,72px);font-weight:900;color:#2d67ea;letter-spacing:-.05em;line-height:1;margin:16px 0 12px}
+.contact-showcase-heading p{color:#667b96;font-weight:600;font-size:clamp(14px,1.5vw,20px)}
+.contact-cards-ref{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;align-items:stretch}
+.contact-card-ref{background:#fff;border-radius:28px;padding:28px 24px 24px;text-align:center;box-shadow:0 16px 38px rgba(44,96,160,.10);border:1px solid rgba(58,134,220,.08);display:flex;flex-direction:column;align-items:center;min-height:500px;transition:.28s transform,.28s box-shadow}
+.contact-card-ref:hover{transform:translateY(-7px);box-shadow:0 28px 55px rgba(44,96,160,.16)}
+.contact-photo-ring{width:152px;height:152px;border-radius:50%;padding:6px;background:linear-gradient(135deg,#6847ff,#24aeea);margin-bottom:22px}
+.contact-photo-ring img{width:100%;height:100%;object-fit:cover;border-radius:50%;background:#fff;border:6px solid #fff}
+.contact-card-ref h3{font-size:28px;line-height:1;color:#0d2c57;font-weight:900;margin:8px 0 8px}
+.contact-card-ref>strong{color:#2f67ea;font-size:18px;font-weight:800;margin-bottom:8px}
+.contact-phone{font-size:17px;font-weight:800;color:#34485f;margin-bottom:10px}
+.contact-card-ref p{color:#667b96;font-size:16px;font-weight:600;min-height:52px;margin:0 0 24px}
+.contact-card-ref a{margin-top:auto;width:100%;display:flex;align-items:center;justify-content:center;gap:10px;padding:14px 16px;border-radius:999px;background:linear-gradient(90deg,#21c65b,#16a949);color:#fff;text-decoration:none;font-weight:800;box-shadow:0 10px 22px rgba(24,177,77,.18)}
+.contact-card-ref a:hover{transform:translateY(-2px);filter:brightness(1.03)}
+
+/* Keep leaderboard and content bright/legible */
+.leaderboard-shell,.quick-access,.qit-update,#tentang,#tujuan,#manfaat,#framework,#history,.clean-video-section{background:rgba(255,255,255,.94);border-color:#d7ebf8;color:#173b63;box-shadow:0 18px 44px rgba(54,118,170,.10)}
+.leaderboard-shell h2,.quick-access h2,.qit-update h2,#tentang h2,#tujuan h2,#manfaat h2,#framework h2,#history h2,.clean-video-section h2{color:#153e6f}
+
+@media(max-width:1000px){
+  .contact-cards-ref{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .memory-card{height:440px}
+}
+@media(max-width:640px){
+  .memory-section{padding:48px 12px}.memorySwiper{padding:8px 32px 42px}.memory-card{height:420px;border-radius:22px}
+  .memory-nav{width:48px!important;height:48px!important}
+  .contact-showcase{width:94%;padding:42px 16px 30px;border-radius:24px}.contact-cards-ref{grid-template-columns:1fr}.contact-card-ref{min-height:auto}
+}
