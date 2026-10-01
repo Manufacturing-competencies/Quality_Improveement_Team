@@ -14,7 +14,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&amp;family=Poppins:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
 <link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet"/>
-<link href="style.css?v=20261001-final3" rel="stylesheet"/>
+<link href="style.css?v=20261001-final4" rel="stylesheet"/>
 </head>
 <body class="qit-final hierarchy-v3">
 <!-- MUSIK MANUAL: tambahkan <source> atau atribut src pada #bgMusic setelah file musik tersedia. Format mengikuti file yang kamu kirim nanti. -->
@@ -58,7 +58,7 @@
 <div class="sky-orb orb-one"></div><div class="sky-orb orb-two"></div>
 <div class="energy-road"></div><div class="energy-sweep sweep-one"></div><div class="energy-sweep sweep-two"></div>
 <div class="game-grid"></div><div class="hero-shards" id="heroShards"></div>
-</div>
+<div class="hero-aurora" id="heroAurora"></div><div class="hero-beam"></div><div class="hero-dust" id="heroDust"></div></div>
 <div class="hero-ring ring-1"></div>
 <div class="hero-ring ring-2"></div>
 <div class="hero-content reveal-on-scroll">
@@ -93,7 +93,7 @@
 </div>
 </div>
 </section>
-<section aria-labelledby="leaderboard-title" class="leaderboard-shell section-shell reveal-on-scroll" id="weekly-leaderboard">
+<section aria-labelledby="leaderboard-title" class="leaderboard-shell section-shell reveal-on-scroll glow-panel" id="weekly-leaderboard">
 <div class="leaderboard-top">
 <div class="section-heading compact leaderboard-heading">
 <p class="eyebrow">LIVE CHALLENGE • AUTO UPDATE</p>
@@ -130,45 +130,42 @@
 </div>
 </section>
 <section aria-labelledby="access-center-title" class="access-center section-shell reveal-on-scroll" id="access-center">
-  <div class="section-heading compact">
-    <p class="eyebrow">QIT ACCESS CENTER</p>
-    <h2 id="access-center-title">All QIT Resources</h2>
-    <p>Akses lengkap untuk kebutuhan progress, attendance, challenge, reference, toolkit, dan learning QIT Batch 9.</p>
-  </div>
+<div class="section-heading compact">
+<p class="eyebrow">QIT ACCESS CENTER</p>
+<h2 id="access-center-title">All QIT Resources</h2>
+<p>Akses lengkap untuk kebutuhan progress, attendance, challenge, reference, toolkit, dan learning QIT Batch 9.</p>
+</div>
+<div class="access-groups">
+<div class="access-group">
+<div class="access-group-head"><span>MISSION</span><small>Aktivitas utama tim</small></div>
+<div class="access-grid">
+<button class="mission-card" data-url="https://paracorpgroup-my.sharepoint.com/:x:/p/deden_haitami/IQBvViDvo6GgTY0gzKVzUrULAdCjWV2-kYn_OoNL39cLgPo?e=PruKKY"><span class="card-code">MISSION 01</span><i class="fa-solid fa-users"></i><b>Pembentukan Tim QIT</b><small>Batch 9</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span></button>
 
-  <div class="access-groups">
-    <div class="access-group">
-      <div class="access-group-head"><span>MISSION</span><small>Aktivitas utama tim</small></div>
-      <div class="access-grid">
-        <button class="mission-card" data-url="https://paracorpgroup-my.sharepoint.com/:x:/p/deden_haitami/IQBvViDvo6GgTY0gzKVzUrULAdCjWV2-kYn_OoNL39cLgPo?e=PruKKY"><span class="card-code">MISSION 01</span><i class="fa-solid fa-users"></i><b>Pembentukan Tim QIT</b><small>Batch 9</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span></button>
-        <button class="mission-card" data-url="https://bit.ly/PembentukanTimQITBatch9"><span class="card-code">MISSION 02</span><i class="fa-solid fa-chart-line"></i><b>Progres &amp; Konsistensi</b><small>Batch 9</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span></button>
-        <button class="mission-card" data-url="https://bit.ly/PembentukanTimQITBatch9"><span class="card-code">MISSION 03</span><i class="fa-solid fa-chalkboard-user"></i><b>Jadwal Coaching</b><small>Batch 9</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span></button>
-        <button class="mission-card" data-url="https://bit.ly/PresensiTimQIT9"><span class="card-code">MISSION 04</span><i class="fa-solid fa-clipboard-check"></i><b>Absensi Pertemuan</b><small>Untuk Tim</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span></button>
-        <button class="mission-card" data-url="https://bit.ly/PresensiFasilQIT9"><span class="card-code">MISSION 05</span><i class="fa-solid fa-user-check"></i><b>Absensi Pertemuan</b><small>Untuk Fasilitator</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span></button>
-      </div>
-    </div>
+<button class="mission-card" data-url="https://bit.ly/PembentukanTimQITBatch9"><span class="card-code">MISSION 03</span><i class="fa-solid fa-chalkboard-user"></i><b>Jadwal Coaching</b><small>Batch 9</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span></button>
+<button class="mission-card" data-url="https://bit.ly/PresensiTimQIT9"><span class="card-code">MISSION 04</span><i class="fa-solid fa-clipboard-check"></i><b>Absensi Pertemuan</b><small>Untuk Tim</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span></button>
+<button class="mission-card" data-url="https://bit.ly/PresensiFasilQIT9"><span class="card-code">MISSION 05</span><i class="fa-solid fa-user-check"></i><b>Absensi Pertemuan</b><small>Untuk Fasilitator</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span></button>
+</div>
+</div>
+<div class="access-group">
+<div class="access-group-head"><span>CHALLENGE &amp; REFERENCE</span><small>Monitoring dan acuan improvement</small></div>
+<div class="access-grid">
 
-    <div class="access-group">
-      <div class="access-group-head"><span>CHALLENGE &amp; REFERENCE</span><small>Monitoring dan acuan improvement</small></div>
-      <div class="access-grid">
-        <button class="mission-card challenge-card" data-url="https://docs.google.com/spreadsheets/d/1zgF_0E_Y6jEpqIvueQB2y9sN46AkQVp_ZCNwtrnk138/edit?usp=sharing"><span class="card-code">CHALLENGE</span><i class="fa-solid fa-trophy"></i><b>Transparansi Point</b><small>Challenge</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span></button>
-        <button class="mission-card challenge-card" data-url="https://script.google.com/macros/s/AKfycbz1iKWHZPoQI9vif1Ab-zcX4locQfnaMw8xh-edsP7WnckNqeVpJNgn79cx98PqS1w/exec"><span class="card-code">SCOREBOARD</span><i class="fa-solid fa-ranking-star"></i><b>Dashboard Point</b><small>Challenge</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span></button>
-        <button class="mission-card reference-card" data-url="https://bit.ly/QualityObjectioveSection"><span class="card-code">REFERENCE</span><i class="fa-solid fa-bullseye"></i><b>Quality Objective</b><small>Reference</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span></button>
-        <button class="mission-card toolkit-card" data-url="https://bit.ly/TemplateRisalahQIT9"><span class="card-code">TOOLKIT</span><i class="fa-solid fa-file-lines"></i><b>Template Risalah</b><small>QIT Toolkit</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span></button>
-        <button class="mission-card pending-card" type="button" disabled aria-disabled="true"><span class="card-code">BEST PRACTICE</span><i class="fa-solid fa-medal"></i><b>Best Risalah</b><small>Link belum tersedia</small><span class="launch">COMING SOON</span></button>
-      </div>
-    </div>
-
-    <div class="access-group">
-      <div class="access-group-head"><span>LEARNING</span><small>Materi pendukung QIT</small></div>
-      <div class="access-grid">
-        <button class="mission-card learning-card" data-url="https://drive.google.com/file/d/11yy_rqodPBicd8I35y_RnUgD3sytwja7/view?usp=sharing"><span class="card-code">LEARNING</span><i class="fa-solid fa-recycle"></i><b>Modul 8 Pemborosan</b><small>Learning Module</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span></button>
-        <button class="mission-card learning-card" data-url="https://drive.google.com/file/d/1FNaKvTDr5Gl4kiHN7PfaSM-kCW4CYvQx/view?usp=sharing"><span class="card-code">LEARNING</span><i class="fa-solid fa-gem"></i><b>Total Quality Management</b><small>Learning Module</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span></button>
-        <button class="mission-card learning-card" data-url="https://drive.google.com/file/d/1vm1kGIg5a5LxF24KPeIa7h7UCiMZGvWj/view?usp=sharing"><span class="card-code">LEARNING</span><i class="fa-solid fa-code-branch"></i><b>Modul Delta</b><small>Learning Module</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span></button>
-        <button class="mission-card info-card" data-scroll-to="tentang" type="button"><span class="card-code">SYSTEM INFO</span><i class="fa-solid fa-satellite-dish"></i><b>Informasi Terbaru</b><small>QIT Batch 9</small><span class="launch">EXPLORE <i class="fa-solid fa-chevron-down"></i></span></button>
-      </div>
-    </div>
-  </div>
+<button class="mission-card challenge-card" data-url="https://script.google.com/macros/s/AKfycbz1iKWHZPoQI9vif1Ab-zcX4locQfnaMw8xh-edsP7WnckNqeVpJNgn79cx98PqS1w/exec"><span class="card-code">SCOREBOARD</span><i class="fa-solid fa-ranking-star"></i><b>Dashboard Point</b><small>Challenge</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span></button>
+<button class="mission-card reference-card" data-url="https://bit.ly/QualityObjectioveSection"><span class="card-code">REFERENCE</span><i class="fa-solid fa-bullseye"></i><b>Quality Objective</b><small>Reference</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span></button>
+<button class="mission-card toolkit-card" data-url="https://bit.ly/TemplateRisalahQIT9"><span class="card-code">TOOLKIT</span><i class="fa-solid fa-file-lines"></i><b>Template Risalah</b><small>QIT Toolkit</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span></button>
+<button class="mission-card best-card" data-url="https://drive.google.com/drive/folders/19-gjY7mfJKjpjf9vFSuAo2_LIybpUBWG" type="button"><span class="card-code">BEST PRACTICE</span><i class="fa-solid fa-medal"></i><b>Best Risalah</b><small>Best Practice</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span></button>
+</div>
+</div>
+<div class="access-group">
+<div class="access-group-head"><span>LEARNING</span><small>Materi pendukung QIT</small></div>
+<div class="access-grid">
+<button class="mission-card learning-card" data-url="https://drive.google.com/file/d/11yy_rqodPBicd8I35y_RnUgD3sytwja7/view?usp=sharing"><span class="card-code">LEARNING</span><i class="fa-solid fa-recycle"></i><b>Modul 8 Pemborosan</b><small>Learning Module</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span></button>
+<button class="mission-card learning-card" data-url="https://drive.google.com/file/d/1FNaKvTDr5Gl4kiHN7PfaSM-kCW4CYvQx/view?usp=sharing"><span class="card-code">LEARNING</span><i class="fa-solid fa-gem"></i><b>Total Quality Management</b><small>Learning Module</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span></button>
+<button class="mission-card learning-card" data-url="https://drive.google.com/file/d/1vm1kGIg5a5LxF24KPeIa7h7UCiMZGvWj/view?usp=sharing"><span class="card-code">LEARNING</span><i class="fa-solid fa-code-branch"></i><b>Modul Delta</b><small>Learning Module</small><span class="launch">OPEN <i class="fa-solid fa-arrow-up-right-from-square"></i></span></button>
+<button class="mission-card info-card" data-scroll-to="tentang" type="button"><span class="card-code">SYSTEM INFO</span><i class="fa-solid fa-satellite-dish"></i><b>Informasi Terbaru</b><small>QIT Batch 9</small><span class="launch">EXPLORE <i class="fa-solid fa-chevron-down"></i></span></button>
+</div>
+</div>
+</div>
 </section>
 <section aria-labelledby="update-title" class="qit-update section-shell reveal-on-scroll" id="qit-update">
 <div class="update-card">
@@ -270,7 +267,7 @@
 </div>
 <div class="media-showcase">
 <div class="swiper gallery-swiper" data-gallery="pemenang">
-<div class="swiper-wrapper"><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="PEMENANG QIT 1" loading="lazy" src="PEMENANG1.jpg"/></div><figcaption>AWARD 01</figcaption></figure></div><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="PEMENANG QIT 2" loading="lazy" src="PEMENANG2.jpg"/></div><figcaption>AWARD 02</figcaption></figure></div><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="PEMENANG QIT 3" loading="lazy" src="PEMENANG3.jpg"/></div><figcaption>AWARD 03</figcaption></figure></div><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="PEMENANG QIT 4" loading="lazy" src="PEMENANG4.jpg"/></div><figcaption>AWARD 04</figcaption></figure></div><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="PEMENANG QIT 5" loading="lazy" src="PEMENANG5.jpg"/></div><figcaption>AWARD 05</figcaption></figure></div><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="PEMENANG QIT 6" loading="lazy" src="PEMENANG6.jpg"/></div><figcaption>AWARD 06</figcaption></figure></div></div>
+<div class="swiper-wrapper"><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="History Pemenang QIT 1" loading="lazy" src="B1.jpg"/></div><figcaption>HISTORY JUARA 01</figcaption></figure></div><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="History Pemenang QIT 2" loading="lazy" src="B2.jpg"/></div><figcaption>HISTORY JUARA 02</figcaption></figure></div><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="History Pemenang QIT 3" loading="lazy" src="B3.jpg"/></div><figcaption>HISTORY JUARA 03</figcaption></figure></div><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="History Pemenang QIT 4" loading="lazy" src="B4.jpg"/></div><figcaption>HISTORY JUARA 04</figcaption></figure></div><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="History Pemenang QIT 5" loading="lazy" src="B5.jpg"/></div><figcaption>HISTORY JUARA 05</figcaption></figure></div><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="History Pemenang QIT 6" loading="lazy" src="B6.jpg"/></div><figcaption>HISTORY JUARA 06</figcaption></figure></div><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="History Pemenang QIT 7" loading="lazy" src="B7.jpg"/></div><figcaption>HISTORY JUARA 07</figcaption></figure></div></div>
 <button aria-label="Foto sebelumnya" class="media-nav media-prev swiper-button-prev"></button>
 <button aria-label="Foto berikutnya" class="media-nav media-next swiper-button-next"></button>
 <div class="swiper-pagination"></div>
@@ -285,7 +282,7 @@
 </div>
 <div class="media-showcase">
 <div class="swiper gallery-swiper" data-gallery="cic">
-<div class="swiper-wrapper"><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="CIC 1" loading="lazy" src="CIC1.jpg"/></div><figcaption>CIC 01</figcaption></figure></div><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="CIC 2" loading="lazy" src="CIC2.jpg"/></div><figcaption>CIC 02</figcaption></figure></div><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="CIC 3" loading="lazy" src="CIC3.jpg"/></div><figcaption>CIC 03</figcaption></figure></div><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="CIC 4" loading="lazy" src="CIC4.jpg"/></div><figcaption>CIC 04</figcaption></figure></div><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="CIC 5" loading="lazy" src="CIC5.jpg"/></div><figcaption>CIC 05</figcaption></figure></div><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="CIC 6" loading="lazy" src="CIC6.jpg"/></div><figcaption>CIC 06</figcaption></figure></div></div>
+<div class="swiper-wrapper"><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="CIC 1" loading="lazy" src="CIC1.jpg"/></div><figcaption>CIC 01</figcaption></figure></div><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="CIC 2" loading="lazy" src="CIC2.jpg"/></div><figcaption>CIC 02</figcaption></figure></div><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="CIC 3" loading="lazy" src="CIC3.jpg"/></div><figcaption>CIC 03</figcaption></figure></div><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="CIC 4" loading="lazy" src="CIC4.jpg"/></div><figcaption>CIC 04</figcaption></figure></div><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="CIC 5" loading="lazy" src="CIC5.jpg"/></div><figcaption>CIC 05</figcaption></figure></div><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="CIC 6" loading="lazy" src="CIC6.jpg"/></div><figcaption>CIC 06</figcaption></figure></div><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="CIC 7" loading="lazy" src="CIC7.jpg"/></div><figcaption>CIC 07</figcaption></figure></div><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="CIC 8" loading="lazy" src="CIC8.jpg"/></div><figcaption>CIC 08</figcaption></figure></div><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="CIC 9" loading="lazy" src="CIC9.jpg"/></div><figcaption>CIC 09</figcaption></figure></div><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="CIC 10" loading="lazy" src="CIC10.jpg"/></div><figcaption>CIC 10</figcaption></figure></div></div>
 <button aria-label="Foto sebelumnya" class="media-nav media-prev swiper-button-prev"></button>
 <button aria-label="Foto berikutnya" class="media-nav media-next swiper-button-next"></button>
 <div class="swiper-pagination"></div>
@@ -300,7 +297,7 @@
 </div>
 <div class="media-showcase">
 <div class="swiper gallery-swiper" data-gallery="tkmpn">
-<div class="swiper-wrapper"><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="TKMPN 1" loading="lazy" src="TKMPN1.jpg"/></div><figcaption>TKMPN 01</figcaption></figure></div><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="TKMPN 2" loading="lazy" src="TKMPN2.jpg"/></div><figcaption>TKMPN 02</figcaption></figure></div><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="TKMPN 3" loading="lazy" src="TKMPN3.jpg"/></div><figcaption>TKMPN 03</figcaption></figure></div><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="TKMPN 4" loading="lazy" src="TKMPN4.jpg"/></div><figcaption>TKMPN 04</figcaption></figure></div><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="TKMPN 5" loading="lazy" src="TKMPN5.jpg"/></div><figcaption>TKMPN 05</figcaption></figure></div><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="TKMPN 6" loading="lazy" src="TKMPN6.jpg"/></div><figcaption>TKMPN 06</figcaption></figure></div></div>
+<div class="swiper-wrapper"><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="TKMPN 1" loading="lazy" src="TKMPN1.jpg"/></div><figcaption>TKMPN 01</figcaption></figure></div><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="TKMPN 2" loading="lazy" src="TKMPN2.jpg"/></div><figcaption>TKMPN 02</figcaption></figure></div><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="TKMPN 3" loading="lazy" src="TKMPN3.jpg"/></div><figcaption>TKMPN 03</figcaption></figure></div><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="TKMPN 4" loading="lazy" src="TKMPN4.jpg"/></div><figcaption>TKMPN 04</figcaption></figure></div><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="TKMPN 5" loading="lazy" src="TKMPN5.jpg"/></div><figcaption>TKMPN 05</figcaption></figure></div><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="TKMPN 6" loading="lazy" src="TKMPN6.jpg"/></div><figcaption>TKMPN 06</figcaption></figure></div><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="TKMPN 7" loading="lazy" src="TKMPN7.jpg"/></div><figcaption>TKMPN 07</figcaption></figure></div><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="TKMPN 8" loading="lazy" src="TKMPN8.jpg"/></div><figcaption>TKMPN 08</figcaption></figure></div><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="TKMPN 9" loading="lazy" src="TKMPN9.jpg"/></div><figcaption>TKMPN 09</figcaption></figure></div><div class="swiper-slide"><figure class="media-card"><div class="media-visual"><img alt="TKMPN 10" loading="lazy" src="TKMPN10.jpg"/></div><figcaption>TKMPN 10</figcaption></figure></div></div>
 <button aria-label="Foto sebelumnya" class="media-nav media-prev swiper-button-prev"></button>
 <button aria-label="Foto berikutnya" class="media-nav media-next swiper-button-next"></button>
 <div class="swiper-pagination"></div>
@@ -324,7 +321,7 @@
 </section><section aria-labelledby="video-title" class="content section-shell reveal-on-scroll clean-video-section" id="video">
 <div class="section-heading"><p class="eyebrow">MEDIA CHANNEL</p><h2 id="video-title">Video</h2></div>
 <div class="video-gallery"><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin" src="https://www.youtube.com/embed/vPFJObKjTm8" title="Video QIT di YouTube"></iframe></div>
-</section><section aria-labelledby="kontak-title" class="contact-showcase reveal-on-scroll" id="kontak">
+</section><section aria-labelledby="kontak-title" class="contact-showcase reveal-on-scroll glow-contact" id="kontak">
 <div class="contact-showcase-heading">
 <span class="contact-pill">QIT CONTACT CENTER</span>
 <h2 id="kontak-title">CONTACT PERSON</h2>
@@ -378,6 +375,6 @@
 <nav aria-label="Navigasi cepat mobile" class="mobile-dock"><button data-scroll-to="top" type="button"><i class="fa-solid fa-house"></i><span>Home</span></button><button data-scroll-to="current-mission" type="button"><i class="fa-solid fa-bullseye"></i><span>Week</span></button><button data-scroll-to="qit-journey" type="button"><i class="fa-solid fa-route"></i><span>Journey</span></button><button data-scroll-to="tentang" type="button"><i class="fa-solid fa-ellipsis"></i><span>More</span></button><button aria-label="Musik" id="mobileBgmToggle" type="button"><i class="fa-solid fa-music"></i><span>BGM</span></button></nav>
 <script defer="" src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script defer="" src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js"></script>
-<script defer="" src="script.js?v=20261001-final3"></script>
+<script defer="" src="script.js?v=20261001-final4"></script>
 </body>
 </html>

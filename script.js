@@ -6,6 +6,8 @@
   const LEADERBOARD_CACHE_KEY = "qit9_leaderboard_cache_v2";
   const LEADERBOARD_REFRESH_MS = 3 * 60 * 1000;
   const POPUP_AUTO_MS = 6500;
+  const GALLERY_AUTO_MS = 5000;
+  const GALLERY_RESUME_MS = 10000;
   const reduceMotion = matchMedia("(prefers-reduced-motion: reduce)").matches;
   const qs = (s, r = document) => r.querySelector(s);
   const qsa = (s, r = document) => [...r.querySelectorAll(s)];
@@ -206,7 +208,8 @@
     const show=i=>{
       if(!items.length)return; index=(i+items.length)%items.length; const x=items[index];
       image.hidden=false; if(fallback) fallback.hidden=true; image.alt=`Poster QIT - ${x.name||index+1}`;
-      image.src=`${x.imageUrl}${x.imageUrl.includes("?")?"&":"?"}v=${encodeURIComponent(x.updated||Date.now())}`; renderDots();
+      const src=String(x.imageUrl||"");
+      image.src=src.startsWith("data:") ? src : `${src}${src.includes("?")?"&":"?"}v=${encodeURIComponent(x.updated||Date.now())}`; renderDots();
     };
     const restart=()=>{clearInterval(timer);if(items.length>1)timer=setInterval(()=>show(index+1),POPUP_AUTO_MS)};
     close?.addEventListener("click",hide); pop.addEventListener("click",e=>{if(e.target===pop)hide()});
@@ -225,13 +228,14 @@
     }).catch(()=>{}).finally(()=>{if(loading)loading.hidden=true});
   }
 
-  /* ---------- galleries, missing-file safe ---------- */
+  /* ---------- galleries: arrows + drag/swipe + auto 5s, resume after 10s ---------- */
   function prepGallery(el) {
     const slides=qsa(".swiper-slide",el);
     const empty=el.closest(".media-showcase")?.querySelector(".media-empty");
     const wrapper=qs(".swiper-wrapper",el);
     const prev=qs(".media-prev",el);
     const next=qs(".media-next",el);
+    if(!wrapper) return Promise.resolve();
 
     const tasks=slides.map(slide=>new Promise(resolve=>{
       const img=qs("img",slide);
@@ -251,21 +255,44 @@
       }
       el.hidden=false;
       if(empty) empty.hidden=true;
-      if(!wrapper) return;
 
+      let autoTimer=null, resumeTimer=null, down=false, startX=0, startLeft=0, moved=false;
+      const maxScroll=()=>Math.max(0,wrapper.scrollWidth-wrapper.clientWidth);
       const step=()=>{
         const first=qs(".swiper-slide",wrapper);
-        return first ? first.getBoundingClientRect().width + 24 : Math.max(320,wrapper.clientWidth*.8);
+        if(!first) return Math.max(300,wrapper.clientWidth*.86);
+        const styles=getComputedStyle(wrapper);
+        const gap=parseFloat(styles.columnGap||styles.gap||0)||24;
+        return first.getBoundingClientRect().width+gap;
       };
-      prev?.addEventListener("click",e=>{e.preventDefault();wrapper.scrollBy({left:-step(),behavior:"smooth"})});
-      next?.addEventListener("click",e=>{e.preventDefault();wrapper.scrollBy({left:step(),behavior:"smooth"})});
+      const go=(dir,manual=false)=>{
+        const max=maxScroll();
+        if(max<=2)return;
+        let target=wrapper.scrollLeft+dir*step();
+        if(dir>0 && target>=max-10) target=0;
+        if(dir<0 && target<=10) target=max;
+        wrapper.scrollTo({left:target,behavior:reduceMotion?"auto":"smooth"});
+        if(manual) userInteracted();
+      };
+      const stopAuto=()=>{clearInterval(autoTimer);autoTimer=null};
+      const startAuto=()=>{
+        stopAuto();
+        if(reduceMotion || remain.length<=1)return;
+        autoTimer=setInterval(()=>go(1,false),GALLERY_AUTO_MS);
+      };
+      const userInteracted=()=>{
+        stopAuto();clearTimeout(resumeTimer);
+        resumeTimer=setTimeout(startAuto,GALLERY_RESUME_MS);
+      };
 
-      let down=false,startX=0,startLeft=0,moved=false;
+      prev?.addEventListener("click",e=>{e.preventDefault();e.stopPropagation();go(-1,true)});
+      next?.addEventListener("click",e=>{e.preventDefault();e.stopPropagation();go(1,true)});
+
       wrapper.addEventListener("pointerdown",e=>{
         if(e.pointerType==="mouse" && e.button!==0)return;
         down=true;moved=false;startX=e.clientX;startLeft=wrapper.scrollLeft;
-        wrapper.classList.add("is-dragging");
-        try{wrapper.setPointerCapture(e.pointerId)}catch(_){ }
+        wrapper.classList.add("is-dragging");stopAuto();clearTimeout(resumeTimer);
+        try{wrapper.setPointerCapture(e.pointerId)}catch(_){}
       });
       wrapper.addEventListener("pointermove",e=>{
         if(!down)return;
@@ -276,15 +303,39 @@
       const stop=e=>{
         if(!down)return;
         down=false;wrapper.classList.remove("is-dragging");
-        try{wrapper.releasePointerCapture(e.pointerId)}catch(_){ }
+        try{wrapper.releasePointerCapture(e.pointerId)}catch(_){}
+        userInteracted();
       };
       wrapper.addEventListener("pointerup",stop);
       wrapper.addEventListener("pointercancel",stop);
       wrapper.addEventListener("pointerleave",e=>{if(down&&e.pointerType==="mouse")stop(e)});
+      wrapper.addEventListener("wheel",userInteracted,{passive:true});
+      wrapper.addEventListener("touchend",userInteracted,{passive:true});
       wrapper.addEventListener("click",e=>{if(moved){e.preventDefault();e.stopPropagation();moved=false}},true);
+      wrapper.addEventListener("mouseenter",stopAuto);
+      wrapper.addEventListener("mouseleave",()=>{clearTimeout(resumeTimer);resumeTimer=setTimeout(startAuto,GALLERY_RESUME_MS)});
+      document.addEventListener("visibilitychange",()=>{if(document.hidden)stopAuto();else userInteracted()});
+      startAuto();
     });
   }
   function initGalleries(){qsa(".gallery-swiper").forEach(prepGallery)}
+
+  /* ---------- hero living motion ---------- */
+  function initHeroLivingMotion(){
+    const dust=qs("#heroDust");
+    if(!dust || reduceMotion || dust.children.length)return;
+    const frag=document.createDocumentFragment();
+    for(let i=0;i<18;i++){
+      const dot=document.createElement("i");
+      dot.style.left=`${8+Math.random()*84}%`;
+      dot.style.top=`${18+Math.random()*70}%`;
+      dot.style.setProperty("--delay",`${-Math.random()*8}s`);
+      dot.style.setProperty("--dur",`${6+Math.random()*8}s`);
+      dot.style.setProperty("--size",`${2+Math.random()*4}px`);
+      frag.appendChild(dot);
+    }
+    dust.appendChild(frag);
+  }
 
   /* ---------- fullscreen media ---------- */
   function initFullscreen() {
@@ -331,5 +382,6 @@
     initMusic();
     initAbout();
     initParticles();
+    initHeroLivingMotion();
   });
 })();
