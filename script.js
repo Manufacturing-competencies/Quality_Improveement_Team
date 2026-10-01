@@ -1,4 +1,4 @@
-// QIT Batch 9 FINAL6 — all-platform production build
+// QIT Batch 9 FINAL8 — polished production build
 (() => {
   "use strict";
 
@@ -224,13 +224,6 @@
   function initPopup() {
     const pop=qs("#welcomePop"), close=qs("#welcomeClose"), image=qs("#campaignPoster"), frame=qs("#campaignPosterFrame"), dots=qs("#popupDots"), prev=qs("#popupPrev"), next=qs("#popupNext"), loading=qs("#posterLoading"), fallback=qs("#posterFallback"), carousel=qs("#popupCarousel");
     if(!pop || !image || !carousel) return;
-
-    const adminLink=qs(".poster-admin-link");
-    if(adminLink){
-      const adminUrl=`${APP_URL}?mode=popup-admin`;
-      adminLink.href=adminUrl;
-      adminLink.addEventListener("click",e=>{e.preventDefault();e.stopPropagation();window.open(adminUrl,"_blank","noopener,noreferrer")});
-    }
 
     let items=[];
     let index=0;
