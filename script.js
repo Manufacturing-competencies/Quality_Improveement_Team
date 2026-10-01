@@ -1,9 +1,9 @@
-// QIT Batch 9 FINAL3 — Access Center restored
+// QIT Batch 9 FINAL6 — all-platform production build
 (() => {
   "use strict";
 
   const APP_URL = "https://script.google.com/macros/s/AKfycbz1iKWHZPoQI9vif1Ab-zcX4locQfnaMw8xh-edsP7WnckNqeVpJNgn79cx98PqS1w/exec";
-  const LEADERBOARD_CACHE_KEY = "qit9_leaderboard_cache_v2";
+  const LEADERBOARD_CACHE_KEY = "qit9_leaderboard_cache_v3";
   const LEADERBOARD_REFRESH_MS = 3 * 60 * 1000;
   const POPUP_AUTO_MS = 6500;
   const GALLERY_AUTO_MS = 5000;
@@ -29,6 +29,15 @@
     tag.onerror = () => { cleanup(); reject(new Error("network")); };
     document.head.appendChild(tag);
   });
+
+  const jsonpRetry = async (url, params = {}, { attempts = 2, timeout = 15000, delay = 900 } = {}) => {
+    let lastError;
+    for (let i = 0; i < attempts; i++) {
+      try { return await jsonp(url, params, timeout); }
+      catch (err) { lastError = err; if (i < attempts - 1) await new Promise(r => setTimeout(r, delay)); }
+    }
+    throw lastError || new Error("network");
+  };
 
   const openUrl = url => { if (url) window.open(url, "_blank", "noopener,noreferrer"); };
   const escapeHtml = value => String(value ?? "").replace(/[&<>"]/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;"}[ch]));
@@ -136,6 +145,17 @@
       return `<article class="podium-card ${x.c}"><span class="podium-rank">${x.r}</span><div class="podium-medal"><i class="fa-solid ${x.icon}"></i></div><b>${escapeHtml(d?.team || "—")}</b><small class="podium-meta">${escapeHtml(d ? `${d.stream} • ${d.lokasi}` : "")}</small><strong>${d ? d.points.toLocaleString("id-ID") : "—"}<small> PTS</small></strong></article>`;
     }).join("");
   }
+  function renderMobileLeaderboard(rows) {
+    const wrap = qs("#leaderboardMobileList");
+    if (!wrap) return;
+    wrap.innerHTML = rows.map((d, i) => `
+      <article class="mobile-rank-row">
+        <span class="mobile-rank-no">${i + 1}</span>
+        <div class="mobile-rank-copy"><b>${escapeHtml(d.team)}</b><small>${escapeHtml(d.stream)} • ${escapeHtml(d.lokasi)}</small></div>
+        <strong>${d.points.toLocaleString("id-ID")} <small>PTS</small></strong>
+      </article>`).join("");
+  }
+
   function renderChart(rows) {
     const canvas = qs("#leaderboardChart");
     if (!canvas || typeof Chart !== "function") return;
@@ -156,7 +176,7 @@
   }
   function renderLeaderboard(data, fromCache=false) {
     const rows = normalizeLeaderboard(data); if (!rows.length) return false;
-    buildPodium(rows); renderChart(rows);
+    buildPodium(rows); renderMobileLeaderboard(rows); renderChart(rows);
     const status = qs("#leaderboardStatus"); if(status) status.hidden = true;
     const up = qs("#leaderboardUpdated");
     if(up) up.innerHTML = `<i class="fa-regular fa-clock"></i> ${fromCache ? "Data terakhir • " : "Update: "}${escapeHtml(data.updatedAt || new Date().toLocaleString("id-ID"))}`;
@@ -164,24 +184,30 @@
   }
   function readLeaderboardCache(){try{return JSON.parse(localStorage.getItem(LEADERBOARD_CACHE_KEY)||"null")}catch(_){return null}}
   function saveLeaderboardCache(data){try{localStorage.setItem(LEADERBOARD_CACHE_KEY,JSON.stringify(data))}catch(_){}}
-  async function loadLeaderboard({silent=false}={}) {
+  async function loadLeaderboard({silent=false, fresh=false}={}) {
     const refresh=qs("#leaderboardRefresh"), status=qs("#leaderboardStatus");
     refresh?.classList.add("is-loading");
     if(!silent && status){status.hidden=false;status.innerHTML='<i class="fa-solid fa-circle-notch fa-spin"></i> Memperbarui data...';}
     try{
-      const data=await jsonp(APP_URL,{api:"leaderboard"},8000);
+      const data=await jsonpRetry(APP_URL,{api:"leaderboard", ...(fresh?{fresh:"1"}:{})},{attempts:3,timeout:18000,delay:1100});
       if(!data?.success) throw new Error(data?.error||"API error");
       if(renderLeaderboard(data,false)) saveLeaderboardCache(data);
     }catch(err){
       console.warn("Leaderboard:",err);
-      if(status && !readLeaderboardCache()){status.hidden=false;status.innerHTML='<i class="fa-solid fa-rotate"></i> Data belum tersedia. Klik Refresh untuk mencoba lagi.';}
-      else if(status) status.hidden=true;
+      const cached=readLeaderboardCache();
+      if(cached){
+        renderLeaderboard(cached,true);
+        if(status) status.hidden=true;
+      } else if(status){
+        status.hidden=false;
+        status.innerHTML='<i class="fa-solid fa-wifi"></i> Koneksi data sedang lambat. Tekan Refresh untuk mencoba lagi.';
+      }
     }finally{refresh?.classList.remove("is-loading")}
   }
   function initLeaderboard(){
     const cached=readLeaderboardCache();
     if(cached) renderLeaderboard(cached,true);
-    qs("#leaderboardRefresh")?.addEventListener("click",()=>loadLeaderboard());
+    qs("#leaderboardRefresh")?.addEventListener("click",()=>loadLeaderboard({fresh:true}));
     qs(".leaderboard-open")?.addEventListener("click",()=>openUrl(APP_URL));
     loadLeaderboard({silent:!!cached});
     setInterval(()=>loadLeaderboard({silent:true}),LEADERBOARD_REFRESH_MS);
@@ -189,43 +215,102 @@
 
   /* ---------- popup: appears on every refresh ---------- */
   function initPopup() {
-    const pop=qs("#welcomePop"), close=qs("#welcomeClose"), image=qs("#campaignPoster"), dots=qs("#popupDots"), prev=qs("#popupPrev"), next=qs("#popupNext"), loading=qs("#posterLoading"), fallback=qs("#posterFallback"), carousel=qs("#popupCarousel");
+    const pop=qs("#welcomePop"), close=qs("#welcomeClose"), image=qs("#campaignPoster"), frame=qs("#campaignPosterFrame"), dots=qs("#popupDots"), prev=qs("#popupPrev"), next=qs("#popupNext"), loading=qs("#posterLoading"), fallback=qs("#posterFallback"), carousel=qs("#popupCarousel");
     if(!pop || !image || !carousel) return;
+
     const adminLink=qs(".poster-admin-link");
     if(adminLink){
       const adminUrl=`${APP_URL}?mode=popup-admin`;
       adminLink.href=adminUrl;
       adminLink.addEventListener("click",e=>{e.preventDefault();e.stopPropagation();window.open(adminUrl,"_blank","noopener,noreferrer")});
     }
-    let items=[{name:"POPUP.png",imageUrl:"POPUP.png",updated:"local"}], index=0, timer=null, touchX=0;
+
+    let items=[];
+    let index=0;
+    let timer=null;
+    let touchX=0;
+
     const open=()=>{pop.classList.add("is-open");pop.setAttribute("aria-hidden","false");document.body.classList.add("popup-open")};
     const hide=()=>{pop.classList.remove("is-open");pop.setAttribute("aria-hidden","true");document.body.classList.remove("popup-open")};
+
     const renderDots=()=>{
       if(!dots) return;
       dots.innerHTML=items.map((_,i)=>`<button class="popup-dot${i===index?" active":""}" data-i="${i}" aria-label="Poster ${i+1}"></button>`).join("");
-      dots.hidden=items.length<=1; prev?.classList.toggle("is-hidden",items.length<=1); next?.classList.toggle("is-hidden",items.length<=1);
+      dots.hidden=items.length<=1;
+      prev?.classList.toggle("is-hidden",items.length<=1);
+      next?.classList.toggle("is-hidden",items.length<=1);
     };
-    const show=i=>{
-      if(!items.length)return; index=(i+items.length)%items.length; const x=items[index];
-      image.hidden=false; if(fallback) fallback.hidden=true; image.alt=`Poster QIT - ${x.name||index+1}`;
-      const src=String(x.imageUrl||"");
-      image.src=src.startsWith("data:") ? src : `${src}${src.includes("?")?"&":"?"}v=${encodeURIComponent(x.updated||Date.now())}`; renderDots();
-    };
-    const restart=()=>{clearInterval(timer);if(items.length>1)timer=setInterval(()=>show(index+1),POPUP_AUTO_MS)};
-    close?.addEventListener("click",hide); pop.addEventListener("click",e=>{if(e.target===pop)hide()});
-    document.addEventListener("keydown",e=>{if(e.key==="Escape"&&pop.classList.contains("is-open"))hide()});
-    prev?.addEventListener("click",()=>{show(index-1);restart()}); next?.addEventListener("click",()=>{show(index+1);restart()});
-    dots?.addEventListener("click",e=>{const b=e.target.closest("[data-i]");if(b){show(Number(b.dataset.i));restart()}});
-    carousel.addEventListener("touchstart",e=>touchX=e.changedTouches[0]?.clientX||0,{passive:true});
-    carousel.addEventListener("touchend",e=>{const d=(e.changedTouches[0]?.clientX||0)-touchX;if(Math.abs(d)>45)show(index+(d<0?1:-1));restart()},{passive:true});
-    image.addEventListener("error",()=>{image.hidden=true;if(fallback)fallback.hidden=false});
 
-    show(0); setTimeout(open,220); // every refresh, no sessionStorage
-    if(loading) loading.hidden=false;
-    jsonp(APP_URL,{action:"popup-list"},6500).then(data=>{
-      const files=Array.isArray(data?.files)?data.files.filter(f=>String(f.mimeType||"").toLowerCase()==="image/png"&&f.imageUrl):[];
-      if(files.length){items=files.sort((a,b)=>String(a.name||"").localeCompare(String(b.name||""),undefined,{numeric:true,sensitivity:"base"}));show(0);restart()}
-    }).catch(()=>{}).finally(()=>{if(loading)loading.hidden=true});
+    const setBusy=on=>{
+      if(loading) loading.hidden=!on;
+      if(on && fallback) fallback.hidden=true;
+    };
+
+    const showLocalFallback=()=>{
+      if(frame) frame.hidden=true;
+      image.hidden=false;
+      image.alt="Poster informasi QIT Batch 9";
+      image.src=`POPUP.png?v=${Date.now()}`;
+      image.onload=()=>{ if(fallback) fallback.hidden=true; setBusy(false); };
+      image.onerror=()=>{ image.hidden=true; if(fallback) fallback.hidden=false; setBusy(false); };
+    };
+
+    const loadPoster=async i=>{
+      if(!items.length) return showLocalFallback();
+      index=(i+items.length)%items.length;
+      const item=items[index];
+      renderDots();
+      setBusy(true);
+
+      if(!frame) return showLocalFallback();
+      image.hidden=true;
+      frame.hidden=false;
+      frame.setAttribute("aria-label",`Poster QIT - ${item.name||index+1}`);
+
+      await new Promise(resolve=>{
+        let done=false;
+        const finish=ok=>{
+          if(done) return; done=true;
+          clearTimeout(t);
+          if(ok){ if(fallback) fallback.hidden=true; }
+          else showLocalFallback();
+          setBusy(false);
+          resolve();
+        };
+        const t=setTimeout(()=>finish(false),22000);
+        frame.onload=()=>finish(true);
+        frame.onerror=()=>finish(false);
+        frame.src=`${APP_URL}?mode=popup-view&id=${encodeURIComponent(item.id)}&v=${encodeURIComponent(item.updated||Date.now())}`;
+      });
+    };
+
+    const restart=()=>{
+      clearInterval(timer);
+      if(items.length>1) timer=setInterval(()=>loadPoster(index+1),POPUP_AUTO_MS);
+    };
+
+    close?.addEventListener("click",hide);
+    pop.addEventListener("click",e=>{if(e.target===pop)hide()});
+    document.addEventListener("keydown",e=>{if(e.key==="Escape"&&pop.classList.contains("is-open"))hide()});
+    prev?.addEventListener("click",()=>{loadPoster(index-1);restart()});
+    next?.addEventListener("click",()=>{loadPoster(index+1);restart()});
+    dots?.addEventListener("click",e=>{const b=e.target.closest("[data-i]");if(b){loadPoster(Number(b.dataset.i));restart()}});
+    carousel.addEventListener("touchstart",e=>touchX=e.changedTouches[0]?.clientX||0,{passive:true});
+    carousel.addEventListener("touchend",e=>{const d=(e.changedTouches[0]?.clientX||0)-touchX;if(Math.abs(d)>45)loadPoster(index+(d<0?1:-1));restart()},{passive:true});
+
+    setTimeout(open,180);
+    setBusy(true);
+
+    jsonpRetry(APP_URL,{action:"popup-list"},{attempts:3,timeout:16000,delay:900})
+      .then(data=>{
+        const files=Array.isArray(data?.files)?data.files.filter(f=>String(f.mimeType||"").toLowerCase()==="image/png"&&f.id):[];
+        if(!files.length) throw new Error("Belum ada poster aktif");
+        items=files.sort((a,b)=>String(a.name||"").localeCompare(String(b.name||""),undefined,{numeric:true,sensitivity:"base"}));
+        renderDots();
+        return loadPoster(0);
+      })
+      .then(restart)
+      .catch(err=>{console.warn("QIT Popup list error:",err);showLocalFallback();});
   }
 
   /* ---------- galleries: arrows + drag/swipe + auto 5s, resume after 10s ---------- */
