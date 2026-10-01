@@ -211,6 +211,13 @@
     qs(".leaderboard-open")?.addEventListener("click",()=>openUrl(APP_URL));
     loadLeaderboard({silent:!!cached});
     setInterval(()=>loadLeaderboard({silent:true}),LEADERBOARD_REFRESH_MS);
+
+    // FINAL7: bantu mobile ketika tab kembali aktif / koneksi baru pulih.
+    addEventListener("online",()=>loadLeaderboard({silent:false}),{passive:true});
+    addEventListener("pageshow",()=>loadLeaderboard({silent:true}),{passive:true});
+    document.addEventListener("visibilitychange",()=>{
+      if(!document.hidden) loadLeaderboard({silent:true});
+    });
   }
 
   /* ---------- popup: appears on every refresh ---------- */
@@ -262,26 +269,36 @@
       renderDots();
       setBusy(true);
 
-      if(!frame) return showLocalFallback();
-      image.hidden=true;
-      frame.hidden=false;
-      frame.setAttribute("aria-label",`Poster QIT - ${item.name||index+1}`);
+      // FINAL7: ambil satu gambar per request lewat JSONP.
+      // Ini lebih stabil daripada iframe/direct Drive di GitHub Pages & mobile.
+      try{
+        const data = await jsonpRetry(
+          APP_URL,
+          { action:"popup-image", id:item.id },
+          { attempts:3, timeout:25000, delay:1000 }
+        );
 
-      await new Promise(resolve=>{
-        let done=false;
-        const finish=ok=>{
-          if(done) return; done=true;
-          clearTimeout(t);
-          if(ok){ if(fallback) fallback.hidden=true; }
-          else showLocalFallback();
-          setBusy(false);
-          resolve();
-        };
-        const t=setTimeout(()=>finish(false),22000);
-        frame.onload=()=>finish(true);
-        frame.onerror=()=>finish(false);
-        frame.src=`${APP_URL}?mode=popup-view&id=${encodeURIComponent(item.id)}&v=${encodeURIComponent(item.updated||Date.now())}`;
-      });
+        if(!data?.ok || !data?.imageData) throw new Error(data?.message || "Poster image unavailable");
+
+        if(frame) frame.hidden = true;
+        image.hidden = false;
+        image.classList.remove("is-loaded");
+        image.alt = `Poster QIT - ${item.name || (index+1)}`;
+
+        await new Promise((resolve,reject)=>{
+          const t=setTimeout(()=>reject(new Error("image timeout")),12000);
+          image.onload=()=>{clearTimeout(t);resolve()};
+          image.onerror=()=>{clearTimeout(t);reject(new Error("image render failed"))};
+          image.src = data.imageData;
+        });
+
+        image.classList.add("is-loaded");
+        if(fallback) fallback.hidden = true;
+        setBusy(false);
+      }catch(err){
+        console.warn("QIT Popup image error:", err);
+        showLocalFallback();
+      }
     };
 
     const restart=()=>{
