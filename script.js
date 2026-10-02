@@ -220,102 +220,386 @@
     });
   }
 
-  /* ---------- popup removed in FINAL16 ---------- */
+  /* ---------- GitHub poster popup / A4 ---------- */
   function initPopup() {
-    // Popup intentionally disabled/removed.
-  }
+    const popup = qs("#githubPopup");
+    if (!popup) return;
 
-  /* ---------- galleries: arrows + drag/swipe + auto 5s, resume after 10s ---------- */
-  function prepGallery(el) {
-    const slides=qsa(".swiper-slide",el);
-    const empty=el.closest(".media-showcase")?.querySelector(".media-empty");
-    const wrapper=qs(".swiper-wrapper",el);
-    const prev=qs(".media-prev",el);
-    const next=qs(".media-next",el);
-    if(!wrapper) return Promise.resolve();
+    const image = qs("#githubPopupImage");
+    const caption = qs("#githubPopupCaption");
+    const prevBtn = qs("#githubPopupPrev");
+    const nextBtn = qs("#githubPopupNext");
+    const closeBtn = qs("#githubPopupClose");
+    const dotsWrap = qs("#githubPopupDots");
+    const previewLeft = qs("#githubPopupPreviewLeft");
+    const previewRight = qs("#githubPopupPreviewRight");
+    const stage = qs("#githubPopupStage");
+    let posters = [];
+    let index = 0;
+    let timer = null;
+    let touchX = 0;
 
-    const tasks=slides.map(slide=>new Promise(resolve=>{
-      const img=qs("img",slide);
-      if(!img){slide.remove();return resolve()}
-      const finish=ok=>{if(!ok)slide.remove();resolve()};
-      if(img.complete)return finish(!!img.naturalWidth);
-      img.addEventListener("load",()=>finish(true),{once:true});
-      img.addEventListener("error",()=>finish(false),{once:true});
-    }));
+    const close = () => {
+      popup.classList.remove("open");
+      popup.setAttribute("aria-hidden","true");
+      document.body.classList.remove("github-popup-open");
+      clearInterval(timer);
+      timer = null;
+    };
 
-    return Promise.all(tasks).then(()=>{
-      const remain=qsa(".swiper-slide",el);
-      if(!remain.length){
-        el.hidden=true;
-        if(empty) empty.hidden=false;
+    const open = () => {
+      if (!posters.length) return;
+      popup.classList.add("open");
+      popup.setAttribute("aria-hidden","false");
+      document.body.classList.add("github-popup-open");
+    };
+
+    const safeUrl = value => {
+      if (!value) return "";
+      return String(value).replace(/["'()\\]/g,"");
+    };
+
+    const render = () => {
+      if (!posters.length) return;
+      const current = posters[index];
+      const prev = posters[(index - 1 + posters.length) % posters.length];
+      const next = posters[(index + 1) % posters.length];
+
+      image.src = current.src;
+      image.alt = current.alt || current.title || "Poster informasi QIT Batch 9";
+      caption.textContent = current.title || "";
+
+      const multi = posters.length > 1;
+      prevBtn.hidden = !multi;
+      nextBtn.hidden = !multi;
+      previewLeft.hidden = !multi;
+      previewRight.hidden = !multi;
+
+      if (multi) {
+        previewLeft.style.backgroundImage = `url("${safeUrl(prev.src)}")`;
+        previewRight.style.backgroundImage = `url("${safeUrl(next.src)}")`;
+      }
+
+      dotsWrap.innerHTML = posters.map((_,i) =>
+        `<button class="github-popup-dot ${i===index ? "active" : ""}" type="button" data-popup-index="${i}" aria-label="Poster ${i+1}"></button>`
+      ).join("");
+    };
+
+    const go = dir => {
+      if (posters.length < 2) return;
+      index = (index + dir + posters.length) % posters.length;
+      render();
+    };
+
+    const startAuto = () => {
+      // FINAL25: manual-only popup. No automatic slide.
+      clearInterval(timer);
+      timer = null;
+    };
+
+    closeBtn?.addEventListener("click", e => {
+      e.preventDefault();
+      e.stopPropagation();
+      close();
+    });
+    closeBtn?.addEventListener("pointerup", e => {
+      e.preventDefault();
+      e.stopPropagation();
+      close();
+    });
+    qsa("[data-popup-close]", popup).forEach(el => el.addEventListener("click", close));
+    prevBtn?.addEventListener("click", () => go(-1));
+    nextBtn?.addEventListener("click", () => go(1));
+
+    dotsWrap?.addEventListener("click", e => {
+      const dot = e.target.closest("[data-popup-index]");
+      if (!dot) return;
+      index = Number(dot.dataset.popupIndex) || 0;
+      render();
+    });
+
+    // FINAL26 — manual swipe/drag yang stabil di HP, tablet, laptop, desktop.
+    let popStartX = 0;
+    let popStartY = 0;
+    let popCurrentX = 0;
+    let popCurrentY = 0;
+    let popDragging = false;
+    let popHorizontal = false;
+    let popMouseDown = false;
+
+    const resetPopupDrag = () => {
+      if (!stage) return;
+      stage.style.transition = "transform .18s ease";
+      stage.style.transform = "translateX(0)";
+      setTimeout(() => {
+        if (stage) stage.style.transition = "";
+      }, 190);
+    };
+
+    const commitPopupSwipe = dx => {
+      resetPopupDrag();
+      if (Math.abs(dx) < 45) return;
+      go(dx < 0 ? 1 : -1);
+    };
+
+    // Touch swipe
+    stage?.addEventListener("touchstart", e => {
+      if (!e.touches?.length) return;
+      const t = e.touches[0];
+      popStartX = popCurrentX = t.clientX;
+      popStartY = popCurrentY = t.clientY;
+      popDragging = true;
+      popHorizontal = false;
+      stage.style.transition = "none";
+    }, {passive:true});
+
+    stage?.addEventListener("touchmove", e => {
+      if (!popDragging || !e.touches?.length) return;
+      const t = e.touches[0];
+      popCurrentX = t.clientX;
+      popCurrentY = t.clientY;
+      const dx = popCurrentX - popStartX;
+      const dy = popCurrentY - popStartY;
+
+      if (!popHorizontal && Math.abs(dx) > 7) {
+        popHorizontal = Math.abs(dx) > Math.abs(dy);
+      }
+
+      if (popHorizontal) {
+        e.preventDefault();
+        const visual = Math.max(-90, Math.min(90, dx * .32));
+        stage.style.transform = `translateX(${visual}px)`;
+      }
+    }, {passive:false});
+
+    stage?.addEventListener("touchend", () => {
+      if (!popDragging) return;
+      popDragging = false;
+      commitPopupSwipe(popHorizontal ? (popCurrentX - popStartX) : 0);
+    }, {passive:true});
+
+    stage?.addEventListener("touchcancel", () => {
+      popDragging = false;
+      resetPopupDrag();
+    }, {passive:true});
+
+    // Mouse drag
+    stage?.addEventListener("mousedown", e => {
+      if (e.button !== 0) return;
+      popMouseDown = true;
+      popStartX = popCurrentX = e.clientX;
+      stage.classList.add("is-swiping");
+      stage.style.transition = "none";
+      e.preventDefault();
+    });
+
+    window.addEventListener("mousemove", e => {
+      if (!popMouseDown) return;
+      popCurrentX = e.clientX;
+      const dx = popCurrentX - popStartX;
+      const visual = Math.max(-110, Math.min(110, dx * .32));
+      if (stage) stage.style.transform = `translateX(${visual}px)`;
+    });
+
+    window.addEventListener("mouseup", () => {
+      if (!popMouseDown) return;
+      popMouseDown = false;
+      stage?.classList.remove("is-swiping");
+      commitPopupSwipe(popCurrentX - popStartX);
+    });
+
+    document.addEventListener("keydown", e => {
+      if (!popup.classList.contains("open")) return;
+      if (e.key === "Escape") close();
+      if (e.key === "ArrowLeft") go(-1);
+      if (e.key === "ArrowRight") go(1);
+    });
+
+    // FINAL20: local-safe poster source.
+    // Works when index.html is opened directly from C:\ as well as on GitHub Pages.
+    // Tambah poster baru di array ini dan upload file-nya ke folder /popup.
+    posters = [
+      { src: "popup/POP1.png", title: "QIT Batch 9 Update", alt: "Poster QIT Batch 9 Update" },
+      { src: "popup/POP2.png", title: "QIT Batch 9 Update 02", alt: "Poster QIT Batch 9 Update 02" },
+      { src: "popup/POP3.png", title: "QIT Batch 9 Update 03", alt: "Poster QIT Batch 9 Update 03" }
+    ];
+
+    const loadFirstAvailable = (i = 0) => {
+      if (i >= posters.length) {
+        console.warn("Popup: tidak ada poster yang berhasil dimuat.");
         return;
       }
-      el.hidden=false;
-      if(empty) empty.hidden=true;
+      const probe = new Image();
+      probe.onload = () => {
+        index = i;
+        render();
+        window.setTimeout(open, 350);
+      };
+      probe.onerror = () => loadFirstAvailable(i + 1);
+      probe.src = posters[i].src;
+    };
 
-      let autoTimer=null, resumeTimer=null, down=false, startX=0, startLeft=0, moved=false;
-      const maxScroll=()=>Math.max(0,wrapper.scrollWidth-wrapper.clientWidth);
-      const step=()=>{
-        const first=qs(".swiper-slide",wrapper);
-        if(!first) return Math.max(300,wrapper.clientWidth*.86);
-        const styles=getComputedStyle(wrapper);
-        const gap=parseFloat(styles.columnGap||styles.gap||0)||24;
-        return first.getBoundingClientRect().width+gap;
-      };
-      const go=(dir,manual=false)=>{
-        const max=maxScroll();
-        if(max<=2)return;
-        let target=wrapper.scrollLeft+dir*step();
-        if(dir>0 && target>=max-10) target=0;
-        if(dir<0 && target<=10) target=max;
-        wrapper.scrollTo({left:target,behavior:reduceMotion?"auto":"smooth"});
-        if(manual) userInteracted();
-      };
-      const stopAuto=()=>{clearInterval(autoTimer);autoTimer=null};
-      const startAuto=()=>{
-        stopAuto();
-        if(reduceMotion || remain.length<=1)return;
-        autoTimer=setInterval(()=>go(1,false),GALLERY_AUTO_MS);
-      };
-      const userInteracted=()=>{
-        stopAuto();clearTimeout(resumeTimer);
-        resumeTimer=setTimeout(startAuto,GALLERY_RESUME_MS);
+    loadFirstAvailable();
+  }
+
+  /* ---------- galleries: manual arrows + touch swipe + mouse drag ---------- */
+  function prepGallery(el) {
+    const empty = el.closest(".media-showcase")?.querySelector(".media-empty");
+    const wrapper = qs(".swiper-wrapper", el);
+    const prev = qs(".media-prev", el);
+    const next = qs(".media-next", el);
+    if (!wrapper) return Promise.resolve();
+
+    const initialSlides = qsa(".swiper-slide", el);
+
+    const tasks = initialSlides.map(slide => new Promise(resolve => {
+      const img = qs("img", slide);
+      if (!img) {
+        slide.remove();
+        resolve();
+        return;
+      }
+
+      const finish = ok => {
+        if (!ok) slide.remove();
+        resolve();
       };
 
-      prev?.addEventListener("click",e=>{e.preventDefault();e.stopPropagation();go(-1,true)});
-      next?.addEventListener("click",e=>{e.preventDefault();e.stopPropagation();go(1,true)});
+      if (img.complete) {
+        finish(!!img.naturalWidth);
+        return;
+      }
 
-      wrapper.addEventListener("pointerdown",e=>{
-        if(e.pointerType==="mouse" && e.button!==0)return;
-        down=true;moved=false;startX=e.clientX;startLeft=wrapper.scrollLeft;
-        wrapper.classList.add("is-dragging");stopAuto();clearTimeout(resumeTimer);
-        try{wrapper.setPointerCapture(e.pointerId)}catch(_){}
+      img.addEventListener("load", () => finish(true), {once:true});
+      img.addEventListener("error", () => finish(false), {once:true});
+    }));
+
+    return Promise.all(tasks).then(() => {
+      const slides = qsa(".swiper-slide", el);
+
+      if (!slides.length) {
+        el.hidden = true;
+        if (empty) empty.hidden = false;
+        return;
+      }
+
+      el.hidden = false;
+      if (empty) empty.hidden = true;
+
+      wrapper.setAttribute("tabindex", "0");
+      wrapper.setAttribute("role", "region");
+      wrapper.setAttribute("aria-label", "Galeri foto, geser kanan atau kiri");
+
+      const getGap = () => {
+        const style = getComputedStyle(wrapper);
+        return parseFloat(style.columnGap || style.gap || "0") || 16;
+      };
+
+      const getStep = () => {
+        const first = qs(".swiper-slide", wrapper);
+        if (!first) return wrapper.clientWidth * .85;
+        return first.getBoundingClientRect().width + getGap();
+      };
+
+      const maxScroll = () => Math.max(0, wrapper.scrollWidth - wrapper.clientWidth);
+
+      const nearestIndex = () => {
+        const step = Math.max(1, getStep());
+        return Math.round(wrapper.scrollLeft / step);
+      };
+
+      const goToIndex = i => {
+        const last = slides.length - 1;
+        let targetIndex = i;
+        if (targetIndex < 0) targetIndex = last;
+        if (targetIndex > last) targetIndex = 0;
+
+        const left = Math.min(maxScroll(), Math.max(0, targetIndex * getStep()));
+        wrapper.scrollTo({
+          left,
+          behavior: reduceMotion ? "auto" : "smooth"
+        });
+      };
+
+      const go = dir => goToIndex(nearestIndex() + dir);
+
+      // Arrow buttons — active on ALL platforms.
+      prev?.addEventListener("click", e => {
+        e.preventDefault();
+        e.stopPropagation();
+        go(-1);
       });
-      wrapper.addEventListener("pointermove",e=>{
-        if(!down)return;
-        const dx=e.clientX-startX;
-        if(Math.abs(dx)>4)moved=true;
-        wrapper.scrollLeft=startLeft-dx;
+
+      next?.addEventListener("click", e => {
+        e.preventDefault();
+        e.stopPropagation();
+        go(1);
       });
-      const stop=e=>{
-        if(!down)return;
-        down=false;wrapper.classList.remove("is-dragging");
-        try{wrapper.releasePointerCapture(e.pointerId)}catch(_){}
-        userInteracted();
-      };
-      wrapper.addEventListener("pointerup",stop);
-      wrapper.addEventListener("pointercancel",stop);
-      wrapper.addEventListener("pointerleave",e=>{if(down&&e.pointerType==="mouse")stop(e)});
-      wrapper.addEventListener("wheel",userInteracted,{passive:true});
-      wrapper.addEventListener("touchend",userInteracted,{passive:true});
-      wrapper.addEventListener("click",e=>{if(moved){e.preventDefault();e.stopPropagation();moved=false}},true);
-      wrapper.addEventListener("mouseenter",stopAuto);
-      wrapper.addEventListener("mouseleave",()=>{clearTimeout(resumeTimer);resumeTimer=setTimeout(startAuto,GALLERY_RESUME_MS)});
-      document.addEventListener("visibilitychange",()=>{if(document.hidden)stopAuto();else userInteracted()});
-      startAuto();
+
+      // Keyboard navigation on desktop.
+      wrapper.addEventListener("keydown", e => {
+        if (e.key === "ArrowLeft") {
+          e.preventDefault();
+          go(-1);
+        }
+        if (e.key === "ArrowRight") {
+          e.preventDefault();
+          go(1);
+        }
+      });
+
+      // Mobile/tablet: use native horizontal swipe.
+      // No pointer-capture here because it can cancel browser touch scrolling.
+
+      // Desktop/laptop: drag with mouse.
+      let mouseDown = false;
+      let startX = 0;
+      let startLeft = 0;
+      let moved = false;
+
+      wrapper.addEventListener("mousedown", e => {
+        if (e.button !== 0) return;
+        mouseDown = true;
+        moved = false;
+        startX = e.clientX;
+        startLeft = wrapper.scrollLeft;
+        wrapper.classList.add("is-dragging");
+        e.preventDefault();
+      });
+
+      window.addEventListener("mousemove", e => {
+        if (!mouseDown) return;
+        const dx = e.clientX - startX;
+        if (Math.abs(dx) > 4) moved = true;
+        wrapper.scrollLeft = startLeft - dx;
+      });
+
+      window.addEventListener("mouseup", () => {
+        if (!mouseDown) return;
+        mouseDown = false;
+        wrapper.classList.remove("is-dragging");
+
+        // Snap to nearest card after dragging.
+        if (moved) {
+          setTimeout(() => goToIndex(nearestIndex()), 10);
+        }
+      });
+
+      wrapper.addEventListener("dragstart", e => e.preventDefault());
+
+      // Prevent fullscreen click when the user just dragged.
+      wrapper.addEventListener("click", e => {
+        if (!moved) return;
+        e.preventDefault();
+        e.stopPropagation();
+        moved = false;
+      }, true);
     });
   }
-  function initGalleries(){qsa(".gallery-swiper").forEach(prepGallery)}
+
+  function initGalleries() {
+    qsa(".gallery-swiper").forEach(prepGallery);
+  }
 
   /* ---------- hero living motion ---------- */
   function initHeroLivingMotion(){
@@ -347,13 +631,326 @@
     document.addEventListener("keydown",e=>{if(!overlay.classList.contains("open"))return;if(e.key==="Escape")close();if(e.key==="ArrowLeft")qs(".fs-prev",overlay)?.click();if(e.key==="ArrowRight")qs(".fs-next",overlay)?.click()});
   }
 
-  /* ---------- BGM ---------- */
+
+
+  /* ---------- Cinematic Team Reveal QIT Batch 9 ---------- */
+  function initTeamSpotlight() {
+    const teams = [
+
+      { code: "Q261001", name: "OPTIQ" },
+      { code: "Q261002", name: "PHOENIX" },
+      { code: "Q261003", name: "SONIC" },
+      { code: "Q261004", name: "PATRICK" },
+      { code: "Q261005", name: "NAI-LONG" },
+      { code: "Q261006", name: "AKAR" },
+      { code: "Q261007", name: "TRACE" },
+      { code: "Q261008", name: "AKSARASA" },
+      { code: "Q261009", name: "KOPDES" },
+      { code: "Q261010", name: "TSUBASA" },
+      { code: "Q261011", name: "HIGH VIBE" },
+      { code: "Q261012", name: "T-REX" },
+      { code: "Q261013", name: "BUMI" },
+      { code: "Q261014", name: "SEPATU" },
+      { code: "Q261015", name: "BARBERSHOP" },
+      { code: "Q261016", name: "ZERO TO ONE" },
+      { code: "Q261017", name: "POWDERFLASH" },
+      { code: "Q261018", name: "FARMASI" },
+      { code: "Q261019", name: "WIP" },
+      { code: "Q261020", name: "TAM TUM" },
+      { code: "Q261021", name: "FIVEvolution" },
+      { code: "Q261022", name: "DIGI DAL IGNA" },
+      { code: "Q261023", name: "MILSTIC" },
+      { code: "Q261024", name: "TRANSMAT" },
+      { code: "Q261025", name: "FluxFlow" },
+      { code: "Q261026", name: "MAHONI" },
+      { code: "Q261027", name: "KONOHA" },
+      { code: "Q261028", name: "POWDERISE" },
+      { code: "Q261029", name: "ICHI-GO" },
+      { code: "Q261030", name: "SLOW" },
+      { code: "Q261031", name: "ANTARA" },
+      { code: "Q261032", name: "ATRIDE" },
+      { code: "Q261033", name: "AMPIFLY" },
+      { code: "Q261034", name: "QUESTRA" },
+      { code: "Q261035", name: "CEO" },
+      { code: "Q261036", name: "PIONIR" },
+      { code: "Q261037", name: "CONNECT" },
+      { code: "Q261038", name: "CLEANSER AGENT" },
+      { code: "Q261039", name: "VISSION" },
+      { code: "Q261040", name: "DERMASTARS" },
+      { code: "Q261041", name: "KOMPAS" },
+      { code: "Q261042", name: "ZYVON" },
+      { code: "Q261043", name: "QUINTA SQUAD" },
+      { code: "Q261044", name: "BLOCKBUSTER" },
+      { code: "Q261045", name: "DADU" },
+      { code: "Q261046", name: "PILOT" },
+      { code: "Q261047", name: "CHEMISTRY" },
+      { code: "Q261048", name: "PROLOG" },
+      { code: "Q261049", name: "STANFORD" },
+      { code: "Q261050", name: "SAGARAS" },
+      { code: "Q261051", name: "P3K" },
+      { code: "Q261052", name: "AHLI SULAP" },
+      { code: "Q261053", name: "LITTLE SCHOLARS" },
+      { code: "Q261054", name: "FIXORA" },
+      { code: "Q261055", name: "GAIA" },
+      { code: "Q261056", name: "GEAR UP" },
+      { code: "Q261057", name: "VENOM" },
+      { code: "Q261058", name: "XPLORE" },
+      { code: "Q261059", name: "MBG" },
+      { code: "Q261060", name: "META" },
+      { code: "Q261061", name: "VEGAPUNK" },
+      { code: "Q261062", name: "GRYFFINDOR" },
+      { code: "Q261063", name: "KECAMBAH" },
+      { code: "Q261064", name: "GARUNUSA" },
+      { code: "Q261065", name: "KISEKI NO SEDAI" },
+      { code: "Q261066", name: "G.T.A" },
+      { code: "Q261067", name: "SIGNAL" },
+      { code: "Q261068", name: "PROBLEM EXORCIST" },
+      { code: "Q261069", name: "TEKKADAN" },
+      { code: "Q261070", name: "IMPROVENTURE" },
+      { code: "Q261071", name: "ELBAPH" },
+      { code: "Q261072", name: "NovoBlast 5" },
+      { code: "Q261073", name: "PARAKAGE" },
+      { code: "Q261074", name: "KHALISATLESS" },
+      { code: "Q261075", name: "GATE VALVE" },
+      { code: "Q261076", name: "FBI" },
+      { code: "Q261077", name: "KeyTA" },
+      { code: "Q261078", name: "WAREHOUSE WARRIOR" },
+      { code: "Q261079", name: "BACKLOG SWEEPERS" },
+      { code: "Q261080", name: "NGEGAS" },
+      { code: "Q261081", name: "SHINOBI" },
+      { code: "Q261082", name: "LOGTIME" },
+      { code: "Q261083", name: "FORCE LOGIC" },
+      { code: "Q261084", name: "INBOND" },
+      { code: "Q261085", name: "THE RISE" },
+      { code: "Q261086", name: "CAPCUT" },
+      { code: "Q261087", name: "ROCKET" },
+      { code: "Q261088", name: "FAST-IN TEAM" },
+      { code: "Q261089", name: "KOPI" },
+      { code: "Q261090", name: "PUZZLE" },
+      { code: "Q261091", name: "BIBIT UNGGUL" },
+      { code: "Q261092", name: "ZERO GUARD" },
+      { code: "Q261093", name: "FALSE9" },
+      { code: "Q261094", name: "STELLAR" },
+      { code: "Q261095", name: "GO CART" },
+      { code: "Q261096", name: "L.E.X TEAM" },
+      { code: "Q261097", name: "ENDORPHIN" },
+      { code: "Q261098", name: "QUALORA" },
+      { code: "Q261099", name: "PARASMA" },
+      { code: "Q261100", name: "RAWRR" },
+      { code: "Q261101", name: "DIPACT" },
+      { code: "Q261102", name: "IMPROVOLUTION" },
+      { code: "Q261103", name: "PRIMA" },
+      { code: "Q261104", name: "SYLVONIX" },
+      { code: "Q261105", name: "UNLOCX" },
+      { code: "Q261106", name: "CATALYST" },
+      { code: "Q261107", name: "INNOTION" },
+      { code: "Q261108", name: "ZENITH" },
+      { code: "Q261109", name: "FORTUNA FORGE" },
+      { code: "Q261110", name: "MLAMPAH" },
+      { code: "Q261111", name: "GAROENG" },
+      { code: "Q261112", name: "LEGENDS" },
+      { code: "Q261113", name: "PROCUREVATE" },
+      { code: "Q261114", name: "BETTER+" },
+      { code: "Q261115", name: "LEGO" },
+      { code: "Q261116", name: "NOCTURNAL" },
+      { code: "Q261117", name: "MAX" }
+    ];
+
+    const section = qs("#team-spotlight");
+    const card = qs("#teamCinematicCard");
+    const codeEl = qs("#teamCinematicCode");
+    const nameEl = qs("#teamCinematicName");
+    const noEl = qs("#teamCinematicNo");
+    const counterEl = qs("#teamCinematicCounter");
+    const progressEl = qs("#teamCinematicProgress");
+    const sweep = qs("#teamCinematicSweep");
+    const message = qs("#teamCinematicMessage");
+    if (!section || !card || !codeEl || !nameEl) return;
+
+    const HOLD_MS = 1550;
+    const TRANSITION_MS = 560;
+    const MESSAGE_EVERY = 20;
+    let index = 0;
+    let timer = null;
+    let running = false;
+
+    const pad = n => String(n).padStart(3, "0");
+
+    const updateTeam = () => {
+      const team = teams[index];
+      codeEl.textContent = team.code;
+      nameEl.textContent = team.name;
+      if (noEl) noEl.textContent = pad(index + 1);
+      if (counterEl) counterEl.textContent = `${pad(index + 1)} / ${teams.length}`;
+      if (progressEl) progressEl.style.width = `${((index + 1) / teams.length) * 100}%`;
+    };
+
+    const flashSweep = () => {
+      if (!sweep || reduceMotion) return;
+      sweep.classList.remove("play");
+      void sweep.offsetWidth;
+      sweep.classList.add("play");
+    };
+
+    const showIntermission = () => {
+      if (!message || reduceMotion) return Promise.resolve();
+      return new Promise(resolve => {
+        message.classList.add("show");
+        setTimeout(() => {
+          message.classList.remove("show");
+          setTimeout(resolve, 420);
+        }, 1050);
+      });
+    };
+
+    const revealNext = async () => {
+      if (!running || document.hidden) return;
+
+      card.classList.add("team-out");
+
+      setTimeout(async () => {
+        index = (index + 1) % teams.length;
+        updateTeam();
+        flashSweep();
+
+        card.classList.remove("team-out");
+        card.classList.add("team-in");
+        requestAnimationFrame(() => requestAnimationFrame(() => card.classList.remove("team-in")));
+
+        if (index > 0 && index % MESSAGE_EVERY === 0) {
+          await showIntermission();
+        }
+
+        if (running) timer = setTimeout(revealNext, HOLD_MS + TRANSITION_MS);
+      }, TRANSITION_MS);
+    };
+
+    const start = () => {
+      if (running) return;
+      running = true;
+      clearTimeout(timer);
+      timer = setTimeout(revealNext, HOLD_MS);
+    };
+
+    const stop = () => {
+      running = false;
+      clearTimeout(timer);
+      timer = null;
+    };
+
+    updateTeam();
+    flashSweep();
+
+    if ("IntersectionObserver" in window) {
+      const observer = new IntersectionObserver(entries => {
+        const visible = entries.some(e => e.isIntersecting);
+        if (visible) start();
+        else stop();
+      }, {threshold:.22});
+      observer.observe(section);
+    } else {
+      start();
+    }
+
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden) stop();
+      else if (section.getBoundingClientRect().bottom > 0 && section.getBoundingClientRect().top < innerHeight) start();
+    });
+  }
+
+  /* ---------- BGM / autoplay + browser unlock ---------- */
   function initMusic(){
-    const audio=qs("#bgMusic"), buttons=[qs("#bgmToggle"),qs("#mobileBgmToggle"),qs("#welcomeSound")].filter(Boolean); if(!audio)return;
-    audio.volume=.38;
-    const sync=()=>buttons.forEach(btn=>{const on=!audio.paused;btn.classList.toggle("playing",on);btn.setAttribute("aria-pressed",String(on));const small=qs("small",btn);if(small)small.textContent=on?"ON":"OFF";if(btn.id==="welcomeSound")btn.innerHTML=`<i class="fa-solid ${on?"fa-volume-high":"fa-volume-xmark"}"></i> BGM ${on?"ON":"OFF"}`});
-    buttons.forEach(btn=>btn.addEventListener("click",async e=>{e.stopPropagation();try{if(audio.paused)await audio.play();else audio.pause()}catch(_){}sync()}));
-    audio.addEventListener("play",sync);audio.addEventListener("pause",sync);sync();
+    const audio = qs("#bgMusic");
+    const buttons = [qs("#bgmToggle"), qs("#mobileBgmToggle"), qs("#welcomeSound")].filter(Boolean);
+    if (!audio) return;
+
+    audio.volume = .38;
+    audio.loop = true;
+    audio.preload = "auto";
+
+    let userPaused = false;
+    let unlocked = false;
+
+    const sync = () => {
+      const on = !audio.paused;
+      buttons.forEach(btn => {
+        btn.classList.toggle("playing", on);
+        btn.setAttribute("aria-pressed", String(on));
+        const small = qs("small", btn);
+        if (small) small.textContent = on ? "ON" : "OFF";
+        if (btn.id === "welcomeSound") {
+          btn.innerHTML = `<i class="fa-solid ${on ? "fa-volume-high" : "fa-volume-xmark"}"></i> BGM ${on ? "ON" : "OFF"}`;
+        }
+      });
+    };
+
+    const tryPlay = async () => {
+      if (userPaused || !audio.paused) {
+        sync();
+        return true;
+      }
+      try {
+        await audio.play();
+        unlocked = true;
+        sync();
+        return true;
+      } catch (_) {
+        sync();
+        return false;
+      }
+    };
+
+    // Browser pertama kali: coba autoplay normal.
+    tryPlay();
+
+    // Jika browser memblokir autoplay bersuara, interaksi pertama di mana pun
+    // (tap/click/swipe/keyboard) langsung mengaktifkan musik tanpa harus klik BGM.
+    const unlockMusic = async () => {
+      if (unlocked || userPaused) return;
+      const ok = await tryPlay();
+      if (ok) {
+        unlocked = true;
+        removeEventListener("pointerdown", unlockMusic, true);
+        removeEventListener("touchstart", unlockMusic, true);
+        removeEventListener("keydown", unlockMusic, true);
+      }
+    };
+
+    addEventListener("pointerdown", unlockMusic, true);
+    addEventListener("touchstart", unlockMusic, {capture:true, passive:true});
+    addEventListener("keydown", unlockMusic, true);
+
+    buttons.forEach(btn => btn.addEventListener("click", async e => {
+      e.stopPropagation();
+
+      if (audio.paused) {
+        userPaused = false;
+        try {
+          await audio.play();
+          unlocked = true;
+        } catch (_) {}
+      } else {
+        userPaused = true;
+        audio.pause();
+      }
+
+      sync();
+    }));
+
+    audio.addEventListener("play", sync);
+    audio.addEventListener("pause", sync);
+
+    // Saat kembali ke tab: lanjutkan hanya bila user tidak pernah mematikan BGM.
+    document.addEventListener("visibilitychange", () => {
+      if (!document.hidden && !userPaused) tryPlay();
+    });
+
+    // pageshow membantu saat halaman kembali dari browser back/forward cache.
+    addEventListener("pageshow", () => {
+      if (!userPaused) tryPlay();
+    }, {passive:true});
+
+    sync();
   }
 
   /* ---------- about typewriter / stats ---------- */
@@ -375,6 +972,7 @@
     initLeaderboard();
     initPopup();
     initGalleries();
+    initTeamSpotlight();
     initFullscreen();
     initMusic();
     initAbout();

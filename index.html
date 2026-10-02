@@ -20,16 +20,54 @@
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600;700;800;900&amp;family=Poppins:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet"/>
   <link href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" rel="stylesheet"/>
-  <link href="style.css?v=20261001-final16" rel="stylesheet"/>
+  <link href="style.css?v=20261002-final27" rel="stylesheet"/>
  </head>
  <body class="qit-final hierarchy-v3">
+
+   <!-- ============================================================
+     00A. GITHUB POSTER POPUP — A4 PORTRAIT
+   ============================================================ -->
+   <div class="github-popup" id="githubPopup" aria-hidden="true">
+    <div class="github-popup-backdrop" data-popup-close></div>
+    <div class="github-popup-dialog" role="dialog" aria-modal="true" aria-label="QIT Batch 9 Update">
+     <button class="github-popup-close" id="githubPopupClose" type="button" aria-label="Tutup popup">
+      <i class="fa-solid fa-xmark"></i>
+     </button>
+
+     <div class="github-popup-header">
+      <span><i class="fa-solid fa-bolt"></i> QIT BATCH 9 • UPDATE</span>
+</div>
+
+     <div class="github-popup-stage" id="githubPopupStage">
+      <button class="github-popup-nav github-popup-prev" id="githubPopupPrev" type="button" aria-label="Poster sebelumnya">
+       <i class="fa-solid fa-chevron-left"></i>
+      </button>
+
+      <div class="github-popup-preview github-popup-preview-left" id="githubPopupPreviewLeft" aria-hidden="true"></div>
+
+      <figure class="github-popup-main">
+       <img id="githubPopupImage" src="" alt="Poster informasi QIT Batch 9"/>
+       <figcaption id="githubPopupCaption"></figcaption>
+      </figure>
+
+      <div class="github-popup-preview github-popup-preview-right" id="githubPopupPreviewRight" aria-hidden="true"></div>
+
+      <button class="github-popup-nav github-popup-next" id="githubPopupNext" type="button" aria-label="Poster berikutnya">
+       <i class="fa-solid fa-chevron-right"></i>
+      </button>
+     </div>
+
+     <div class="github-popup-dots" id="githubPopupDots" aria-label="Navigasi poster"></div>
+    </div>
+   </div>
+
   <!-- MUSIK MANUAL: tambahkan <source> atau atribut src pada #bgMusic setelah file musik tersedia. Format mengikuti file yang kamu kirim nanti. -->
   <!--
 ============================================================
  01. BACKGROUND MUSIC
 ============================================================
 -->
-  <audio autoplay="" data-note="User supplied BGM: MUSIC.mp3" id="bgMusic" loop="" playsinline="" preload="auto">
+  <audio  data-note="User supplied BGM: MUSIC.mp3" id="bgMusic"   preload="auto" autoplay loop playsinline>
    <source src="MUSIC.mp3" type="audio/mpeg"/>
   </audio>
   <div aria-hidden="true" class="scroll-progress">
@@ -177,7 +215,7 @@
       </span>
      </h1>
      <p class="hero-tagline">
-      START THE MOVE. SPARK THE CHANGE.
+      PLAY THE MISSION. WIN THE IMPROVEMENT.
      </p>
      <p class="hero-subtitle">
       Kolaborasi hari ini, perubahan nyata untuk masa depan yang lebih baik.
@@ -1737,6 +1775,16 @@
          </figcaption>
         </figure>
        </div>
+       <div class="swiper-slide">
+        <figure class="media-card">
+         <div class="media-visual">
+          <img alt="History Pemenang QIT 8" loading="lazy" src="B8.jpg"/>
+         </div>
+         <figcaption>
+          HISTORY JUARA 08
+         </figcaption>
+        </figure>
+       </div>
       </div>
       <button aria-label="Foto sebelumnya" class="media-nav media-prev swiper-button-prev">
       </button>
@@ -1870,7 +1918,7 @@
        <div class="swiper-slide">
         <figure class="media-card">
          <div class="media-visual">
-          <img alt="CIC 9" loading="lazy" src="CIC10.jpg"/>
+          <img alt="CIC 10" loading="lazy" src="CIC10.jpg"/>
          </div>
          <figcaption>
           CIC 10
@@ -1880,7 +1928,7 @@
        <div class="swiper-slide">
         <figure class="media-card">
          <div class="media-visual">
-          <img alt="CIC 9" loading="lazy" src="CIC11.jpg"/>
+          <img alt="CIC 11" loading="lazy" src="CIC11.jpg"/>
          </div>
          <figcaption>
           CIC 11
@@ -1890,7 +1938,7 @@
        <div class="swiper-slide">
         <figure class="media-card">
          <div class="media-visual">
-          <img alt="CIC 10" loading="lazy" src="CIC12.jpg"/>
+          <img alt="CIC 12" loading="lazy" src="CIC12.jpg"/>
          </div>
          <figcaption>
           CIC 12
@@ -1922,17 +1970,11 @@
  18. GALLERY — TKMPN
 ============================================================
 -->
-   <section aria-labelledby="tkmpn-title" class="media-section reveal-on-scroll theme-navy" id="tkmpn">
+      <section aria-labelledby="tkmpn-title" class="media-section reveal-on-scroll theme-navy" id="tkmpn">
     <div class="media-heading">
-     <span class="media-pill">
-      TKMPN
-     </span>
-     <h2 id="tkmpn-title">
-      TKMPN
-     </h2>
-     <p>
-      Perjalanan tim Paragon membawa improvement ke panggung kompetisi nasional.
-     </p>
+     <span class="media-pill">TKMPN</span>
+     <h2 id="tkmpn-title">TKMPN</h2>
+     <p>Perjalanan tim Paragon membawa improvement ke panggung kompetisi nasional.</p>
     </div>
     <div class="media-showcase">
      <div class="swiper gallery-swiper" data-gallery="tkmpn">
@@ -1942,9 +1984,7 @@
          <div class="media-visual">
           <img alt="TKMPN 1" loading="lazy" src="TKMPN1.jpg"/>
          </div>
-         <figcaption>
-          TKMPN 01
-         </figcaption>
+         <figcaption>TKMPN 01</figcaption>
         </figure>
        </div>
        <div class="swiper-slide">
@@ -1952,9 +1992,7 @@
          <div class="media-visual">
           <img alt="TKMPN 2" loading="lazy" src="TKMPN2.jpg"/>
          </div>
-         <figcaption>
-          TKMPN 02
-         </figcaption>
+         <figcaption>TKMPN 02</figcaption>
         </figure>
        </div>
        <div class="swiper-slide">
@@ -1962,9 +2000,7 @@
          <div class="media-visual">
           <img alt="TKMPN 3" loading="lazy" src="TKMPN3.jpg"/>
          </div>
-         <figcaption>
-          TKMPN 03
-         </figcaption>
+         <figcaption>TKMPN 03</figcaption>
         </figure>
        </div>
        <div class="swiper-slide">
@@ -1972,9 +2008,7 @@
          <div class="media-visual">
           <img alt="TKMPN 4" loading="lazy" src="TKMPN4.jpg"/>
          </div>
-         <figcaption>
-          TKMPN 04
-         </figcaption>
+         <figcaption>TKMPN 04</figcaption>
         </figure>
        </div>
        <div class="swiper-slide">
@@ -1982,9 +2016,7 @@
          <div class="media-visual">
           <img alt="TKMPN 5" loading="lazy" src="TKMPN5.jpg"/>
          </div>
-         <figcaption>
-          TKMPN 05
-         </figcaption>
+         <figcaption>TKMPN 05</figcaption>
         </figure>
        </div>
        <div class="swiper-slide">
@@ -1992,9 +2024,7 @@
          <div class="media-visual">
           <img alt="TKMPN 6" loading="lazy" src="TKMPN6.jpg"/>
          </div>
-         <figcaption>
-          TKMPN 06
-         </figcaption>
+         <figcaption>TKMPN 06</figcaption>
         </figure>
        </div>
        <div class="swiper-slide">
@@ -2002,9 +2032,7 @@
          <div class="media-visual">
           <img alt="TKMPN 7" loading="lazy" src="TKMPN7.jpg"/>
          </div>
-         <figcaption>
-          TKMPN 07
-         </figcaption>
+         <figcaption>TKMPN 07</figcaption>
         </figure>
        </div>
        <div class="swiper-slide">
@@ -2012,9 +2040,7 @@
          <div class="media-visual">
           <img alt="TKMPN 8" loading="lazy" src="TKMPN8.jpg"/>
          </div>
-         <figcaption>
-          TKMPN 08
-         </figcaption>
+         <figcaption>TKMPN 08</figcaption>
         </figure>
        </div>
        <div class="swiper-slide">
@@ -2022,9 +2048,7 @@
          <div class="media-visual">
           <img alt="TKMPN 9" loading="lazy" src="TKMPN9.jpg"/>
          </div>
-         <figcaption>
-          TKMPN 09
-         </figcaption>
+         <figcaption>TKMPN 09</figcaption>
         </figure>
        </div>
        <div class="swiper-slide">
@@ -2032,223 +2056,487 @@
          <div class="media-visual">
           <img alt="TKMPN 10" loading="lazy" src="TKMPN10.jpg"/>
          </div>
-         <figcaption>
-          TKMPN 10
-         </figcaption>
+         <figcaption>TKMPN 10</figcaption>
+        </figure>
+       </div>
+       <div class="swiper-slide">
+        <figure class="media-card">
+         <div class="media-visual">
+          <img alt="TKMPN 11" loading="lazy" src="TKMPN11.jpg"/>
+         </div>
+         <figcaption>TKMPN 11</figcaption>
+        </figure>
+       </div>
+       <div class="swiper-slide">
+        <figure class="media-card">
+         <div class="media-visual">
+          <img alt="TKMPN 12" loading="lazy" src="TKMPN12.jpg"/>
+         </div>
+         <figcaption>TKMPN 12</figcaption>
+        </figure>
+       </div>
+       <div class="swiper-slide">
+        <figure class="media-card">
+         <div class="media-visual">
+          <img alt="TKMPN 13" loading="lazy" src="TKMPN13.jpg"/>
+         </div>
+         <figcaption>TKMPN 13</figcaption>
+        </figure>
+       </div>
+       <div class="swiper-slide">
+        <figure class="media-card">
+         <div class="media-visual">
+          <img alt="TKMPN 14" loading="lazy" src="TKMPN14.jpg"/>
+         </div>
+         <figcaption>TKMPN 14</figcaption>
+        </figure>
+       </div>
+       <div class="swiper-slide">
+        <figure class="media-card">
+         <div class="media-visual">
+          <img alt="TKMPN 15" loading="lazy" src="TKMPN15.jpg"/>
+         </div>
+         <figcaption>TKMPN 15</figcaption>
+        </figure>
+       </div>
+       <div class="swiper-slide">
+        <figure class="media-card">
+         <div class="media-visual">
+          <img alt="TKMPN 16" loading="lazy" src="TKMPN16.jpg"/>
+         </div>
+         <figcaption>TKMPN 16</figcaption>
         </figure>
        </div>
       </div>
-      <button aria-label="Foto sebelumnya" class="media-nav media-prev swiper-button-prev">
-      </button>
-      <button aria-label="Foto berikutnya" class="media-nav media-next swiper-button-next">
-      </button>
-      <div class="swiper-pagination">
-      </div>
+      <button aria-label="Foto sebelumnya" class="media-nav media-prev swiper-button-prev" type="button"></button>
+      <button aria-label="Foto berikutnya" class="media-nav media-next swiper-button-next" type="button"></button>
+      <div class="swiper-pagination"></div>
      </div>
-     <div class="media-empty" hidden="">
-      <i class="fa-regular fa-images">
-      </i>
-      <strong>
-       Dokumentasi belum ditambahkan
-      </strong>
-      <span>
-       Upload foto dengan nama file yang sesuai untuk menampilkannya di section ini.
-      </span>
+     <div class="media-empty" hidden>
+      <i class="fa-regular fa-images"></i>
+      <strong>Dokumentasi belum ditambahkan</strong>
+      <span>Upload foto dengan nama file yang sesuai untuk menampilkannya di section ini.</span>
      </div>
     </div>
    </section>
    <!--
 ============================================================
- 19. GALLERY — KESERUAN QIT BATCH 9
-============================================================
--->
-   <section aria-labelledby="galeri-title" class="media-section reveal-on-scroll theme-fun" id="galeri">
-    <div class="media-heading">
-     <span class="media-pill">
-      MOMENT
-     </span>
-     <h2 id="galeri-title">
-      KESERUAN QIT BATCH 9
-     </h2>
-     <p>
+  19. GALLERY — KESERUAN QIT BATCH 9
+============================================================ -->
+<section aria-labelledby="galeri-title" class="media-section reveal-on-scroll theme-fun" id="galeri">
+  <div class="media-heading">
+    <span class="media-pill">MOMENT</span>
+    <h2 id="galeri-title">KESERUAN QIT BATCH 9</h2>
+    <p>
       Setiap momen menyimpan cerita, kolaborasi, dan langkah kecil menuju improvement yang lebih besar.
-     </p>
-    </div>
-    <div class="media-showcase">
-     <div class="swiper gallery-swiper" data-gallery="galeri">
+    </p>
+  </div>
+
+  <div class="media-showcase">
+    <div class="swiper gallery-swiper" data-gallery="galeri">
       <div class="swiper-wrapper">
-       <div class="swiper-slide">
-        <figure class="media-card">
-         <div class="media-visual presentation">
-          <img alt="Dokumentasi QIT Batch 9 1" loading="lazy" src="QIT1.jpg"/>
-         </div>
-         <figcaption>
-          MOMENT 01
-         </figcaption>
-        </figure>
-       </div>
-       <div class="swiper-slide">
-        <figure class="media-card">
-         <div class="media-visual presentation">
-          <img alt="Dokumentasi QIT Batch 9 2" loading="lazy" src="QIT2.jpg"/>
-         </div>
-         <figcaption>
-          MOMENT 02
-         </figcaption>
-        </figure>
-       </div>
-       <div class="swiper-slide">
-        <figure class="media-card">
-         <div class="media-visual presentation">
-          <img alt="Dokumentasi QIT Batch 9 3" loading="lazy" src="QIT3.jpg"/>
-         </div>
-         <figcaption>
-          MOMENT 03
-         </figcaption>
-        </figure>
-       </div>
-       <div class="swiper-slide">
-        <figure class="media-card">
-         <div class="media-visual presentation">
-          <img alt="Dokumentasi QIT Batch 9 4" loading="lazy" src="QIT4.jpg"/>
-         </div>
-         <figcaption>
-          MOMENT 04
-         </figcaption>
-        </figure>
-       </div>
-       <div class="swiper-slide">
-        <figure class="media-card">
-         <div class="media-visual presentation">
-          <img alt="Dokumentasi QIT Batch 9 5" loading="lazy" src="QIT5.jpg"/>
-         </div>
-         <figcaption>
-          MOMENT 05
-         </figcaption>
-        </figure>
-       </div>
-       <div class="swiper-slide">
-        <figure class="media-card">
-         <div class="media-visual presentation">
-          <img alt="Dokumentasi QIT Batch 9 6" loading="lazy" src="QIT6.jpg"/>
-         </div>
-         <figcaption>
-          MOMENT 06
-         </figcaption>
-        </figure>
-       </div>
-       <div class="swiper-slide">
-        <figure class="media-card">
-         <div class="media-visual presentation">
-          <img alt="Dokumentasi QIT Batch 9 7" loading="lazy" src="QIT7.jpg"/>
-         </div>
-         <figcaption>
-          MOMENT 07
-         </figcaption>
-        </figure>
-       </div>
-       <div class="swiper-slide">
-        <figure class="media-card">
-         <div class="media-visual presentation">
-          <img alt="Dokumentasi QIT Batch 9 8" loading="lazy" src="QIT8.jpg"/>
-         </div>
-         <figcaption>
-          MOMENT 08
-         </figcaption>
-        </figure>
-       </div>
-       <div class="swiper-slide">
-        <figure class="media-card">
-         <div class="media-visual presentation">
-          <img alt="Dokumentasi QIT Batch 9 9" loading="lazy" src="QIT9.jpg"/>
-         </div>
-         <figcaption>
-          MOMENT 09
-         </figcaption>
-        </figure>
-       </div>
-       <div class="swiper-slide">
-        <figure class="media-card">
-         <div class="media-visual presentation">
-          <img alt="Dokumentasi QIT Batch 9 10" loading="lazy" src="QIT10.jpg"/>
-         </div>
-         <figcaption>
-          MOMENT 10
-         </figcaption>
-        </figure>
-       </div>
-       <div class="swiper-slide">
-        <figure class="media-card">
-         <div class="media-visual presentation">
-          <img alt="Dokumentasi QIT Batch 9 11" loading="lazy" src="QIT11.jpg"/>
-         </div>
-         <figcaption>
-          MOMENT 11
-         </figcaption>
-        </figure>
-       </div>
-       <div class="swiper-slide">
-        <figure class="media-card">
-         <div class="media-visual presentation">
-          <img alt="Dokumentasi QIT Batch 9 12" loading="lazy" src="QIT12.jpg"/>
-         </div>
-         <figcaption>
-          MOMENT 12
-         </figcaption>
-        </figure>
-       </div>
-       <div class="swiper-slide">
-        <figure class="media-card">
-         <div class="media-visual presentation">
-          <img alt="Dokumentasi QIT Batch 9 13" loading="lazy" src="QIT13.jpg"/>
-         </div>
-         <figcaption>
-          MOMENT 13
-         </figcaption>
-        </figure>
-       </div>
-       <div class="swiper-slide">
-        <figure class="media-card">
-         <div class="media-visual presentation">
-          <img alt="Dokumentasi QIT Batch 9 14" loading="lazy" src="QIT14.jpg"/>
-         </div>
-         <figcaption>
-          MOMENT 14
-         </figcaption>
-        </figure>
-       </div>
-       <div class="swiper-slide">
-        <figure class="media-card">
-         <div class="media-visual presentation">
-          <img alt="Dokumentasi QIT Batch 9 15" loading="lazy" src="QIT15.jpg"/>
-         </div>
-         <figcaption>
-          MOMENT 15
-         </figcaption>
-        </figure>
-       </div>
-       <div class="swiper-slide">
-        <figure class="media-card">
-         <div class="media-visual presentation">
-          <img alt="Dokumentasi QIT Batch 9 16" loading="lazy" src="QIT16.jpg"/>
-         </div>
-         <figcaption>
-          MOMENT 16
-         </figcaption>
-        </figure>
-       </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 1" loading="lazy" src="QIT1.png"/>
+            </div>
+            <figcaption>MOMENT 01</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 2" loading="lazy" src="QIT2.png"/>
+            </div>
+            <figcaption>MOMENT 02</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 3" loading="lazy" src="QIT3.png"/>
+            </div>
+            <figcaption>MOMENT 03</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 4" loading="lazy" src="QIT4.png"/>
+            </div>
+            <figcaption>MOMENT 04</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 5" loading="lazy" src="QIT5.png"/>
+            </div>
+            <figcaption>MOMENT 05</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 6" loading="lazy" src="QIT6.png"/>
+            </div>
+            <figcaption>MOMENT 06</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 7" loading="lazy" src="QIT7.png"/>
+            </div>
+            <figcaption>MOMENT 07</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 8" loading="lazy" src="QIT8.png"/>
+            </div>
+            <figcaption>MOMENT 08</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 9" loading="lazy" src="QIT9.png"/>
+            </div>
+            <figcaption>MOMENT 09</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 10" loading="lazy" src="QIT10.png"/>
+            </div>
+            <figcaption>MOMENT 10</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 11" loading="lazy" src="QIT11.png"/>
+            </div>
+            <figcaption>MOMENT 11</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 12" loading="lazy" src="QIT12.png"/>
+            </div>
+            <figcaption>MOMENT 12</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 13" loading="lazy" src="QIT13.png"/>
+            </div>
+            <figcaption>MOMENT 13</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 14" loading="lazy" src="QIT14.png"/>
+            </div>
+            <figcaption>MOMENT 14</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 15" loading="lazy" src="QIT15.png"/>
+            </div>
+            <figcaption>MOMENT 15</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 16" loading="lazy" src="QIT16.png"/>
+            </div>
+            <figcaption>MOMENT 16</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 17" loading="lazy" src="QIT17.png"/>
+            </div>
+            <figcaption>MOMENT 17</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 18" loading="lazy" src="QIT18.png"/>
+            </div>
+            <figcaption>MOMENT 18</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 19" loading="lazy" src="QIT19.png"/>
+            </div>
+            <figcaption>MOMENT 19</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 20" loading="lazy" src="QIT20.png"/>
+            </div>
+            <figcaption>MOMENT 20</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 21" loading="lazy" src="QIT21.png"/>
+            </div>
+            <figcaption>MOMENT 21</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 22" loading="lazy" src="QIT22.png"/>
+            </div>
+            <figcaption>MOMENT 22</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 23" loading="lazy" src="QIT23.png"/>
+            </div>
+            <figcaption>MOMENT 23</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 24" loading="lazy" src="QIT24.png"/>
+            </div>
+            <figcaption>MOMENT 24</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 25" loading="lazy" src="QIT25.png"/>
+            </div>
+            <figcaption>MOMENT 25</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 26" loading="lazy" src="QIT26.png"/>
+            </div>
+            <figcaption>MOMENT 26</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 27" loading="lazy" src="QIT27.png"/>
+            </div>
+            <figcaption>MOMENT 27</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 28" loading="lazy" src="QIT28.png"/>
+            </div>
+            <figcaption>MOMENT 28</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 29" loading="lazy" src="QIT29.png"/>
+            </div>
+            <figcaption>MOMENT 29</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 30" loading="lazy" src="QIT30.png"/>
+            </div>
+            <figcaption>MOMENT 30</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 31" loading="lazy" src="QIT31.png"/>
+            </div>
+            <figcaption>MOMENT 31</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 32" loading="lazy" src="QIT32.png"/>
+            </div>
+            <figcaption>MOMENT 32</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 33" loading="lazy" src="QIT33.png"/>
+            </div>
+            <figcaption>MOMENT 33</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 34" loading="lazy" src="QIT34.png"/>
+            </div>
+            <figcaption>MOMENT 34</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 35" loading="lazy" src="QIT35.png"/>
+            </div>
+            <figcaption>MOMENT 35</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 36" loading="lazy" src="QIT36.png"/>
+            </div>
+            <figcaption>MOMENT 36</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 37" loading="lazy" src="QIT37.png"/>
+            </div>
+            <figcaption>MOMENT 37</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 38" loading="lazy" src="QIT38.png"/>
+            </div>
+            <figcaption>MOMENT 38</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 39" loading="lazy" src="QIT39.png"/>
+            </div>
+            <figcaption>MOMENT 39</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 40" loading="lazy" src="QIT40.png"/>
+            </div>
+            <figcaption>MOMENT 40</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 41" loading="lazy" src="QIT41.png"/>
+            </div>
+            <figcaption>MOMENT 41</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 42" loading="lazy" src="QIT42.png"/>
+            </div>
+            <figcaption>MOMENT 42</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 43" loading="lazy" src="QIT43.png"/>
+            </div>
+            <figcaption>MOMENT 43</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 44" loading="lazy" src="QIT44.png"/>
+            </div>
+            <figcaption>MOMENT 44</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 45" loading="lazy" src="QIT45.png"/>
+            </div>
+            <figcaption>MOMENT 45</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 46" loading="lazy" src="QIT46.png"/>
+            </div>
+            <figcaption>MOMENT 46</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 47" loading="lazy" src="QIT47.png"/>
+            </div>
+            <figcaption>MOMENT 47</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 48" loading="lazy" src="QIT48.png"/>
+            </div>
+            <figcaption>MOMENT 48</figcaption>
+          </figure>
+        </div>
+        <div class="swiper-slide">
+          <figure class="media-card">
+            <div class="media-visual presentation">
+              <img alt="Dokumentasi QIT Batch 9 49" loading="lazy" src="QIT49.png"/>
+            </div>
+            <figcaption>MOMENT 49</figcaption>
+          </figure>
+        </div>
       </div>
-      <button aria-label="Foto sebelumnya" class="media-nav media-prev swiper-button-prev">
-      </button>
-      <button aria-label="Foto berikutnya" class="media-nav media-next swiper-button-next">
-      </button>
-      <div class="swiper-pagination">
-      </div>
-     </div>
+
+      <button aria-label="Foto sebelumnya" class="media-nav media-prev swiper-button-prev" type="button"></button>
+      <button aria-label="Foto berikutnya" class="media-nav media-next swiper-button-next" type="button"></button>
+      <div class="swiper-pagination"></div>
     </div>
-   </section>
-   <!--
-============================================================
+  </div>
+</section>
+
+<!-- ============================================================
  20. VIDEO
 ============================================================
 -->
@@ -2271,7 +2559,64 @@
  21. CONTACT PERSON
 ============================================================
 -->
-   <section aria-labelledby="kontak-title" class="contact-showcase reveal-on-scroll glow-contact" id="kontak">
+      
+   <!--
+============================================================
+  21. CINEMATIC TEAM REVEAL — QIT BATCH 9
+============================================================
+-->
+   <section class="team-cinematic-section reveal-on-scroll" id="team-spotlight" aria-labelledby="team-cinematic-title">
+    <div class="team-cinematic-bg" aria-hidden="true">
+     <div class="cinematic-grid"></div>
+     <div class="cinematic-orbit orbit-a"></div>
+     <div class="cinematic-orbit orbit-b"></div>
+     <div class="cinematic-glow glow-left"></div>
+     <div class="cinematic-glow glow-right"></div>
+     <div class="cinematic-beam"></div>
+     <div class="cinematic-sweep" id="teamCinematicSweep"></div>
+    </div>
+
+    <div class="team-cinematic-inner">
+     <div class="team-cinematic-heading">
+      <span class="cinematic-pill"><i class="fa-solid fa-gamepad"></i> QIT BATCH 9 • TEAM REVEAL</span>
+      <h2 id="team-cinematic-title">MEET THE TEAMS</h2>
+      <p class="cinematic-tagline">PLAY THE MISSION. WIN THE IMPROVEMENT.</p>
+     </div>
+
+     <div class="cinematic-stage" id="teamCinematicStage" aria-live="polite">
+      <div class="cinematic-hud hud-left" aria-hidden="true">
+       <span>SEASON</span>
+       <strong>09</strong>
+      </div>
+
+      <div class="cinematic-team-card" id="teamCinematicCard">
+       <span class="cinematic-player-label">PLAYER TEAM</span>
+       <span class="cinematic-code" id="teamCinematicCode">Q261001</span>
+       <h3 class="cinematic-name" id="teamCinematicName">OPTIQ</h3>
+       <div class="cinematic-status"><span></span>MISSION ACTIVE</div>
+      </div>
+
+      <div class="cinematic-hud hud-right" aria-hidden="true">
+       <span>TEAM</span>
+       <strong id="teamCinematicNo">001</strong>
+       <small>/ 117</small>
+      </div>
+
+      <div class="cinematic-message" id="teamCinematicMessage" aria-hidden="true">
+       <span>117 TEAMS</span>
+       <strong>ONE MISSION</strong>
+      </div>
+     </div>
+
+     <div class="cinematic-footer">
+      <span><i class="fa-solid fa-bolt"></i> AUTO TEAM REVEAL</span>
+      <div class="cinematic-progress"><span id="teamCinematicProgress"></span></div>
+      <span id="teamCinematicCounter">001 / 117</span>
+     </div>
+    </div>
+   </section>
+
+<section aria-labelledby="kontak-title" class="contact-showcase reveal-on-scroll glow-contact" id="kontak">
     <div class="contact-showcase-heading">
      <span class="contact-pill">
       QIT CONTACT CENTER
@@ -2499,7 +2844,7 @@
   </script>
   <script defer="" src="https://cdn.jsdelivr.net/npm/chart.js@4.4.4/dist/chart.umd.min.js">
   </script>
-  <script defer="" src="script.js?v=20261001-final16">
+  <script defer="" src="script.js?v=20261002-final27">
   </script>
  </body>
 </html>
